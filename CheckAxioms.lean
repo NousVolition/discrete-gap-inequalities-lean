@@ -2,6 +2,8 @@ import Poincare
 import Wirtinger
 import Gap
 import Isoperimetric
+import RingDecay
+import HarperSquash
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -52,3 +54,38 @@ import Isoperimetric
 #print axioms HypercubeIso.natlog_nonneg
 #print axioms HypercubeIso.key
 #print axioms HypercubeIso.edges_le
+#print axioms RingDecay.gap_eq_four_sin_sq
+#print axioms RingDecay.gap_pos
+#print axioms RingDecay.fourier_heatStep
+#print axioms RingDecay.sum_heatStep
+#print axioms RingDecay.mean_heatStep
+#print axioms RingDecay.energy_heatStep_le
+#print axioms RingDecay.energy_heatStep_le_mean
+#print axioms RingDecay.mean_iterate
+#print axioms RingDecay.energy_iterate_le
+#print axioms RingDecay.factor_lt_one
+#print axioms RingDecay.energy_tendsto_zero
+#print axioms RingDecay.iterate_tendsto_mean
+#print axioms RingDecay.heatStep_wave
+#print axioms RingDecay.energy_heatStep_wave
+#print axioms HarperVertex.before_trans
+#print axioms HarperVertex.before_total
+#print axioms HarperVertex.init_eq_of_card_eq
+#print axioms HarperVertex.isInit_initSeg
+#print axioms HarperVertex.card_initSeg
+#print axioms HarperVertex.nonMember_nbhd
+#print axioms HarperVertex.member_nbhd
+#print axioms HarperVertex.isInit_nbhd
+#print axioms HarperVertex.card_squash
+#print axioms HarperVertex.card_nbhd_squash_le
+#print axioms HarperVertex.weight_squash_lt
+#print axioms HarperVertex.eq_sdiff_of_squashedAll
+#print axioms HarperVertex.exceptional_adj
+#print axioms HarperVertex.squashedAll_classify
+#print axioms HarperVertex.card_nbhd_le_of_squashedAll
+#print axioms HarperVertex.harperAt
+#print axioms HarperVertex.harper
+#print axioms HarperVertex.harper_cube
+#print axioms HarperVertex.card_ball
+#print axioms HarperVertex.harper_ball
+#print axioms HarperVertex.harper_ball_choose

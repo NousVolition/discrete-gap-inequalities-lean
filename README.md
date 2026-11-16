@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These four results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four packages are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 47 statements.
+These six results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof and the vertex-isoperimetric proof are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 82 statements.
 
 Author: NousVolition.
 
@@ -44,7 +44,48 @@ Here `size s` is the number of vertices in `s`, and `dir s` counts the ordered a
 
 The original note is kept, wording unchanged, at [docs/hypercube-isoperimetric.md](docs/hypercube-isoperimetric.md), and is included below.
 
-This is the edge form: it counts the edges a set of corners spans. The vertex form (Harper's theorem), which counts the corners next to a set, is proved separately by squashing in [hypercube-vertex-isoperimetric-lean](https://github.com/NousVolition/hypercube-vertex-isoperimetric-lean). Its main result is `HarperVertex.harper_cube`, and its ball form is `HarperVertex.harper_ball_choose`.
+This is the edge form: it counts the edges a set of corners spans. The vertex form (Harper's theorem), which counts the corners next to a set, is proved in this repo by squashing; see [Vertex-isoperimetric inequality on the hypercube (Harper's theorem)](#vertex-isoperimetric-inequality-on-the-hypercube-harpers-theorem). Its main result is `HarperVertex.harper_cube`, and its ball form is `HarperVertex.harper_ball_choose`.
+
+## Ring decay: settling to the mean at the Wirtinger rate
+
+**Theorem (`RingDecay.energy_iterate_le`).** For `u : ZMod n → ℝ`, one heat step with step size `t` is
+
+```
+heatStep t u j = u j + t * (u (j + 1) - 2 * u j + u (j - 1))
+```
+
+For `0 ≤ t ≤ 1/4`, the step keeps the mean (`mean_heatStep`), and after `k` steps
+
+```
+∑ j, (u_k j - mean u)^2  ≤  ((1 - t * gap n)^2)^k * ∑ j, (u j - mean u)^2
+```
+
+where `gap n = 2 - 2 cos (2π/n) = 4 sin²(π/n)` is the Wirtinger constant (`gap_eq_four_sin_sq`). For `n ≥ 2` and `0 < t ≤ 1/4`, every value goes to the mean (`iterate_tendsto_mean`). The wave `cos (2π j/n)` meets the bound with equality (`energy_heatStep_wave`), so the rate is the best possible.
+
+**Proof.** One step multiplies the `k`-th Fourier coefficient by `1 - t (2 - 2 cos (2π k/n))` (`fourier_heatStep`). For `k ≠ 0` the Wirtinger bound puts this number between `0` and `1 - t * gap n`, and Parseval's identity turns that into the energy bound. The proof imports `Wirtinger.lean` unchanged.
+
+**File.** `RingDecay.lean` (namespace `RingDecay`).
+
+## Vertex-isoperimetric inequality on the hypercube (Harper's theorem)
+
+**Theorem (`HarperVertex.harper_cube`).** Order the subsets of `Fin n` by the simplicial order: smaller sets first, and sets of the same size by the least element on which they differ. Among all families of subsets with a given number of sets, the initial segment of that size has the smallest neighborhood:
+
+```
+(nbhd univ (initSeg univ 𝒜.card)).card ≤ (nbhd univ 𝒜).card
+```
+
+The neighborhood of a family is the family together with every set that differs from one of its members in exactly one element. The ball form (`harper_ball_choose`): if `|𝒜| ≥ C(n,0) + … + C(n,r)`, then `|N(𝒜)| ≥ C(n,0) + … + C(n,r+1)`.
+
+**Proof.** By squashing, by induction on the size of the ground set.
+
+1. The squash in direction `i` replaces each half of the family, split by whether its sets contain `i`, by the initial segment of the same size. It keeps the size and never makes the neighborhood bigger (`card_nbhd_squash_le`).
+2. The neighborhood of an initial segment is again an initial segment (`isInit_nbhd`).
+3. A family squashed in every direction is an initial segment or one exceptional half-cube family, and in both cases the bound holds (`squashedAll_classify`, `card_nbhd_le_of_squashedAll`).
+4. Each squash that changes the family lowers the sum of the positions of its sets (`weight_squash_lt`), so squashing stops, and Stage 3 finishes the proof (`harperAt`).
+
+**Files.** `HarperSquash.lean` and `HarperSquash/` (`Basic`, `NbhdInit`, `Squash`, `Classify`, `Harper`; namespace `HarperVertex`).
+
+Reference: L. H. Harper, *Optimal numberings and isoperimetric problems on graphs*, J. Combin. Theory 1 (1966).
 
 ## Build
 
@@ -54,8 +95,6 @@ lake build
 lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 ```
-
-A publishing note for the four separate packages is at [docs/publishing.md](docs/publishing.md). Every original file from each package is also kept under [docs/packages](docs/packages).
 
 ## Discrete Poincaré–Wirtinger inequality on a path
 
@@ -269,4 +308,4 @@ Passing means:
 
 - This proves the edge-count bound for every set size.
 - It does not prove Harper's stronger result, which picks out *which* sets are optimal (initial segments of the binary order).
-- This file does not prove the vertex-isoperimetric inequality. That is proved separately, by squashing, in [hypercube-vertex-isoperimetric-lean](https://github.com/NousVolition/hypercube-vertex-isoperimetric-lean).
+- This file does not prove the vertex-isoperimetric inequality. That is proved in this repo, by squashing, in [`HarperSquash.lean`](HarperSquash.lean) and [`HarperSquash/`](HarperSquash); see [Vertex-isoperimetric inequality on the hypercube (Harper's theorem)](#vertex-isoperimetric-inequality-on-the-hypercube-harpers-theorem).
