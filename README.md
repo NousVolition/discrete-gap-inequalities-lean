@@ -269,4 +269,4 @@ Passing means:
 
 - This proves the edge-count bound for every set size.
 - It does not prove Harper's stronger result, which picks out *which* sets are optimal (initial segments of the binary order).
-- It does not prove the vertex-isoperimetric inequality.
+- This file does not prove the vertex-isoperimetric inequality. That is proved separately, by squashing, in [hypercube-vertex-isoperimetric-lean](https://github.com/NousVolition/hypercube-vertex-isoperimetric-lean).
