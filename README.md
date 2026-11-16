@@ -44,6 +44,8 @@ Here `size s` is the number of vertices in `s`, and `dir s` counts the ordered a
 
 The original note is kept, wording unchanged, at [docs/hypercube-isoperimetric.md](docs/hypercube-isoperimetric.md), and is included below.
 
+This is the edge form: it counts the edges a set of corners spans. The vertex form (Harper's theorem), which counts the corners next to a set, is proved separately by squashing in [hypercube-vertex-isoperimetric-lean](https://github.com/NousVolition/hypercube-vertex-isoperimetric-lean). Its main result is `HarperVertex.harper_cube`, and its ball form is `HarperVertex.harper_ball_choose`.
+
 ## Build
 
 ```sh
