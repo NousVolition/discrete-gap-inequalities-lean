@@ -12,6 +12,7 @@ import WallPush
 import Harper
 import Unify
 import GolayMatrixDistance
+import EdgeOptimal
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -260,3 +261,28 @@ import GolayMatrixDistance
 #print axioms GolayMatrixDistance.golay_sharp_weight_8
 #print axioms GolayMatrixDistance.golay_min_distance_bound
 #print axioms GolayMatrixDistance.golay_weight_distribution
+#print axioms HypercubeEdgeOptimal.ones
+#print axioms HypercubeEdgeOptimal.h
+#print axioms HypercubeEdgeOptimal.ones_double
+#print axioms HypercubeEdgeOptimal.ones_double_add_one
+#print axioms HypercubeEdgeOptimal.h_zero
+#print axioms HypercubeEdgeOptimal.h_one
+#print axioms HypercubeEdgeOptimal.h_succ
+#print axioms HypercubeEdgeOptimal.h_double
+#print axioms HypercubeEdgeOptimal.h_double_add_one
+#print axioms HypercubeEdgeOptimal.h_split
+#print axioms HypercubeEdgeOptimal.binary_sum
+#print axioms HypercubeEdgeOptimal.val
+#print axioms HypercubeEdgeOptimal.val_cons
+#print axioms HypercubeEdgeOptimal.val_eq_sum
+#print axioms HypercubeEdgeOptimal.bin
+#print axioms HypercubeEdgeOptimal.bin_true
+#print axioms HypercubeEdgeOptimal.bin_false
+#print axioms HypercubeEdgeOptimal.common_bin
+#print axioms HypercubeEdgeOptimal.size_le
+#print axioms HypercubeEdgeOptimal.size_bin
+#print axioms HypercubeEdgeOptimal.size_bin_of_le
+#print axioms HypercubeEdgeOptimal.dir_bin
+#print axioms HypercubeEdgeOptimal.dir_le_two_mul_h
+#print axioms HypercubeEdgeOptimal.dir_le_dir_bin
+#print axioms HypercubeEdgeOptimal.max_dir_eq

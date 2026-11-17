@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, and the extended binary Golay code are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 236 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, and the edge-optimal sets of the hypercube are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 261 statements.
 
 Author: NousVolition.
 
@@ -238,6 +238,28 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 
 **File.** `GolayMatrixDistance.lean` (namespace `GolayMatrixDistance`). 5 results.
 
+## Edge-optimal sets of the hypercube
+
+`EdgeOptimal.lean` proves the sharp edge-isoperimetric theorem on the cube `Fin n → Bool`: it picks out which sets hold the most edges. Among all sets of `m` corners, the first `m` corners in binary order span the most edges. It uses `size`, `dir` and the first-coordinate split from `Isoperimetric.lean`.
+
+**The order.** A corner `x` is read as the binary number `val x`, where coordinate `i` is the bit of weight `2 ^ i` (`val_eq_sum`). `bin n m` is the set of corners with `val x < m`.
+
+**The count.** `ones k` is the number of `1` bits of `k`, and `h m = ∑_{k<m} ones k`.
+
+| Result | Statement |
+|---|---|
+| `binary_sum` | `h a + h b + min a b ≤ h (a + b)` for all `a`, `b` |
+| `dir_bin` | for `m ≤ 2 ^ n`, `dir (bin n m) = 2 * h m`, so `bin n m` spans exactly `h m` edges |
+| `dir_le_two_mul_h` | every set `s` has `dir s ≤ 2 * h (size s)` |
+| `dir_le_dir_bin` | if `size s = m`, then `dir s ≤ dir (bin n m)` |
+| `max_dir_eq` | for `m ≤ 2 ^ n`, `bin n m` has `m` corners and `2 * h m` ordered adjacent pairs, and no set of `m` corners has more |
+
+**Proof outline.** `h (2x) = 2 h x + x` and `h (2x + 1) = h x + h (x + 1) + x`. The binary-sum inequality follows by strong induction on `a + b`, one case for each parity of `a` and `b`. For the cube, split on the first coordinate: the halves hold `a` and `b` corners, and the edges across are at most `min a b` (`common_le_true`, `common_le_false`), so induction on `n` gives `dir s ≤ 2 * h (size s)`. Splitting `bin (n + 1) m` the same way gives `bin n (m / 2)` and `bin n ((m + 1) / 2)` with `m / 2` edges across (`bin_true`, `bin_false`, `common_bin`), and `h m = h (m / 2) + h ((m + 1) / 2) + m / 2` (`h_split`), so `bin` meets the bound.
+
+**Numerical check.** For `n ≤ 4`, every vertex set was checked against the maximum, and `dir (bin n m) = 2 h m` held for every `m`. For `n = 5, 6`, 20,000 random sets each stayed at or below `dir (bin n m)`. The binary-sum inequality held for all `a, b < 300`.
+
+**File.** `EdgeOptimal.lean` (namespace `HypercubeEdgeOptimal`). 25 results.
+
 ## Build
 
 ```sh
@@ -458,5 +480,5 @@ Passing means:
 ### Scope
 
 - This proves the edge-count bound for every set size.
-- It does not prove Harper's stronger result, which picks out *which* sets are optimal (initial segments of the binary order).
+- Harper's stronger result, that initial segments of the binary order are optimal, is proved in [`EdgeOptimal.lean`](EdgeOptimal.lean); see [Edge-optimal sets of the hypercube](#edge-optimal-sets-of-the-hypercube).
 - This file does not prove the vertex-isoperimetric inequality. That is proved in this repo, by squashing, in [`HarperSquash.lean`](HarperSquash.lean) and [`HarperSquash/`](HarperSquash); see [Vertex-isoperimetric inequality on the hypercube (Harper's theorem)](#vertex-isoperimetric-inequality-on-the-hypercube-harpers-theorem).
