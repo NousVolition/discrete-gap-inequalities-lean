@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, and the short bridges that tie the cycle, the polygon and the cube together are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 114 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, and the gap of the grid made of two rings are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 125 statements.
 
 Author: NousVolition.
 
@@ -135,6 +135,25 @@ Rewritten with the mean, this reads `∑_edges (f x − f y)² ≥ 2 · ∑ (f �
 Numerical check (outside Lean): `cycle_gap_two` is 4; `cube_poincare` held on random mean-zero functions for `n ≤ 6`, with equality at `(−1)^(x 0)`; Parseval held for `n ≤ 11`.
 
 **File.** `Bridges.lean` (namespace `Bridges`).
+
+## The grid made of two rings
+
+`Torus.lean` proves the gap of the flat grid `ZMod m × ZMod n`. The grid is two rings laid across each other: each point `(i, j)` has a neighbor one step along the first ring, `(i + 1, j)`, and one step along the second ring, `(i, j + 1)`. The energy of `f` is the sum over all points of `(f(i+1, j) − f(i, j))² + (f(i, j+1) − f(i, j))²`. The ring gap is `gap k = 2 − 2 cos(2π/k) = 4 sin²(π/k)`, the same `RingDecay.gap` used in the ring decay proof.
+
+| Result | Statement |
+|---|---|
+| `grid_gap` | for `f` with `∑ f = 0`, `min(gap m, gap n) · ∑ f² ≤ energy f` |
+| `rowWave_sharp` | for `m ≥ 2`, `cos(2π i/m)` has sum zero and `energy = gap m · ∑ f²` |
+| `colWave_sharp` | for `n ≥ 2`, `cos(2π j/n)` has sum zero and `energy = gap n · ∑ f²` |
+| `grid_gap_sharp` | for `m, n ≥ 2`, some `f` with `∑ f = 0` and `f(0, 0) = 1` has `energy f = min(gap m, gap n) · ∑ f²` |
+
+**What it says.** A flat pattern on the grid is made from waves along two lines. The grid settles no slower than its slower ring, and the wave along the slower ring shows it settles no faster. This is the same idea as `cube_poincare` in `Bridges.lean`: the cube is made from single edges, and putting them together does not lower the gap.
+
+**Proof.** Split `f` into its row means `c(i)` and the rest `g = f − c`. Each row of `g` has sum zero, so the cross terms vanish: `∑ f² = n ∑ c² + ∑ g²`. Steps along the second ring see only `g`, and the cycle Wirtinger inequality on each row gives at least `gap n · ∑ g²`. Steps along the first ring give at least `n ∑ (c(i+1) − c(i))²`, and the cycle Wirtinger inequality for `c` gives at least `gap m · n ∑ c²`. The equality for the waves uses `RingDecay.heatStep_wave`.
+
+Numerical check (outside Lean): the inequality held on random mean-zero functions for several sizes from `2 × 2` to `5 × 7`, and the wave `cos(2π i/m)` gave equality with `gap m`.
+
+**File.** `Torus.lean` (namespace `RingGrid`).
 
 ## Build
 

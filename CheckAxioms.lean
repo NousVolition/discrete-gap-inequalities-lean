@@ -7,6 +7,7 @@ import HarperSquash
 import Polygon
 import CubeCheeger
 import Bridges
+import Torus
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -125,3 +126,14 @@ import Bridges
 #print axioms Bridges.cube_poincare
 #print axioms Bridges.cfourier_ofReal
 #print axioms Bridges.parseval_real_of_plancherel
+#print axioms RingGrid.sum_sq_add_of_sum_zero
+#print axioms RingGrid.row_sub_mean
+#print axioms RingGrid.sum_rowMean
+#print axioms RingGrid.sum_sq_split
+#print axioms RingGrid.first_steps_split
+#print axioms RingGrid.second_steps_ge
+#print axioms RingGrid.grid_gap
+#print axioms RingGrid.ring_wave
+#print axioms RingGrid.rowWave_sharp
+#print axioms RingGrid.colWave_sharp
+#print axioms RingGrid.grid_gap_sharp
