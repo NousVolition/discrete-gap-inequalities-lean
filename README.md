@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These six results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof and the vertex-isoperimetric proof are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 82 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, and the short bridges that tie the cycle, the polygon and the cube together are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 114 statements.
 
 Author: NousVolition.
 
@@ -86,6 +86,55 @@ The neighborhood of a family is the family together with every set that differs 
 **Files.** `HarperSquash.lean` and `HarperSquash/` (`Basic`, `NbhdInit`, `Squash`, `Classify`, `Harper`; namespace `HarperVertex`).
 
 Reference: L. H. Harper, *Optimal numberings and isoperimetric problems on graphs*, J. Combin. Theory 1 (1966).
+
+## Polygon isoperimetric inequality
+
+**Theorem (`PolygonIso.polygon_isoperimetric`).** A closed polygon with `n ≥ 3` vertices is a map `z : ZMod n → ℂ`. Write `area2 z` for twice the signed area, and `sides z` for the sum of the squared side lengths. Then
+
+```
+2 * tan (π/n) * area2 z  ≤  sides z
+```
+
+Equivalently, `4 tan (π/n) · area ≤ ∑ side²`. The regular polygon `z j = exp (2π i j / n)` gives equality (`polygon_sharp`).
+
+**Proof.** This is Hurwitz's Fourier proof of the isoperimetric inequality (1901), in discrete form. It uses the same finite Fourier transform as `Wirtinger.lean`. Plancherel turns both sides into sums over frequencies, and each frequency is compared separately by the bound `tan (π/n) · sin (2π m/n) ≤ 1 − cos (2π m/n)` (`tan_bound`).
+
+**File.** `Polygon.lean` (namespace `PolygonIso`).
+
+## The cube's gap and Cheeger's inequality
+
+**Theorem (`CubeCheeger.gap`).** Vertices of the `n`-cube are `Fin n → Bool`. For `f` on the cube, `energy f` sums `(f x − f y)²` over adjacent pairs (each edge counted twice), and `spread f` sums the same over all ordered pairs. Then
+
+```
+2 * spread f  ≤  2^n * energy f
+```
+
+Rewritten with the mean, this reads `∑_edges (f x − f y)² ≥ 2 · ∑ (f − mean)²`: the cube's spectral gap is `2`. The proof is by induction on `n`, cutting along the first coordinate.
+
+**Cheeger's easy direction (`cheeger`).** Apply the gap to the indicator of a set `S`. If `|S| ≤ 2^{n−1}`, then at least `|S|` edges leave `S`, so the cut per corner is at least `gap / 2 = 1`.
+
+**Exactness (`half_exact`).** The half-cube `{x | x 0 = true}` has `2^n` corners and exactly `2^n` edges leaving it. So the bound from the gap and the cheapest cut are equal on the cube.
+
+**File.** `CubeCheeger.lean` (namespace `CubeCheeger`).
+
+## Bridges between the cycle, the polygon and the cube
+
+`Bridges.lean` ties the cycle, the polygon and the cube together.
+
+| Result | Statement |
+|---|---|
+| `cycle_gap_two` | `2 − 2 cos(2π/2) = 4`: the cycle gap at length 2 |
+| `cube_poincare` | for mean-zero `f` on the n-cube, `(2 − 2 cos(2π/2)) · ∑ f² ≤ energy f` |
+| `cfourier_ofReal` | on real data, `PolygonIso.cfourier` is `CycleWirtinger.fourier` |
+| `parseval_real_of_plancherel` | the Wirtinger Parseval identity, derived from the polygon package's Plancherel |
+
+**What `cube_poincare` says.** The cube is a product of n single edges, and a single edge is a cycle of length 2. The cube's gap equals that edge's gap, so taking a product does not lower it. `(−1)^(x 0)` gives equality.
+
+**Proof.** It is `CubeCheeger.gap` combined with `spread f = 2 · 2ⁿ · ∑ f²` for mean-zero `f` (`spread_of_mean_zero`).
+
+Numerical check (outside Lean): `cycle_gap_two` is 4; `cube_poincare` held on random mean-zero functions for `n ≤ 6`, with equality at `(−1)^(x 0)`; Parseval held for `n ≤ 11`.
+
+**File.** `Bridges.lean` (namespace `Bridges`).
 
 ## Build
 
@@ -182,7 +231,7 @@ lake build
 
 ### Related
 
-`discrete-poincare-lean` proves an elementary, non-sharp inequality for the path (free ends) with constant `n(n-1)/2`. The sharp path constant `1/(4 sin²(π/(2n)))` needs the cosine transform and is not included.
+`Poincare.lean` proves an elementary, non-sharp inequality for the path (free ends) with constant `n(n-1)/2`. The sharp path constant `1/(4 sin²(π/(2n)))` needs the cosine transform and is not included.
 
 ## The gap: what holds the past finite
 

@@ -4,6 +4,9 @@ import Gap
 import Isoperimetric
 import RingDecay
 import HarperSquash
+import Polygon
+import CubeCheeger
+import Bridges
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -89,3 +92,36 @@ import HarperSquash
 #print axioms HarperVertex.card_ball
 #print axioms HarperVertex.harper_ball
 #print axioms HarperVertex.harper_ball_choose
+
+#print axioms PolygonIso.plancherel
+#print axioms PolygonIso.cfourier_shift
+#print axioms PolygonIso.cfourier_step
+#print axioms PolygonIso.e_im
+#print axioms PolygonIso.normSq_e
+#print axioms PolygonIso.tan_bound
+#print axioms PolygonIso.area2_fourier
+#print axioms PolygonIso.sides_fourier
+#print axioms PolygonIso.polygon_isoperimetric
+#print axioms PolygonIso.polygon_sharp
+#print axioms CubeCheeger.hammingDist_cons
+#print axioms CubeCheeger.sum_cube_succ
+#print axioms CubeCheeger.adj_comm
+#print axioms CubeCheeger.adj_nonneg
+#print axioms CubeCheeger.adj_cons
+#print axioms CubeCheeger.energy_nonneg
+#print axioms CubeCheeger.card_cube
+#print axioms CubeCheeger.energy_succ
+#print axioms CubeCheeger.spread_succ
+#print axioms CubeCheeger.cross_le
+#print axioms CubeCheeger.gap
+#print axioms CubeCheeger.ind_sq_diff
+#print axioms CubeCheeger.sum_ind
+#print axioms CubeCheeger.energy_ind
+#print axioms CubeCheeger.spread_ind
+#print axioms CubeCheeger.cheeger
+#print axioms CubeCheeger.half_exact
+#print axioms Bridges.cycle_gap_two
+#print axioms Bridges.spread_of_mean_zero
+#print axioms Bridges.cube_poincare
+#print axioms Bridges.cfourier_ofReal
+#print axioms Bridges.parseval_real_of_plancherel
