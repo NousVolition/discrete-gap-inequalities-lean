@@ -27,6 +27,13 @@ The proof splits `f` into its row means `c i = (∑ j, f (i, j)) / n` and the re
 * steps along the first ring: `≥ n ∑ (c (i + 1) - c i) ^ 2 ≥ n · gap m · ∑ c ^ 2`
   (`first_steps_split`, then the cycle Wirtinger inequality for `c`);
 * steps along the second ring: `≥ gap n · ∑ g ^ 2` (the cycle Wirtinger inequality on each row).
+
+The last part is the heat flow on the grid, `f ↦ f - τ * lap f` with `lap f` equal to `4 f` minus the
+four neighbors. For `0 ≤ τ ≤ 1/4` and `f` with sum zero, one step gives
+`∑ next ² ≤ (1 - 2τ(1 - 4τ) · min (gap m) (gap n)) · ∑ f ^ 2` (`heatStep_decay`), from `grid_gap`
+and the Cauchy–Schwarz bound `∑ (lap f) ^ 2 ≤ 8 · energy f` (`sum_lap_sq_le`). After `k` steps the
+factor is raised to the power `k` (`iterate_decay`), and for `m, n ≥ 2` and `0 < τ < 1/4` every
+value goes to the mean (`iterate_tendsto_mean`).
 -/
 
 open Finset
@@ -229,5 +236,240 @@ theorem grid_gap_sharp (hm : 2 ≤ m) (hn : 2 ≤ n) :
   · refine ⟨colWave, (colWave_sharp hn).1, by simp [colWave], ?_⟩
     rw [min_eq_right h]
     exact (colWave_sharp hn).2
+
+/-! ## The heat flow on the grid
+
+`lap f` is `4 f` minus the four neighbors (with wrap), and one heat step with step size `τ` is
+`f ↦ f - τ * lap f`. The route needs no two-direction Fourier transform: the step keeps the sum,
+`∑ next² = ∑ f² - 2τ · energy f + τ² ∑ (lap f)²` (`sum_sq_heatStep`), one Cauchy–Schwarz line
+gives `∑ (lap f)² ≤ 8 · energy f` (`sum_lap_sq_le`), and `grid_gap` finishes. -/
+
+/-- `4 f` minus the four neighbors on the grid of two rings. -/
+noncomputable def lap (f : ZMod m × ZMod n → ℝ) (p : ZMod m × ZMod n) : ℝ :=
+  4 * f p - f (p.1 + 1, p.2) - f (p.1 - 1, p.2) - f (p.1, p.2 + 1) - f (p.1, p.2 - 1)
+
+/-- One heat step on the grid with step size `τ`. -/
+noncomputable def heatStep (τ : ℝ) (f : ZMod m × ZMod n → ℝ) (p : ZMod m × ZMod n) : ℝ :=
+  f p - τ * lap f p
+
+/-- The mean of `f` over the grid. -/
+noncomputable def mean (f : ZMod m × ZMod n → ℝ) : ℝ := (∑ p, f p) / (m * n)
+
+/-- Shifting along the first ring does not change a sum. -/
+lemma sum_shift_fst (F : ZMod m × ZMod n → ℝ) (a : ZMod m) :
+    ∑ p : ZMod m × ZMod n, F (p.1 + a, p.2) = ∑ p, F p :=
+  Fintype.sum_equiv ((Equiv.addRight a).prodCongr (Equiv.refl _)) _ _ (fun _ => rfl)
+
+/-- Shifting along the second ring does not change a sum. -/
+lemma sum_shift_snd (F : ZMod m × ZMod n → ℝ) (b : ZMod n) :
+    ∑ p : ZMod m × ZMod n, F (p.1, p.2 + b) = ∑ p, F p :=
+  Fintype.sum_equiv ((Equiv.refl _).prodCongr (Equiv.addRight b)) _ _ (fun _ => rfl)
+
+lemma sum_lap (f : ZMod m × ZMod n → ℝ) : ∑ p, lap f p = 0 := by
+  have h1 := sum_shift_fst f 1
+  have h2 := sum_shift_fst f (-1)
+  have h3 := sum_shift_snd f 1
+  have h4 := sum_shift_snd f (-1)
+  simp only [← sub_eq_add_neg] at h2 h4
+  simp only [lap, Finset.sum_sub_distrib, ← Finset.mul_sum, h1, h2, h3, h4]
+  ring
+
+/-- **One heat step keeps the sum**, and so the mean. -/
+theorem sum_heatStep (τ : ℝ) (f : ZMod m × ZMod n → ℝ) : ∑ p, heatStep τ f p = ∑ p, f p := by
+  simp only [heatStep, Finset.sum_sub_distrib, ← Finset.mul_sum, sum_lap, mul_zero, sub_zero]
+
+theorem mean_heatStep (τ : ℝ) (f : ZMod m × ZMod n → ℝ) : mean (heatStep τ f) = mean f := by
+  rw [mean, mean, sum_heatStep]
+
+/-- `∑ f · lap f = energy f`. -/
+lemma sum_mul_lap (f : ZMod m × ZMod n → ℝ) : ∑ p, f p * lap f p = energy f := by
+  have hA := sum_shift_fst (fun p => f p ^ 2) 1
+  have hB := sum_shift_snd (fun p => f p ^ 2) 1
+  have hC := sum_shift_fst (fun p => f p * f (p.1 - 1, p.2)) 1
+  have hD := sum_shift_snd (fun p => f p * f (p.1, p.2 - 1)) 1
+  simp only [add_sub_cancel_right, Prod.mk.eta] at hA hB hC hD
+  have hL : ∑ p, f p * lap f p = 4 * ∑ p, f p ^ 2 - ∑ p, f p * f (p.1 + 1, p.2)
+      - ∑ p, f p * f (p.1 - 1, p.2) - ∑ p, f p * f (p.1, p.2 + 1)
+      - ∑ p, f p * f (p.1, p.2 - 1) := by
+    simp only [Finset.mul_sum, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun p _ => by simp only [lap]; ring)
+  have hE : energy f = ∑ p : ZMod m × ZMod n, f (p.1 + 1, p.2) ^ 2
+      + ∑ p : ZMod m × ZMod n, f (p.1, p.2 + 1) ^ 2
+      + 2 * ∑ p, f p ^ 2 - 2 * ∑ p : ZMod m × ZMod n, f (p.1 + 1, p.2) * f p
+      - 2 * ∑ p : ZMod m × ZMod n, f (p.1, p.2 + 1) * f p := by
+    simp only [energy, Finset.mul_sum, ← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun p _ => by ring)
+  have hX : ∑ p : ZMod m × ZMod n, f p * f (p.1 + 1, p.2)
+      = ∑ p : ZMod m × ZMod n, f (p.1 + 1, p.2) * f p :=
+    Finset.sum_congr rfl (fun p _ => mul_comm _ _)
+  have hY : ∑ p : ZMod m × ZMod n, f p * f (p.1, p.2 + 1)
+      = ∑ p : ZMod m × ZMod n, f (p.1, p.2 + 1) * f p :=
+    Finset.sum_congr rfl (fun p _ => mul_comm _ _)
+  rw [hL, hE, hA, hB, ← hC, ← hD, hX, hY]
+  ring
+
+/-- **Cauchy–Schwarz: each point has 4 neighbors**, so `∑ (lap f)² ≤ 8 · energy f`. -/
+lemma sum_lap_sq_le (f : ZMod m × ZMod n → ℝ) : ∑ p, lap f p ^ 2 ≤ 8 * energy f := by
+  have hpt : ∀ p : ZMod m × ZMod n, lap f p ^ 2
+      ≤ 4 * ((f (p.1 + 1, p.2) - f p) ^ 2 + (f p - f (p.1 - 1, p.2)) ^ 2
+        + (f (p.1, p.2 + 1) - f p) ^ 2 + (f p - f (p.1, p.2 - 1)) ^ 2) := by
+    intro p
+    have e : lap f p = (f p - f (p.1 + 1, p.2)) + (f p - f (p.1 - 1, p.2))
+        + (f p - f (p.1, p.2 + 1)) + (f p - f (p.1, p.2 - 1)) := by simp only [lap]; ring
+    rw [e]
+    set a := f p - f (p.1 + 1, p.2)
+    set b := f p - f (p.1 - 1, p.2)
+    set c := f p - f (p.1, p.2 + 1)
+    set d := f p - f (p.1, p.2 - 1)
+    have ha : (f (p.1 + 1, p.2) - f p) ^ 2 = a ^ 2 := by ring
+    have hc : (f (p.1, p.2 + 1) - f p) ^ 2 = c ^ 2 := by ring
+    rw [ha, hc]
+    nlinarith [sq_nonneg (a - b), sq_nonneg (a - c), sq_nonneg (a - d), sq_nonneg (b - c),
+      sq_nonneg (b - d), sq_nonneg (c - d)]
+  have hb := sum_shift_fst (fun p => (f p - f (p.1 - 1, p.2)) ^ 2) 1
+  have hd := sum_shift_snd (fun p => (f p - f (p.1, p.2 - 1)) ^ 2) 1
+  simp only [add_sub_cancel_right, Prod.mk.eta] at hb hd
+  calc ∑ p, lap f p ^ 2
+      ≤ ∑ p : ZMod m × ZMod n, 4 * ((f (p.1 + 1, p.2) - f p) ^ 2 + (f p - f (p.1 - 1, p.2)) ^ 2
+        + (f (p.1, p.2 + 1) - f p) ^ 2 + (f p - f (p.1, p.2 - 1)) ^ 2) :=
+        Finset.sum_le_sum (fun p _ => hpt p)
+    _ = 8 * energy f := by
+        simp only [← Finset.mul_sum, Finset.sum_add_distrib, energy]
+        rw [← hb, ← hd]
+        ring
+
+/-- **The size after one step:** `∑ next² = ∑ f² - 2τ · energy f + τ² ∑ (lap f)²`. -/
+theorem sum_sq_heatStep (τ : ℝ) (f : ZMod m × ZMod n → ℝ) :
+    ∑ p, heatStep τ f p ^ 2 = ∑ p, f p ^ 2 - 2 * τ * energy f + τ ^ 2 * ∑ p, lap f p ^ 2 := by
+  rw [← sum_mul_lap, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib,
+    ← Finset.sum_add_distrib]
+  exact Finset.sum_congr rfl (fun p _ => by simp only [heatStep]; ring)
+
+/-- After one step, `∑ next² ≤ ∑ f² - 2τ(1 - 4τ) · energy f`. -/
+theorem sum_sq_heatStep_le (τ : ℝ) (f : ZMod m × ZMod n → ℝ) :
+    ∑ p, heatStep τ f p ^ 2 ≤ ∑ p, f p ^ 2 - 2 * τ * (1 - 4 * τ) * energy f := by
+  rw [sum_sq_heatStep]
+  nlinarith [sum_lap_sq_le f, sq_nonneg τ]
+
+/-- **One step, mean zero.** For `0 ≤ τ ≤ 1/4`,
+`∑ next² ≤ (1 - 2τ(1 - 4τ) · min (gap m) (gap n)) · ∑ f²`. -/
+theorem heatStep_decay (τ : ℝ) (hτ0 : 0 ≤ τ) (hτ : τ ≤ 1 / 4) (f : ZMod m × ZMod n → ℝ)
+    (hf : ∑ p, f p = 0) :
+    ∑ p, heatStep τ f p ^ 2 ≤ (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) * ∑ p, f p ^ 2 := by
+  have h1 := sum_sq_heatStep_le τ f
+  have h2 := grid_gap f hf
+  have hk : 0 ≤ 2 * τ * (1 - 4 * τ) := by nlinarith
+  nlinarith [mul_le_mul_of_nonneg_left h2 hk]
+
+/-- **At `τ = 1/8`** each step shrinks the squared size by a factor of at least
+`1 - min (gap m) (gap n) / 8`. -/
+theorem heatStep_decay_eighth (f : ZMod m × ZMod n → ℝ) (hf : ∑ p, f p = 0) :
+    ∑ p, heatStep (1 / 8) f p ^ 2 ≤ (1 - min (gap m) (gap n) / 8) * ∑ p, f p ^ 2 := by
+  have h := heatStep_decay (1 / 8) (by norm_num) (by norm_num) f hf
+  have e : (1 : ℝ) - 2 * (1 / 8) * (1 - 4 * (1 / 8)) * min (gap m) (gap n)
+      = 1 - min (gap m) (gap n) / 8 := by ring
+  rwa [e] at h
+
+omit [NeZero m] [NeZero n] in
+lemma heatStep_sub_const (τ c : ℝ) (f : ZMod m × ZMod n → ℝ) (p : ZMod m × ZMod n) :
+    heatStep τ (fun q => f q - c) p = heatStep τ f p - c := by
+  simp only [heatStep, lap]
+  ring
+
+lemma sum_sub_mean (f : ZMod m × ZMod n → ℝ) : ∑ p, (f p - mean f) = 0 := by
+  have hm : (m : ℝ) ≠ 0 := by exact_mod_cast NeZero.ne m
+  have hn : (n : ℝ) ≠ 0 := by exact_mod_cast NeZero.ne n
+  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ, Fintype.card_prod, ZMod.card,
+    ZMod.card, nsmul_eq_mul, mean]
+  push_cast
+  field_simp
+  ring
+
+/-- **One step, any data.** The uneven part `f - mean f` shrinks by the same factor. -/
+theorem heatStep_decay_mean (τ : ℝ) (hτ0 : 0 ≤ τ) (hτ : τ ≤ 1 / 4) (f : ZMod m × ZMod n → ℝ) :
+    ∑ p, (heatStep τ f p - mean (heatStep τ f)) ^ 2
+      ≤ (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) * ∑ p, (f p - mean f) ^ 2 := by
+  have h := heatStep_decay τ hτ0 hτ (fun q => f q - mean f) (sum_sub_mean f)
+  simp only [heatStep_sub_const] at h
+  rw [mean_heatStep]
+  exact h
+
+theorem mean_iterate (τ : ℝ) (f : ZMod m × ZMod n → ℝ) (k : ℕ) :
+    mean ((heatStep τ)^[k] f) = mean f := by
+  induction k with
+  | zero => rfl
+  | succ k ih => rw [Function.iterate_succ_apply', mean_heatStep, ih]
+
+omit [NeZero m] [NeZero n] in
+/-- The factor `1 - 2τ(1 - 4τ) · min (gap m) (gap n)` is at least `1/2`. -/
+lemma factor_nonneg (τ : ℝ) :
+    0 ≤ 1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n) := by
+  have hg4 : min (gap m) (gap n) ≤ 4 := (min_le_left _ _).trans (RingDecay.gap_le_four m)
+  have hg0 : 0 ≤ min (gap m) (gap n) := by
+    refine le_min ?_ ?_ <;> rw [RingDecay.gap_eq_four_sin_sq] <;> positivity
+  have hk : 2 * τ * (1 - 4 * τ) ≤ 1 / 8 := by nlinarith [sq_nonneg (4 * τ - 1 / 2)]
+  have := mul_le_mul_of_nonneg_right hk hg0
+  linarith
+
+/-- **After `k` steps** the uneven part is at most the factor to the power `k` times its start. -/
+theorem iterate_decay (τ : ℝ) (hτ0 : 0 ≤ τ) (hτ : τ ≤ 1 / 4) (f : ZMod m × ZMod n → ℝ)
+    (k : ℕ) :
+    ∑ p, ((heatStep τ)^[k] f p - mean f) ^ 2
+      ≤ (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) ^ k * ∑ p, (f p - mean f) ^ 2 := by
+  induction k with
+  | zero => simp
+  | succ k ih =>
+    rw [Function.iterate_succ_apply']
+    have h := heatStep_decay_mean τ hτ0 hτ ((heatStep τ)^[k] f)
+    rw [mean_heatStep, mean_iterate] at h
+    calc ∑ p, (heatStep τ ((heatStep τ)^[k] f) p - mean f) ^ 2
+        ≤ (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n))
+            * ∑ p, ((heatStep τ)^[k] f p - mean f) ^ 2 := h
+      _ ≤ (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n))
+            * ((1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) ^ k
+              * ∑ p, (f p - mean f) ^ 2) :=
+          mul_le_mul_of_nonneg_left ih (factor_nonneg τ)
+      _ = (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) ^ (k + 1)
+            * ∑ p, (f p - mean f) ^ 2 := by ring
+
+omit [NeZero m] [NeZero n] in
+/-- For `m, n ≥ 2` and `0 < τ < 1/4` the factor is strictly below one. -/
+lemma factor_lt_one (hm : 2 ≤ m) (hn : 2 ≤ n) (τ : ℝ) (hτ0 : 0 < τ) (hτ : τ < 1 / 4) :
+    1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n) < 1 := by
+  have hg : 0 < min (gap m) (gap n) := lt_min (RingDecay.gap_pos hm) (RingDecay.gap_pos hn)
+  have hk : 0 < 2 * τ * (1 - 4 * τ) := by nlinarith
+  nlinarith [mul_pos hk hg]
+
+/-- **The uneven part goes to zero** for `m, n ≥ 2` and `0 < τ < 1/4`. -/
+theorem energy_tendsto_zero (hm : 2 ≤ m) (hn : 2 ≤ n) (τ : ℝ) (hτ0 : 0 < τ) (hτ : τ < 1 / 4)
+    (f : ZMod m × ZMod n → ℝ) :
+    Filter.Tendsto (fun k => ∑ p, ((heatStep τ)^[k] f p - mean f) ^ 2)
+      Filter.atTop (nhds 0) := by
+  have h0 := factor_nonneg (m := m) (n := n) τ
+  have h1 := factor_lt_one hm hn τ hτ0 hτ
+  have hlim : Filter.Tendsto (fun k : ℕ => (1 - 2 * τ * (1 - 4 * τ) * min (gap m) (gap n)) ^ k
+      * ∑ p, (f p - mean f) ^ 2) Filter.atTop (nhds 0) := by
+    simpa using (tendsto_pow_atTop_nhds_zero_of_lt_one h0 h1).mul_const
+      (∑ p, (f p - mean f) ^ 2)
+  refine squeeze_zero (fun k => ?_) (fun k => iterate_decay τ hτ0.le hτ.le f k) hlim
+  exact Finset.sum_nonneg (fun p _ => sq_nonneg _)
+
+/-- **Every value settles to the mean** for `m, n ≥ 2` and `0 < τ < 1/4`. -/
+theorem iterate_tendsto_mean (hm : 2 ≤ m) (hn : 2 ≤ n) (τ : ℝ) (hτ0 : 0 < τ) (hτ : τ < 1 / 4)
+    (f : ZMod m × ZMod n → ℝ) (p : ZMod m × ZMod n) :
+    Filter.Tendsto (fun k => (heatStep τ)^[k] f p) Filter.atTop (nhds (mean f)) := by
+  have hE := energy_tendsto_zero hm hn τ hτ0 hτ f
+  have hsq : Filter.Tendsto (fun k => ((heatStep τ)^[k] f p - mean f) ^ 2)
+      Filter.atTop (nhds 0) := by
+    refine squeeze_zero (fun k => sq_nonneg _) (fun k => ?_) hE
+    exact Finset.single_le_sum (f := fun q => ((heatStep τ)^[k] f q - mean f) ^ 2)
+      (fun q _ => sq_nonneg _) (Finset.mem_univ p)
+  have habs : Filter.Tendsto (fun k => |(heatStep τ)^[k] f p - mean f|)
+      Filter.atTop (nhds 0) := by
+    have := hsq.sqrt
+    simpa [Real.sqrt_sq_eq_abs] using this
+  have hd : Filter.Tendsto (fun k => (heatStep τ)^[k] f p - mean f) Filter.atTop (nhds 0) :=
+    (tendsto_zero_iff_abs_tendsto_zero _).mpr habs
+  simpa using hd.add_const (mean f)
 
 end RingGrid

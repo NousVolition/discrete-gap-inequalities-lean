@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, and the gap of the grid made of two rings are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 125 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, and the gap of the grid made of two rings are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 145 statements.
 
 Author: NousVolition.
 
@@ -147,11 +147,32 @@ Numerical check (outside Lean): `cycle_gap_two` is 4; `cube_poincare` held on ra
 | `colWave_sharp` | for `n ≥ 2`, `cos(2π j/n)` has sum zero and `energy = gap n · ∑ f²` |
 | `grid_gap_sharp` | for `m, n ≥ 2`, some `f` with `∑ f = 0` and `f(0, 0) = 1` has `energy f = min(gap m, gap n) · ∑ f²` |
 
-**What it says.** A flat pattern on the grid is made from waves along two lines. The grid settles no slower than its slower ring, and the wave along the slower ring shows it settles no faster. This is the same idea as `cube_poincare` in `Bridges.lean`: the cube is made from single edges, and putting them together does not lower the gap.
+**What it says.** A flat pattern on the grid is made from waves along two lines. The grid settles no slower than its slower ring. The floor is hit by stripes: a wave along one ring, flat along the other (`rowWave`, `colWave`). A wave in each direction multiplied together settles faster than the floor; on a 7-by-4 grid, for example, one such pattern scores 2.75 against a floor of 0.75. This is the same idea as `cube_poincare` in `Bridges.lean`: the cube is made from single edges, and putting them together does not lower the gap.
+
+**The last tab of the video ("1D to 2D Waves").** That tab draws a wave in each direction multiplied together, so it does not show the case that hits the floor. Setting one of the two waves to flat gives the exact case. The tab also pins its edges, while the grid in the proof wraps around like a ring.
 
 **Proof.** Split `f` into its row means `c(i)` and the rest `g = f − c`. Each row of `g` has sum zero, so the cross terms vanish: `∑ f² = n ∑ c² + ∑ g²`. Steps along the second ring see only `g`, and the cycle Wirtinger inequality on each row gives at least `gap n · ∑ g²`. Steps along the first ring give at least `n ∑ (c(i+1) − c(i))²`, and the cycle Wirtinger inequality for `c` gives at least `gap m · n ∑ c²`. The equality for the waves uses `RingDecay.heatStep_wave`.
 
 Numerical check (outside Lean): the inequality held on random mean-zero functions for several sizes from `2 × 2` to `5 × 7`, and the wave `cos(2π i/m)` gave equality with `gap m`.
+
+### The heat flow on the grid
+
+Write `lap f` for `4 f` minus the four neighbors (with wrap). One heat step is `f ↦ f − τ · lap f`. This route needs no two-direction wave split: it is the grid floor plus one Cauchy–Schwarz line.
+
+| Result | Statement |
+|---|---|
+| `sum_heatStep` | one step keeps the sum, so the average (`mean_heatStep`) |
+| `sum_mul_lap` | `∑ f · lap f = energy f` |
+| `sum_sq_heatStep` | `∑ next² = ∑ f² − 2τ · energy f + τ² · ∑ (lap f)²` |
+| `sum_lap_sq_le` | each point has 4 neighbors, so by Cauchy–Schwarz `∑ (lap f)² ≤ 8 · energy f` |
+| `sum_sq_heatStep_le` | `∑ next² ≤ ∑ f² − 2τ(1 − 4τ) · energy f` |
+| `heatStep_decay` | for `0 ≤ τ ≤ 1/4` and `∑ f = 0`, `∑ next² ≤ (1 − 2τ(1 − 4τ) · min(gap m, gap n)) · ∑ f²` |
+| `heatStep_decay_eighth` | at `τ = 1/8`, each step shrinks the squared size by a factor of at least `1 − min(gap m, gap n)/8` |
+| `heatStep_decay_mean` | for any data, the uneven part `f − mean f` shrinks by the same factor |
+| `iterate_decay` | after `k` steps, the factor to the power `k` |
+| `energy_tendsto_zero`, `iterate_tendsto_mean` | for `m, n ≥ 2` and `0 < τ < 1/4`, the uneven part goes to zero and every value settles to the mean |
+
+The proof shows that each step shrinks the squared size by at least this factor.
 
 **File.** `Torus.lean` (namespace `RingGrid`).
 
