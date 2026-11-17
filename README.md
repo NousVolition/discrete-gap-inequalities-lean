@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, and the gap of the grid made of two rings are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 145 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), and the one-floor reading that restates the wave, the patch and the shape are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 231 statements.
 
 Author: NousVolition.
 
@@ -175,6 +175,52 @@ Write `lap f` for `4 f` minus the four neighbors (with wrap). One heat step is `
 The proof shows that each step shrinks the squared size by at least this factor.
 
 **File.** `Torus.lean` (namespace `RingGrid`).
+
+
+## The wall, the push, and the balance
+
+`WallPush.lean` (namespace `HugWallPush`) is the wall, the push, the balance, and the clay wall.
+
+| Result | Statement |
+|---|---|
+| `wall_total_zero`, `count_closes` | a wall of any thickness never changes the total of the grid; what it takes is exactly the heat it makes |
+| `push_changes_total`, `balanced_push_keeps_total` | a one-way push changes the total, whatever the wall's thickness; only a push whose total is zero leaves the total alone |
+| `average_fixed`, `difference_fades`, `thicker_balances_faster` | two sides joined by a wall of thickness `k`: the average never moves, the difference fades as `exp(-(2k) t)`, and a thicker wall balances faster |
+| `dip_floor`, `total_viscosity_never_negative` | the response `q (1 + tanh (q/ε)) / 2` never goes below `-ε / (2e)`, so a base viscosity of at least `σ ε / (2e)` keeps the total viscosity from ever going negative |
+| `freeze_keeps_total`, `freeze_gives_off` | the freeze keeps the total and gives off the difference |
+| `clay_energy`, `clay_brakes_box`, `integrity_stays` | the clay's drag `−K g χ u` takes exactly `K g χ u²` as heat and brakes the whole box; the integrity step stays between 0 and 1 |
+
+Heat here is just heat: the energy given off.
+
+**File.** `WallPush.lean` (namespace `HugWallPush`).
+
+## Harper stage 1: the squash lemma
+
+`Harper.lean` is stage 1 of Harper's vertex-isoperimetric theorem on the Boolean cube `Fin n → Bool`. It is a separate formalization from the complete proof in `HarperSquash.lean` (namespace `HarperVertex`). This file uses namespace `Harper` so both can live in one project.
+
+**The order.** Vertices with fewer `true`s come first. Among vertices with the same number, the one with `true` at the first coordinate where they differ comes first (`key`). `seg n m` is the first `m` vertices. They are nested (`seg_mono`) and have `min m (2 ^ n)` elements (`card_seg`).
+
+**Squashing along coordinate `i`.** Cut the cube into its two halves `x i = true` and `x i = false`. Replace each half of `A` by the starting segment of the same size in the remaining coordinates (`squash`). Squashing keeps the size (`card_squash`).
+
+**The squash lemma (`squash_nbhd_le`).** A squash never makes the neighbourhood bigger. It takes two hypotheses about the cube one dimension down: the neighbourhood of a starting segment is a starting segment, and the theorem itself (the induction hypothesis).
+
+**File.** `Harper.lean` (namespace `Harper`). 18 results.
+
+## One floor, three pushes
+
+`Unify.lean` proves two general lemmas and restates three earlier results as uses of them.
+
+**Lemma 1 (`mode_compare`).** If every mode `k` pays at least `c` times what it contributes and the weights are nonnegative, then the total pays at least `c` times the total.
+
+* A wave (`wirtinger_by_modes`): on the ring, mode `k ≠ 0` costs `|e(k) − 1|²`, at least the floor `2 − 2 cos (2π/n)`. This is the Wirtinger inequality.
+* A shape (`polygon_by_modes`): for a closed polygon, mode `k` costs `|e(−k) − 1|²` in squared sides and carries `Im e(−k)` of area; the cost per unit of area is at least `2 tan (π/n)`. This is the polygon isoperimetric inequality.
+
+**Lemma 2 (`patch_from_gap`).** On any finite graph with symmetric weights, if `λ · spread f ≤ |V| · energy f` for every `f`, then every patch `S` satisfies `λ · |S| · (|V| − |S|) ≤ |V| · boundary S`.
+
+* The cube (`cube_cheeger_by_gap`): with floor `2`, any set of at most half the corners has at least as many edges leaving it as it has corners. This is `CubeCheeger.cheeger`, now a one-step use of the general lemma.
+* The ring (`ring_gap`, `ring_patch`): the ring's floor `2 − 2 cos (2π/n)` gives a border bound for every patch of the ring.
+
+**File.** `Unify.lean` (namespace `Unify`). 16 results.
 
 ## Build
 

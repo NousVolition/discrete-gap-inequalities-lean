@@ -8,6 +8,9 @@ import Polygon
 import CubeCheeger
 import Bridges
 import Torus
+import WallPush
+import Harper
+import Unify
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -157,3 +160,95 @@ import Torus
 #print axioms RingGrid.factor_lt_one
 #print axioms RingGrid.energy_tendsto_zero
 #print axioms RingGrid.iterate_tendsto_mean
+
+-- WallPush
+#print axioms HugWallPush.shifted_flux_sum
+#print axioms HugWallPush.wall_total_zero
+#print axioms HugWallPush.wall_energy
+#print axioms HugWallPush.wallHeat_nonneg
+#print axioms HugWallPush.wall_only_takes
+#print axioms HugWallPush.grid_total_zero
+#print axioms HugWallPush.grid_energy
+#print axioms HugWallPush.wall_keeps_total
+#print axioms HugWallPush.count_closes
+#print axioms HugWallPush.push_changes_total
+#print axioms HugWallPush.push_moves_one_way
+#print axioms HugWallPush.balanced_push_keeps_total
+#print axioms HugWallPush.push_moves_box
+#print axioms HugWallPush.lin_deriv
+#print axioms HugWallPush.sideA_deriv
+#print axioms HugWallPush.sideB_deriv
+#print axioms HugWallPush.average_fixed
+#print axioms HugWallPush.difference_fades
+#print axioms HugWallPush.thicker_balances_faster
+#print axioms HugWallPush.exp_double
+#print axioms HugWallPush.two_sides_count_closes
+#print axioms HugWallPush.twoSideHeat_deriv
+#print axioms HugWallPush.twoSideHeat_nonneg
+#print axioms HugWallPush.half_one_add_tanh_le
+#print axioms HugWallPush.dip_floor_normalized
+#print axioms HugWallPush.dip_floor
+#print axioms HugWallPush.total_viscosity_never_negative
+#print axioms HugWallPush.breath_telescopes
+#print axioms HugWallPush.delayed_baseline_record
+#print axioms HugWallPush.delayed_baseline_bounded
+#print axioms HugWallPush.frozen_baseline_fills
+#print axioms HugWallPush.freeze_step_counts
+#print axioms HugWallPush.clocks_meet_at_ticks
+#print axioms HugWallPush.shares_whole
+#print axioms HugWallPush.balance_between
+#print axioms HugWallPush.gap_split
+#print axioms HugWallPush.freeze_keeps_total
+#print axioms HugWallPush.freeze_gives_off
+#print axioms HugWallPush.freeze_gives_off_nonneg
+#print axioms HugWallPush.clayHeat_nonneg
+#print axioms HugWallPush.clay_energy
+#print axioms HugWallPush.wall_clay_energy
+#print axioms HugWallPush.clay_push_total
+#print axioms HugWallPush.uniform_box_rate
+#print axioms HugWallPush.uniform_box_toward_settling
+#print axioms HugWallPush.clay_brakes_box
+#print axioms HugWallPush.broken_clay_no_brake
+#print axioms HugWallPush.boxSpeed_deriv
+#print axioms HugWallPush.boxSpeed_settles
+#print axioms HugWallPush.integrity_stays
+#print axioms HugWallPush.integrity_yields
+#print axioms HugWallPush.integrity_recovers
+
+-- Harper (stage 1; namespace Harper, so it sits beside HarperSquash's HarperVertex)
+#print axioms Harper.mem_nbhd
+#print axioms Harper.subset_nbhd
+#print axioms Harper.key_injective
+#print axioms Harper.rank_lt_rank
+#print axioms Harper.rank_injective
+#print axioms Harper.rank_lt_card
+#print axioms Harper.image_rank
+#print axioms Harper.card_seg
+#print axioms Harper.card_seg_le
+#print axioms Harper.seg_mono
+#print axioms Harper.card_seg_union
+#print axioms Harper.sum_split
+#print axioms Harper.card_split
+#print axioms Harper.hammingDist_insertNth
+#print axioms Harper.slice_nbhd
+#print axioms Harper.slice_squash
+#print axioms Harper.card_squash
+#print axioms Harper.squash_nbhd_le
+
+-- Unify
+#print axioms Unify.mode_compare
+#print axioms Unify.ring_mode
+#print axioms Unify.wirtinger_by_modes
+#print axioms Unify.polygon_mode
+#print axioms Unify.polygon_by_modes
+#print axioms Unify.ind_sq_diff
+#print axioms Unify.sum_ind
+#print axioms Unify.energy_ind
+#print axioms Unify.spread_ind
+#print axioms Unify.spread_of_mean_zero
+#print axioms Unify.patch_from_gap
+#print axioms Unify.cube_cheeger_by_gap
+#print axioms Unify.ringW_comm
+#print axioms Unify.ring_energy
+#print axioms Unify.ring_gap
+#print axioms Unify.ring_patch
