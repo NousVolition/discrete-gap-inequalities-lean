@@ -11,6 +11,7 @@ import Torus
 import WallPush
 import Harper
 import Unify
+import GolayMatrixDistance
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -252,3 +253,10 @@ import Unify
 #print axioms Unify.ring_energy
 #print axioms Unify.ring_gap
 #print axioms Unify.ring_patch
+
+-- Extended binary Golay code
+#print axioms GolayMatrixDistance.golay_self_orthogonal
+#print axioms GolayMatrixDistance.golay_doubly_even_and_d_min_8
+#print axioms GolayMatrixDistance.golay_sharp_weight_8
+#print axioms GolayMatrixDistance.golay_min_distance_bound
+#print axioms GolayMatrixDistance.golay_weight_distribution

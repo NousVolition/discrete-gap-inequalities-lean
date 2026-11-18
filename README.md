@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), and the one-floor reading that restates the wave, the patch and the shape are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 231 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, and the extended binary Golay code are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 236 statements.
 
 Author: NousVolition.
 
@@ -221,6 +221,22 @@ Heat here is just heat: the energy given off.
 * The ring (`ring_gap`, `ring_patch`): the ring's floor `2 − 2 cos (2π/n)` gives a border bound for every patch of the ring.
 
 **File.** `Unify.lean` (namespace `Unify`). 16 results.
+
+## The extended binary Golay code
+
+`GolayMatrixDistance.lean` proves the classical parameters of the extended binary Golay code of length 24, dimension 12 and minimum distance 8. The generator is `G = [I₁₂ | B]`, where the 12×12 parity block `B` is built from the quadratic residues modulo 11. Mathlib has no Golay code.
+
+| Result | Statement |
+|---|---|
+| `golay_self_orthogonal` | every pair of generator rows has even overlap, so the code is self-dual |
+| `golay_doubly_even_and_d_min_8` | every codeword is doubly even, and every nonzero codeword has weight at least 8 |
+| `golay_sharp_weight_8` | the bound 8 is met (the second generator row has weight 8) |
+| `golay_min_distance_bound` | every nonzero message encodes to a word of weight at least 8 |
+| `golay_weight_distribution` | the weight distribution is 1 / 759 / 2576 / 759 / 1 (weights 0, 8, 12, 16, 24) |
+
+The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
+
+**File.** `GolayMatrixDistance.lean` (namespace `GolayMatrixDistance`). 5 results.
 
 ## Build
 
