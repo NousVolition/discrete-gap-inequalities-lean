@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, and the gap toy's mirror are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 280 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, and the gap toy's mirror in rational and real-time forms are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 292 statements.
 
 Author: NousVolition.
 
@@ -47,6 +47,16 @@ The coordinate `z = 1 - g / u` is multiplied by `r` (`z_step`). Reversing its si
 For `0 < g < A`, `blows_up` proves that every height `A + M`, with `M > 0`, is attained at a rational factor `1 ≤ r < A / (A - g)`. At the limiting factor, the below-gap mirror is `g / 2` (`mirror_time`). For `0 < u < g` and `r ≥ 1`, the below-gap solution stays positive, does not exceed its starting height, and satisfies the explicit bound `step g r u * (r * (g - u)) ≤ g * u`.
 
 **Scope.** This is an algebraic growth-factor model. The identification `r = exp(g * t)`, a derivative with respect to real clock time, and a real-time blow-up limit are not formalized here. Lean's rational division is total: division by zero evaluates to zero, not infinity. The value of `step` at its pole must therefore not be interpreted as a physical height; `blows_up` concerns unbounded heights strictly before that pole. This nonlinear toy is separate from the linear store in `Gap.lean`.
+
+## The mirror in real clock time
+
+[GapMirrorCalculus.lean](GapMirrorCalculus.lean) is the checked calculus companion, with 12 theorems over real numbers. It uses namespace `GapMirrorCalculus` so it can be imported together with the rational `GapMirror` module.
+
+Its explicit scalar solution is `bump g A t = g / (1 - (1 - g / A) * exp(g * t))`. It starts at `A` (`bump_zero`) and satisfies `u' = u² - g * u` wherever its denominator is nonzero (`bump_solves`). The transformed coordinate obeys `z' = g * z` (`z_grows`).
+
+For `0 < A < g`, the bump tends to zero as time tends to infinity (`fades`). For `0 < g < A`, the time `T = log(A / (A - g)) / g` is positive (`blowTime_pos`), the denominator stays positive before `T` (`finite_before`), and the bump tends to positive infinity as `t` approaches `T` from below (`blows_up`). At that time the below-gap mirror is exactly `g / 2` (`mirror_time`); `mirror_sum` proves the reciprocal-height identity.
+
+The file retains all 11 theorem statements and four definitions from the supplied calculus draft, with a separate namespace, focused imports, and an additional positive-time theorem. Its axiom reports are included in `CheckAxioms.lean` and checked by CI. The blow-up result is a left-hand limit: total real division still assigns zero to the displayed formula at the pole. These are statements about an explicit scalar solution with no spatial spreading; a general uniqueness theorem is not included.
 
 ## Hypercube isoperimetric inequality
 

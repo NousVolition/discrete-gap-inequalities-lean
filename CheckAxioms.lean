@@ -2,6 +2,7 @@ import Poincare
 import Wirtinger
 import Gap
 import GapMirror
+import GapMirrorCalculus
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -70,6 +71,18 @@ import EdgeOptimal
 #print axioms GapMirror.below_positive
 #print axioms GapMirror.below_never_grows
 #print axioms GapMirror.below_fades
+#print axioms GapMirrorCalculus.z_grows
+#print axioms GapMirrorCalculus.z_mirror
+#print axioms GapMirrorCalculus.bump_zero
+#print axioms GapMirrorCalculus.bump_solves
+#print axioms GapMirrorCalculus.edge
+#print axioms GapMirrorCalculus.fades
+#print axioms GapMirrorCalculus.blow_at
+#print axioms GapMirrorCalculus.finite_before
+#print axioms GapMirrorCalculus.blowTime_pos
+#print axioms GapMirrorCalculus.blows_up
+#print axioms GapMirrorCalculus.mirror_sum
+#print axioms GapMirrorCalculus.mirror_time
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ

@@ -1,6 +1,6 @@
 name = "DiscreteGapInequalities"
 version = "0.1.0"
-defaultTargets = ["Poincare", "Wirtinger", "Gap", "GapMirror", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "CheckAxioms"]
+defaultTargets = ["Poincare", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "CheckAxioms"]
 
 [[require]]
 name = "mathlib"
@@ -19,6 +19,9 @@ name = "Gap"
 
 [[lean_lib]]
 name = "GapMirror"
+
+[[lean_lib]]
+name = "GapMirrorCalculus"
 
 [[lean_lib]]
 name = "Isoperimetric"
