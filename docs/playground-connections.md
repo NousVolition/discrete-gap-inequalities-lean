@@ -4,6 +4,8 @@ The [Sparkle Sand Playground](https://nousvolition.github.io/sparkle-sand-playgr
 
 The reviewed [playground source](https://github.com/NousVolition/sparkle-sand-playground/blob/03ef852cce4ae0d2cdb2319c413b6755bcf6e593/index.html) is commit `03ef852cce4ae0d2cdb2319c413b6755bcf6e593`. The deployed HTML fetched during the review matched that source after normalizing line endings. Its normalized SHA256 is `b5eb5238b1aef886b42dc3a342540ac150aa8eb1398311afdec2a74475a40fc2`.
 
+**Cube display fixed:** [playground commit `44ed9d0`](https://github.com/NousVolition/sparkle-sand-playground/commit/44ed9d089e5d942c82304dd8ee552bcce3c9aa41) makes Trilogy use `h(m)` for the maximum and optimality labels, while showing the logarithmic upper bound separately. Its [regression check](https://github.com/NousVolition/sparkle-sand-playground/blob/44ed9d089e5d942c82304dd8ee552bcce3c9aa41/tests/trilogy-cube.cjs) passes for all 65,808 subsets of the supported 2D, 3D and 4D cubes, including `{0,1,2}`. These JavaScript checks add no Lean theorem. The original evidence below remains pinned to `03ef852`.
+
 The checks below execute selected numerical functions from that published HTML without opening a browser or rendering the pages. Live controls were not exercised; the review covers source code and computations.
 
 ## What connects to the proved results
@@ -17,13 +19,13 @@ The checks below execute selected numerical functions from that published HTML w
 
 The table links are illustrations or applications of the mathematics. No formal equivalence between the browser implementation and a Lean definition has been established.
 
-## Two display claims the table now distinguishes
+## Two display claims in the reviewed revision
 
 **The path gap.** Trilogy displays `0.268` for its six-point path. `DiscretePoincare.poincare` proves the explicit lower bound `2 / (n(n-1))`, which is `1/15 ≈ 0.0666667` at six points. The file explicitly says its constant is not sharp. That proof therefore does not certify the stronger number displayed by the playground.
 
-**The cube maximum.** Trilogy labels `(m/2) log₂(m)` as the theoretical maximum and calls a set sub-optimal when it falls below that value. This is the logarithmic upper bound from `Isoperimetric.lean`. `EdgeOptimal.lean` proves the exact maximum `h(m)`, the sum of the popcounts of the integers `0,…,m-1`.
+**The cube maximum.** At the reviewed revision, Trilogy labeled `(m/2) log₂(m)` as the theoretical maximum and called a set sub-optimal when it fell below that value. This is the logarithmic upper bound from `Isoperimetric.lean`. `EdgeOptimal.lean` proves the exact maximum `h(m)`, the sum of the popcounts of the integers `0,…,m-1`.
 
-For three vertices `{0,1,2}` of the 3-cube, the playground's own counting code gives two internal edges and five boundary edges. Its displayed upper bound is `2.377443751081734`, so its status logic reports a shortfall of about `0.38`. But `h(3)=2`: the selected set is optimal. An independent enumeration of all **56 three-vertex sets** confirms that the maximum is two. A future playground change could show the exact maximum and the logarithmic bound as separate quantities. This review changes the proof repository's documentation, not the playground.
+For three vertices `{0,1,2}` of the 3-cube, that revision's own counting code gives two internal edges and five boundary edges. Its displayed upper bound is `2.377443751081734`, so its status logic reports a shortfall of about `0.38`. But `h(3)=2`: the selected set is optimal. An independent enumeration of all **56 three-vertex sets** confirms that the maximum is two. The follow-up linked above corrects the display and labels this set optimal.
 
 ## Bounded computation checks
 
