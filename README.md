@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, the two-wave heat-to-gap maps for continuous flow and the exact discrete step, and an amplitude map preserving motion and the actual ring flip are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 520 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, the two-wave heat-to-gap maps for continuous flow and the exact discrete step, an amplitude map preserving motion and the actual ring flip, and a same-sign obstruction for global amplitude readouts are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 527 statements.
 
 Author: NousVolition.
 
@@ -193,6 +193,27 @@ On an active pair, a positive amplitude scaling exists if and only if both multi
 The concrete four-dot example uses the flat and alternating modes with coefficients `2` and `−1`. Its initial heights are `8` and `8/3`, and its continuous pole time is `log(2)/4`. An actual heat step `τ = 1/16` has `r = 4/3`, `Δ = log(4/3)/4`, and heights `12` and `12/5`.
 
 This map retains signed amplitudes and depends on the chosen mode normalization. Its toy gap and discrete factor differ from the earlier cost/size two-wave map, which remains unchanged. The classification covers this construction and the stated linear class; it does not claim that these exhaust all possible nonlinear maps.
+
+## Same-sign obstruction for global amplitude readouts
+
+`TwoWaveReadoutObstruction.lean` proves the proposed obstruction for every real-valued amplitude readout `W` satisfying these two laws, with real rates `l ≠ m`:
+
+```
+∀ a b t, W (a * exp(-l*t)) (b * exp(-m*t)) = exp(-g*t) * W a b
+∀ a b,   W b a = -W a b.
+```
+
+The conclusion is `W a b = 0` whenever `a*b > 0`, covering both strictly positive and strictly negative pairs. No continuity, smoothness, measurability, linearity, or positivity of the rates is assumed. The motion hypothesis quantifies over every real time and every real pair of coefficients.
+
+At `t* = log(b/a)/(m-l)`, the two evolved coefficients agree. Antisymmetry forces `W` to vanish on that diagonal; the nonzero exponential motion factor then forces its original value to vanish. This proves that same-sign collapse is forced throughout the stated global class, beyond the particular oriented-product map. It does not classify arbitrary readouts defined only on restricted time or state domains. The equal-rate example `W(a,b) = a-b`, with `l=m=g`, shows why unequal rates are essential.
+
+All seven theorems, including the meeting-time identity, both sign cases, and the equal-rate counterexample, are included in `CheckAxioms.lean`.
+
+### Credits for the two-wave work
+
+- **Codex:** mathematical proof and Lean verification.
+- **Claude:** the claim that the same-sign collapse is forced, and the theorem statement.
+- **NousVolition:** project direction and connecting the two conversations, carrying the question, claim, statement, and proofs between them.
 
 ## Hypercube isoperimetric inequality
 

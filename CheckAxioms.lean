@@ -9,6 +9,7 @@ import FourDotGapBridge
 import TwoWaveGapBridge
 import TwoWaveDiscreteGapBridge
 import TwoWaveFlipBridge
+import TwoWaveReadoutObstruction
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -317,6 +318,13 @@ import EdgeOptimal
 #print axioms TwoWaveFlipBridge.concrete_readouts
 #print axioms TwoWaveFlipBridge.concrete_both
 #print axioms TwoWaveFlipBridge.concrete_step
+#print axioms TwoWaveReadoutObstruction.diagonal_zero
+#print axioms TwoWaveReadoutObstruction.meeting_time
+#print axioms TwoWaveReadoutObstruction.zero_of_same_sign
+#print axioms TwoWaveReadoutObstruction.zero_of_positive
+#print axioms TwoWaveReadoutObstruction.zero_of_negative
+#print axioms TwoWaveReadoutObstruction.proposed_statement
+#print axioms TwoWaveReadoutObstruction.equal_rates_counterexample
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ
