@@ -1,6 +1,6 @@
 name = "DiscreteGapInequalities"
 version = "0.1.0"
-defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "CheckAxioms"]
+defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "E8CostMirror", "CheckAxioms"]
 
 [[require]]
 name = "mathlib"
@@ -85,6 +85,9 @@ name = "EdgeOptimal"
 
 [[lean_lib]]
 name = "E8PlumbingBridge"
+
+[[lean_lib]]
+name = "E8CostMirror"
 
 [[lean_lib]]
 name = "CheckAxioms"

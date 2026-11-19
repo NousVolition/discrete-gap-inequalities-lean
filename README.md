@@ -20,13 +20,14 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): different Golay generator; formal correspondence remains unproved. |
 | [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): exact cube maximum and optimality labels, with the logarithmic upper bound shown separately. |
 | [The E₈ plumbing matrix](E8PlumbingBridge.lean) | **Proved** | 8 | — |
+| [The E₈ cost mirror](E8CostMirror.lean) | **Proved** | 1 | — |
 | The gap toy's mirror in [rational](GapMirror.lean) and [real-time](GapMirrorCalculus.lean) forms | **Proved — for the explicit scalar model** | 31 | — |
 | The [exact clock](GapMirrorBridge.lean) and [even-ring reflection](RingGapBridge.lean) bridges | **Proved — with different motion scopes; see below** | 47 | — |
 | [The four-dot map preserving both motion and reflection](FourDotGapBridge.lean) | **Proved — for the specified four-dot family** | 26 | — |
 | The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
-| **Total** | | **551** | Includes 16 statements for the six-point path gap. |
+| **Total** | | **552** | Includes 16 statements for the six-point path gap. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
@@ -38,7 +39,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) lists all **551 named statements**. All 32 project modules passed local Lean compilation, and the complete 551-statement axiom audit passed; the [verification record](docs/path-six-verification.json) includes the pinned versions and source hashes. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists all **552 named statements**. The [six-point path verification record](docs/path-six-verification.json) documents the preceding 32-module build and its successful 551-statement axiom audit, including the pinned versions and source hashes. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -507,6 +508,12 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 | `total_E8_roots` | those two counts add to 240 |
 
 **File.** `E8PlumbingBridge.lean` (namespace `E8PlumbingBridge`). 8 results.
+
+## The E₈ cost mirror
+
+The cost uses the negative of the E₈ plumbing matrix. Flipping the values on one side of the tree preserves each node’s own contribution and reverses the contribution from each edge. For every assignment of real values to the eight nodes, `E8CostMirror.cost_pair` proves
+
+$$Q(x) + Q(\mathrm{flip}(x)) = 4 \sum_{i=0}^{7} x_i^2.$$
 
 ## Build
 

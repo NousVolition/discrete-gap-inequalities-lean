@@ -1,6 +1,6 @@
 # Playground connections and proof coverage
 
-The [Sparkle Sand Playground](https://nousvolition.github.io/sparkle-sand-playground/) supplies numerical examples for several results in the README. The numerical review below added no Lean theorem. The project now contains **551 named statements**, including the eight E₈ statements and the 16 in the [six-point path proof](path-six-gap.md).
+The [Sparkle Sand Playground](https://nousvolition.github.io/sparkle-sand-playground/) supplies numerical examples for several results in the README. The numerical review below added no Lean theorem. The project now contains **552 named statements**, including the eight E₈ plumbing statements, the [E₈ cost mirror](../E8CostMirror.lean), and the 16 in the [six-point path proof](path-six-gap.md).
 
 The reviewed [playground source](https://github.com/NousVolition/sparkle-sand-playground/blob/03ef852cce4ae0d2cdb2319c413b6755bcf6e593/index.html) is commit `03ef852cce4ae0d2cdb2319c413b6755bcf6e593`. The deployed HTML fetched during the review matched that source after normalizing line endings. Its normalized SHA256 is `b5eb5238b1aef886b42dc3a342540ac150aa8eb1398311afdec2a74475a40fc2`.
 

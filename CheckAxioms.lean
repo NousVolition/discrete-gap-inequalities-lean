@@ -24,6 +24,7 @@ import Unify
 import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
+import E8CostMirror
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -589,3 +590,6 @@ import E8PlumbingBridge
 #print axioms E8PlumbingBridge.card_spinor_roots
 #print axioms E8PlumbingBridge.card_integer_roots
 #print axioms E8PlumbingBridge.total_E8_roots
+
+-- E8 cost mirror
+#print axioms E8CostMirror.cost_pair
