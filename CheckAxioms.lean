@@ -603,3 +603,5 @@ import GolayLeechBridge
 #print axioms GolayLeechBridge.leech_shape2_eq
 #print axioms GolayLeechBridge.leech_kissing_decomposition
 #print axioms GolayLeechBridge.E8_and_Leech_summary
+#print axioms GolayLeechBridge.golayWeightCount_eq_code
+#print axioms GolayLeechBridge.leech_kissing_from_code

@@ -27,8 +27,8 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
-| [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — arithmetic on hand-entered Golay counts** | 7 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
-| **Total** | | **559** | Includes 16 statements for the six-point path gap. |
+| [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — tied to the proved Golay counts** | 9 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
+| **Total** | | **561** | Includes 16 statements for the six-point path gap. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
@@ -473,7 +473,7 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 
 ## The Golay-to-Leech counting bridge
 
-`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are entered by hand as a table; the same counts are proved from the generator matrix in `GolayMatrixDistance.lean`, but this file does not yet import that result. Nothing here builds the Leech lattice itself.
+`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are written out as a table so the arithmetic stays quick, and `golayWeightCount_eq_code` proves the table is exactly the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`. So the 196,560 count rests on the proved code, not on typed-in numbers. Nothing here builds the Leech lattice itself, or proves that the three shells are exactly its shortest vectors.
 
 | Result | Statement |
 |---|---|
@@ -484,10 +484,12 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 | `leech_shape2_eq` | the `(∓3)(±1)²³` shell has 4,096 × 24 = 98,304 vectors |
 | `leech_kissing_decomposition` | the three shells add up to 196,560 |
 | `E8_and_Leech_summary` | the E₈ root count 28 × 4 + 128 = 240, stated next to the 196,560 count |
+| `golayWeightCount_eq_code` | the weight table equals the proved weight distribution of the code in `GolayMatrixDistance.lean` |
+| `leech_kissing_from_code` | the three shells add up to 196,560 using the proved code counts directly |
 
-Every proof is `decide` or `rfl`.
+The proofs use `decide` or `rfl`; the two links to the code rewrite with `golay_weight_distribution` first.
 
-**File.** `GolayLeechBridge.lean` (namespace `GolayLeechBridge`). 7 results.
+**File.** `GolayLeechBridge.lean` (namespace `GolayLeechBridge`). 9 results.
 
 ## Edge-optimal sets of the hypercube
 

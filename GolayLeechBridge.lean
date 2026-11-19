@@ -2,6 +2,7 @@
 Copyright © 2026 NousVolition. All rights reserved.
 -/
 import Mathlib
+import GolayMatrixDistance
 
 /-!
 # Counting Bridge: the 24-Bit Extended Golay Code and the 24D Leech Lattice
@@ -11,11 +12,13 @@ This file checks the **arithmetic** behind the standard description of the
 (`Λ₂₄`), in coordinates built from the **Extended Binary Golay Code** on
 `Cube 24 := Fin 24 → Bool`.
 
-What is proved here: the counts add up. The weight counts `1, 759, 2576, 759, 1` of the
-Golay code are entered by hand (as the table `golayWeightCount`), and every theorem below is
-arithmetic on those numbers. Nothing here constructs the Golay code or the Leech lattice, or
-proves that these are their true counts. A first-principles version would define the code from
-a generator matrix, enumerate its `4,096` codewords, and count weights.
+What is proved here: the counts add up, and the Golay counts they use are the proved ones.
+The weight counts `1, 759, 2576, 759, 1` are written out as the table `golayWeightCount` so the
+arithmetic stays quick to check. `golayWeightCount_eq_code` then shows that this table is exactly
+the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`, where all
+`4,096` codewords are counted. `leech_kissing_from_code` states the `196,560` count directly in
+terms of those proved counts. Nothing here constructs the Leech lattice itself, or proves that the
+three shells are exactly its shortest vectors.
 
 The three shells (coordinates scaled by `√8`, so each vector has squared length 32):
 * **`(±4)² 0²²` (`1,104`):** any `Nat.choose 24 2 = 276` coordinate pairs, `2²` sign choices.
@@ -31,7 +34,7 @@ namespace GolayLeechBridge
 abbrev Cube (n : ℕ) := Fin n → Bool
 
 /-- Extended Binary Golay Code codeword counts by Hamming weight (`0, 8, 12, 16, 24`),
-entered by hand (the standard values; not derived in this file). -/
+written out as a table; `golayWeightCount_eq_code` shows it matches the proved code counts. -/
 def golayWeightCount (w : ℕ) : ℕ :=
   match w with
   | 0 => 1
@@ -85,6 +88,25 @@ link between them (E₈ from the Hamming code, the Golay code from three copies 
 code, the Leech lattice from the Golay code) is not formalized here. -/
 theorem E8_and_Leech_summary :
     (Nat.choose 8 2 * 2 ^ 2 + 2 ^ 7 = 240) ∧ (leechKissingNumber = 196560) := by
+  decide
+
+/-- **The table is the proved code:** the written-out weight table equals the weight
+distribution of the code built from the generator matrix in `GolayMatrixDistance.lean`
+(weights `0, 8, 12, 16, 24`). -/
+theorem golayWeightCount_eq_code :
+    (golayWeightCount 0, golayWeightCount 8, golayWeightCount 12,
+      golayWeightCount 16, golayWeightCount 24) = GolayMatrixDistance.weightCounts := by
+  rw [GolayMatrixDistance.golay_weight_distribution]
+  rfl
+
+/-- **The 196,560 count from the proved code:** reading the octad count and the total number
+of codewords straight from the proved weight distribution, the three shells add up to `196,560`. -/
+theorem leech_kissing_from_code :
+    Nat.choose 24 2 * 2 ^ 2 + GolayMatrixDistance.weightCounts.2.1 * 2 ^ 7 +
+      (GolayMatrixDistance.weightCounts.1 + GolayMatrixDistance.weightCounts.2.1 +
+        GolayMatrixDistance.weightCounts.2.2.1 + GolayMatrixDistance.weightCounts.2.2.2.1 +
+        GolayMatrixDistance.weightCounts.2.2.2.2) * 24 = 196560 := by
+  rw [GolayMatrixDistance.golay_weight_distribution]
   decide
 
 end GolayLeechBridge
