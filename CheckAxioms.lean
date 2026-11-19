@@ -5,6 +5,7 @@ import GapMirror
 import GapMirrorCalculus
 import GapMirrorBridge
 import RingGapBridge
+import FourDotGapBridge
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -132,6 +133,32 @@ import EdgeOptimal
 #print axioms RingGapBridge.six_wave_height
 #print axioms RingGapBridge.six_wave_heat_height
 #print axioms RingGapBridge.six_wave_gap_rate
+#print axioms FourDotGapBridge.shape_flip
+#print axioms FourDotGapBridge.shape_heat
+#print axioms FourDotGapBridge.pattern_flip
+#print axioms FourDotGapBridge.pattern_heat
+#print axioms FourDotGapBridge.amplitude_zero
+#print axioms FourDotGapBridge.amplitude_neg
+#print axioms FourDotGapBridge.amplitude_deriv
+#print axioms FourDotGapBridge.flow_zero
+#print axioms FourDotGapBridge.flow_flip
+#print axioms FourDotGapBridge.continuous_heat
+#print axioms FourDotGapBridge.readout_pattern
+#print axioms FourDotGapBridge.readout_flow
+#print axioms FourDotGapBridge.height_above_two
+#print axioms FourDotGapBridge.height_reflection
+#print axioms FourDotGapBridge.height_dilation
+#print axioms FourDotGapBridge.motion
+#print axioms FourDotGapBridge.readout_solves
+#print axioms FourDotGapBridge.pole_time_pos
+#print axioms FourDotGapBridge.amplitude_before_pole
+#print axioms FourDotGapBridge.amplitude_at_pole
+#print axioms FourDotGapBridge.pole_eq_blowTime
+#print axioms FourDotGapBridge.preserves_motion_and_reflection
+#print axioms FourDotGapBridge.both_readouts_solve
+#print axioms FourDotGapBridge.readout_blows_up
+#print axioms FourDotGapBridge.flipped_at_pole
+#print axioms FourDotGapBridge.ring_regular_at_pole
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ

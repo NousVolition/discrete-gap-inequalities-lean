@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, and the exact clock and even-ring reflection bridges are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 339 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, and the four-dot map preserving both motion and reflection are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 365 statements.
 
 Author: NousVolition.
 
@@ -87,7 +87,24 @@ height g (flip f) = GapMirrorCalculus.mirror g (height g f)
 
 Thus flipping the ring produces exactly the mirror of its assigned bump. Equivalently, `z = 1 - g / height` equals `1 - cost / (2 * size)` and changes sign under the flip. This is a proved algebraic connection through an explicit observable. Zero and maximal cost are excluded from the finite positive pair interpretation.
 
-**Motion.** This map preserves reflection but does not preserve the usual ring heat evolution. `height_scale` proves that nonzero rescaling leaves the assigned height unchanged. The checked six-point wave `(1, 1/2, -1/2, -1, -1/2, 1/2)` has mean zero, size and cost both 3, and discrete Laplacian `-f`. Its heat update, using exactly the defining formula of `RingDecay.heatStep`, keeps its assigned height at `2*g` for every step size other than 1, including the repository's range `0 <= t <= 1/4` (`six_wave_heat_height`). The gap rule at that height has positive rate `2*g^2` (`six_wave_gap_rate`). No further dynamics proof is needed for the reflection result; a claim of shared motion would need a different map or evolution rule. This file checks the explicit heat-update formula without importing the full Fourier proof in `RingDecay.lean`.
+**Motion.** This map preserves reflection but does not preserve the usual ring heat evolution. `height_scale` proves that nonzero rescaling leaves the assigned height unchanged. The checked six-point wave `(1, 1/2, -1/2, -1, -1/2, 1/2)` has mean zero, size and cost both 3, and discrete Laplacian `-f`. Its heat update, using exactly the defining formula of `RingDecay.heatStep`, keeps its assigned height at `2*g` for every step size other than 1, including the repository's range `0 <= t <= 1/4` (`six_wave_heat_height`). The gap rule at that height has positive rate `2*g^2` (`six_wave_gap_rate`). No further dynamics proof is needed for the reflection result; a claim of shared motion needs a different map or evolution rule. The amplitude map in `FourDotGapBridge.lean` below provides such a map for a four-dot family. This file checks the explicit heat-update formula without importing the full Fourier proof in `RingDecay.lean`.
+
+## Four dots: preserving both motion and reflection
+
+[FourDotGapBridge.lean](FourDotGapBridge.lean) proves 26 statements for the ring family `pattern a = (0, a, 0, -a)`. It retains signed amplitude and uses the existing alternating flip from `RingGapBridge`. The explicit continuous heat solution has amplitude `a(t) = a0 * exp(-2*t)`; `continuous_heat` checks the heat equation at every dot, including the periodic neighbors.
+
+With gap `g = 2`, the readout is `U(a) = 2*a/(a-1)`. On this family it reads the amplitude directly from dot 1. For `a0 > 1` and `0 <= t < T`, where `T = log(a0)/2`, `preserves_motion_and_reflection` proves:
+
+```
+readout (flow a0 t) = GapMirrorCalculus.bump 2 (height a0) t
+readout (flip (flow a0 t)) = GapMirrorCalculus.mirror 2 (readout (flow a0 t))
+```
+
+The flipped trajectory also equals the bump started from the mirrored initial height. Both readouts satisfy `u' = u^2 - 2*u` with the same real clock (`both_readouts_solve`). The upper height stays above 2 and its partner stays strictly between 1 and 2 before the pole. The identity `height_dilation` also connects the amplitude change to the existing real growth-factor formula.
+
+`pole_eq_blowTime` identifies `T` with the gap toy's blow-up time. At `T`, the upper readout diverges from the left (`readout_blows_up`) and the flipped readout equals 1 (`flipped_at_pole`). The ring itself reaches `(0, 1, 0, -1)` continuously (`ring_regular_at_pole`). Thus the singularity is in the readout, while the ring heat trajectory remains regular.
+
+This is an exact correspondence on the stated family for continuous heat, with fixed gap 2. It does not identify an Euler step with continuous heat at the same duration, nor all ring patterns with scalar bumps. The map is different from the amplitude-independent cost/size map in `RingGapBridge.lean`. The finite-height interpretation excludes the pole; Lean's totalized division value at the pole is not an infinite height.
 
 ## Hypercube isoperimetric inequality
 
