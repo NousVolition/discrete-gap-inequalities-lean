@@ -2,30 +2,39 @@
 
 This repository contains Lean proofs of gap inequalities and their consequences for smoothing and storage.
 
-The project includes:
+Every item below has checked Lean proofs. **Proved** refers to the formal statements with their stated hypotheses. The counts include supporting lemmas.
 
-- The four original packages
-- The ring decay proof
-- The vertex-isoperimetric proof
-- The polygon isoperimetric inequality
-- The cube's gap with Cheeger's inequality
-- Short bridges connecting the cycle, polygon and cube
-- The gap of the grid made of two rings
-- The wall and the push
-- Harper stage 1 (the squash lemma)
-- The one-floor reading that restates the wave, patch and shape
-- The extended binary Golay code
-- The edge-optimal sets of the hypercube
-- The gap toy's mirror in rational and real-time forms
-- The exact clock and even-ring reflection bridges
-- The four-dot map preserving both motion and reflection
-- The two-wave heat-to-gap maps for continuous flow and the exact discrete step
-- An amplitude map preserving motion and the actual ring flip
-- A same-sign obstruction for global amplitude readouts
+| Result | Proof status | Checked statements |
+| --- | --- | ---: |
+| Four original packages: [Poincaré](Poincare.lean), [Wirtinger](Wirtinger.lean), [Hug gap](Gap.lean) and [hypercube edge-isoperimetric inequality](Isoperimetric.lean) | **Proved** | 47 |
+| [Ring decay proof](RingDecay.lean) | **Proved** | 14 |
+| [Vertex-isoperimetric proof](HarperSquash.lean) | **Proved — full Harper theorem** | 21 |
+| [Polygon isoperimetric inequality](Polygon.lean) | **Proved** | 10 |
+| [The cube's gap with Cheeger's inequality](CubeCheeger.lean) | **Proved — cube gap and Cheeger's easy direction** | 17 |
+| [Short bridges connecting the cycle, polygon and cube](Bridges.lean) | **Proved** | 5 |
+| [The gap of the grid made of two rings](Torus.lean) | **Proved** | 31 |
+| [The wall and the push](WallPush.lean) | **Proved — for the defined models** | 52 |
+| [Harper stage 1: the squash lemma](Harper.lean) | **Proved — conditional lemma** | 18 |
+| [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 |
+| [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 |
+| [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 |
+| The gap toy's mirror in [rational](GapMirror.lean) and [real-time](GapMirrorCalculus.lean) forms | **Proved — for the explicit scalar model** | 31 |
+| The [exact clock](GapMirrorBridge.lean) and [even-ring reflection](RingGapBridge.lean) bridges | **Proved — with different motion scopes; see below** | 47 |
+| [The four-dot map preserving both motion and reflection](FourDotGapBridge.lean) | **Proved — for the specified four-dot family** | 26 |
+| The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 |
+| [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 |
+| [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 |
+| **Total** | | **527** |
+
+A few scope distinctions matter:
+
+- **Harper stage 1** proves the squash lemma assuming two results in the lower dimension: neighborhoods of initial segments are initial segments, and initial segments minimize neighborhoods. The separate `HarperSquash` package proves the full theorem.
+- **The exact clock bridge** connects the rational and real-time scalar models. **The even-ring cost/size map** preserves reflection but does not preserve ordinary heat motion; the file proves a counterexample. The later four-dot and amplitude constructions prove motion and reflection together for their stated families.
+- **The same-sign obstruction** assumes heat covariance for every real time and every coefficient pair, antisymmetry, and unequal rates. It requires no continuity assumption. Arbitrary readouts on restricted time or state domains are outside that theorem.
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-`CheckAxioms.lean` prints the axioms of all 527 statements.
+[CheckAxioms.lean](CheckAxioms.lean) prints the axioms of all **527 named statements**. The [Lean build and axiom audit passed](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44469764528) for commit [`3e2226e`](https://github.com/NousVolition/discrete-gap-inequalities-lean/commit/3e2226e2af6b356b6c1bf47ab931cbeedcc33f66). The [audit](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports. The proof sources are unchanged by this README update.
 
 Author: NousVolition.
 
