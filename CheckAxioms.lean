@@ -7,6 +7,7 @@ import GapMirrorBridge
 import RingGapBridge
 import FourDotGapBridge
 import TwoWaveGapBridge
+import TwoWaveDiscreteGapBridge
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -215,6 +216,46 @@ import EdgeOptimal
 #print axioms TwoWaveGapBridge.rough4_eigen
 #print axioms TwoWaveGapBridge.four_mode_data
 #print axioms TwoWaveGapBridge.concrete_signed_event
+#print axioms TwoWaveDiscreteGapBridge.factor_square
+#print axioms TwoWaveDiscreteGapBridge.factor_pos
+#print axioms TwoWaveDiscreteGapBridge.forward_multipliers
+#print axioms TwoWaveDiscreteGapBridge.stable_multiplier
+#print axioms TwoWaveDiscreteGapBridge.factor_gt_one
+#print axioms TwoWaveDiscreteGapBridge.clock_pos
+#print axioms TwoWaveDiscreteGapBridge.zero_step
+#print axioms TwoWaveDiscreteGapBridge.clock_factor
+#print axioms TwoWaveDiscreteGapBridge.sample_clock_factor
+#print axioms TwoWaveDiscreteGapBridge.sample_energy_zero
+#print axioms TwoWaveDiscreteGapBridge.sample_energy_pos
+#print axioms TwoWaveDiscreteGapBridge.sample_energy_factor
+#print axioms TwoWaveDiscreteGapBridge.ordinary_reduced
+#print axioms TwoWaveDiscreteGapBridge.signed_reduced
+#print axioms TwoWaveDiscreteGapBridge.ordinary_sample
+#print axioms TwoWaveDiscreteGapBridge.signed_sample
+#print axioms TwoWaveDiscreteGapBridge.ordinary_motion
+#print axioms TwoWaveDiscreteGapBridge.signed_motion
+#print axioms TwoWaveDiscreteGapBridge.ordinary_one_step
+#print axioms TwoWaveDiscreteGapBridge.signed_one_step
+#print axioms TwoWaveDiscreteGapBridge.sample_mirror
+#print axioms TwoWaveDiscreteGapBridge.signed_denominator
+#print axioms TwoWaveDiscreteGapBridge.pole_at_sample_iff
+#print axioms TwoWaveDiscreteGapBridge.before_pole_iff
+#print axioms TwoWaveDiscreteGapBridge.pole_clock_iff
+#print axioms TwoWaveDiscreteGapBridge.before_index_iff
+#print axioms TwoWaveDiscreteGapBridge.signed_regular_before
+#print axioms TwoWaveDiscreteGapBridge.heat_step_mix
+#print axioms TwoWaveDiscreteGapBridge.iterate_heat_mix
+#print axioms TwoWaveDiscreteGapBridge.sample_coefficient_energy
+#print axioms TwoWaveDiscreteGapBridge.iterate_size
+#print axioms TwoWaveDiscreteGapBridge.iterate_cost
+#print axioms TwoWaveDiscreteGapBridge.iterate_readout
+#print axioms TwoWaveDiscreteGapBridge.iterate_motion
+#print axioms TwoWaveDiscreteGapBridge.heat_step_readout
+#print axioms TwoWaveDiscreteGapBridge.iterate_signed_mirror
+#print axioms TwoWaveDiscreteGapBridge.killed_rough_mode
+#print axioms TwoWaveDiscreteGapBridge.concrete_clock
+#print axioms TwoWaveDiscreteGapBridge.concrete_hits_pole
+#print axioms TwoWaveDiscreteGapBridge.concrete_skips_pole
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ

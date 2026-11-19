@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, and the two-wave heat-to-gap map are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 420 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, and the two-wave heat-to-gap maps for continuous flow and the exact discrete step are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 460 statements.
 
 Author: NousVolition.
 
@@ -133,6 +133,29 @@ The positive squared sizes cross at exactly one real time, `T = log(Q0/P0)/g` (`
 At a future pole, the ordinary readout equals `g/2`, while every ring coordinate remains continuous (`ring_signed_event`). A flat/alternating four-dot example proves that the eigenmode and orthogonality assumptions are realizable: its initial squared sizes are 4 and 16, its gap is 8, and its ordinary readout is 4 at the signed pole (`concrete_signed_event`). Pure rough and pure smooth readouts are respectively `g` and 0. `flat_gap` proves that a flat mode paired with eigenvalue `lr` gives scalar gap `2*lr`.
 
 The generic ring theorems state their eigenmode and orthogonality hypotheses explicitly. The signed mirror here is a readout of the specified decomposition, not the alternating ring flip. The clock is continuous heat; no equivalence with an Euler step of the same duration is asserted. Blow-up is a one-sided limit of the signed readout, while the heat trajectory remains regular; Lean's totalized division value at the pole is not a finite-height continuation.
+
+## Exact two-wave map for discrete heat
+
+`TwoWaveDiscreteGapBridge.lean` proves the map for the repository's actual `RingDecay.heatStep τ`, including every integer iterate. There are 40 checked theorems. For orthogonal eigenmodes with eigenvalues `λs < λr`, initial squared sizes `P,Q > 0`, and gap `g = 2(λr − λs)`, set
+
+```
+cs = 1 − τ λs                 cr = 1 − τ λr
+r  = cs² / cr²                Δ = log(r) / g
+Pk = cs^(2k) P                Qk = cr^(2k) Q
+```
+
+The proof derives these mode sizes from actual heat-step iteration. When both multipliers are nonzero, the ordinary readout `u = 2(cost/size − λs) = g Q/(P+Q)` satisfies
+
+```
+u(heatStep τ f) = realStep g r (u f)
+u((heatStep τ)^k f) = bump g (u f) (k Δ).
+```
+
+Thus the exact toy clock is `k log(r)/g`; the heat clock is `k τ`. For example, the flat and alternating four-dot modes with `τ = 1/8` have `g = 8`, `r = 4`, and `Δ = log(4)/8`. For positive steps with `cr > 0`, the theorem proves `r > 1` and `Δ > 0`. The strict stable heat range `0 ≤ τ < 1/4` guarantees `cr > 0` when `λr ≤ 4`; a zero step has `r = 1` and `Δ = 0`.
+
+The signed readout is `s_k = g Q/(Q − P r^k)`, the gap mirror of the ordinary readout at each sample. For `0 < P < Q`, regular evolution before its pole is exactly `P r^k < Q`. Its toy pole time is `log(Q/P)/g`, and its real-valued step index is `log(Q/P)/log(r)`. A discrete sample hits the pole precisely when `P r^k = Q`. The checked four-dot examples distinguish landing on the pole (`τ = 1/8`, `P = 4`, `Q = 16`) from skipping it (`τ = 3/16`): in the latter, the signed values jump from `32/3` to `−8/3`, the toy pole lies strictly between samples 0 and 1, and every integer sample has a nonzero denominator. The ordinary readout remains finite at the sampled pole and equals `g/2`.
+
+If `cr = 0`, one actual heat step removes the rough mode. The finite-factor and finite-clock theorems explicitly exclude that endpoint. Algebraic identities use Lean's totalized division; the strict pre-pole statements establish the domain of regular motion. Reflection here is `GapMirrorCalculus.mirror` between the ordinary and signed readouts.
 
 ## Hypercube isoperimetric inequality
 
