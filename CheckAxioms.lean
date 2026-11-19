@@ -25,6 +25,7 @@ import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
 import E8CostMirror
+import GolayLeechBridge
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -593,3 +594,12 @@ import E8CostMirror
 
 -- E8 cost mirror
 #print axioms E8CostMirror.cost_pair
+
+-- Golay to Leech counting bridge
+#print axioms GolayLeechBridge.golay_total_codewords
+#print axioms GolayLeechBridge.golay_octad_count
+#print axioms GolayLeechBridge.leech_shape3_eq
+#print axioms GolayLeechBridge.leech_shape1_eq
+#print axioms GolayLeechBridge.leech_shape2_eq
+#print axioms GolayLeechBridge.leech_kissing_decomposition
+#print axioms GolayLeechBridge.E8_and_Leech_summary

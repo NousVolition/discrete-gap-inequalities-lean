@@ -27,7 +27,8 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
-| **Total** | | **552** | Includes 16 statements for the six-point path gap. |
+| [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — arithmetic on hand-entered Golay counts** | 7 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
+| **Total** | | **559** | Includes 16 statements for the six-point path gap. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
@@ -469,6 +470,24 @@ Heat here is just heat: the energy given off.
 The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 
 **File.** `GolayMatrixDistance.lean` (namespace `GolayMatrixDistance`). 5 results.
+
+## The Golay-to-Leech counting bridge
+
+`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are entered by hand as a table; the same counts are proved from the generator matrix in `GolayMatrixDistance.lean`, but this file does not yet import that result. Nothing here builds the Leech lattice itself.
+
+| Result | Statement |
+|---|---|
+| `golay_total_codewords` | the weight table adds up to 2¹² = 4,096 |
+| `golay_octad_count` | the table lists 759 octads (weight-8 codewords) |
+| `leech_shape3_eq` | the `(±4)² 0²²` shell has 276 × 4 = 1,104 vectors |
+| `leech_shape1_eq` | the octad shell `(±2)⁸ 0¹⁶` has 759 × 2⁷ = 97,152 vectors |
+| `leech_shape2_eq` | the `(∓3)(±1)²³` shell has 4,096 × 24 = 98,304 vectors |
+| `leech_kissing_decomposition` | the three shells add up to 196,560 |
+| `E8_and_Leech_summary` | the E₈ root count 28 × 4 + 128 = 240, stated next to the 196,560 count |
+
+Every proof is `decide` or `rfl`.
+
+**File.** `GolayLeechBridge.lean` (namespace `GolayLeechBridge`). 7 results.
 
 ## Edge-optimal sets of the hypercube
 
