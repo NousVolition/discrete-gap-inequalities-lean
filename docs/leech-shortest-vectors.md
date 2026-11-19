@@ -53,8 +53,8 @@ To check that historical record, check out commit `8dea8004e700f5ddd9eeea942ab95
 
 The audit parser also now handles theorem names ending in an apostrophe, including the existing `LeechLattice.sum_add'` and `sum_neg'`. Its five regression checks cover these names, axiom-free proofs, nonstandard axioms, missing reports and an empty inventory: `python3 .github/test_check_axioms.py`. CI runs these checks before the Lean build.
 
-## Scope that remains open
+## Scope and later results
 
-This proves the shortest-vector classification and count for `InLeech`/`leechLattice`. It does not prove the lattice's volume/determinant or its symmetry group, nor does it formalize a separate Euclidean sphere-packing construction.
+This proves the shortest-vector classification and count for `InLeech`/`leechLattice`. [LeechBasis.lean](../LeechBasis.lean), added later in commit `14518ce7be879b30310e0cc6c1c32d70318b232e`, proves the basis determinant `8^12` and the lattice's unimodularity and evenness after rescaling. The symmetry group and a separate Euclidean sphere-packing construction remain outside these proofs.
 
 The [playground's Leech page](https://nousvolition.github.io/sparkle-sand-playground/#leech) uses a different, modulo-23 Golay generator. The [coordinate correspondence is now proved](playground-golay.md), and the existing minimum-length and shortest-vector results transfer to that code’s lattice. The actual JavaScript outputs have a separate reproducible check; browser execution and displayed trajectories are not formalized.
