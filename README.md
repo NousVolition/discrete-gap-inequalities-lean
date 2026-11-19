@@ -2,7 +2,30 @@
 
 This repository contains Lean proofs of gap inequalities and their consequences for smoothing and storage.
 
-The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, the two-wave heat-to-gap maps for continuous flow and the exact discrete step, an amplitude map preserving motion and the actual ring flip, and a same-sign obstruction for global amplitude readouts are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 527 statements.
+The project includes:
+
+- The four original packages
+- The ring decay proof
+- The vertex-isoperimetric proof
+- The polygon isoperimetric inequality
+- The cube's gap with Cheeger's inequality
+- Short bridges connecting the cycle, polygon and cube
+- The gap of the grid made of two rings
+- The wall and the push
+- Harper stage 1 (the squash lemma)
+- The one-floor reading that restates the wave, patch and shape
+- The extended binary Golay code
+- The edge-optimal sets of the hypercube
+- The gap toy's mirror in rational and real-time forms
+- The exact clock and even-ring reflection bridges
+- The four-dot map preserving both motion and reflection
+- The two-wave heat-to-gap maps for continuous flow and the exact discrete step
+- An amplitude map preserving motion and the actual ring flip
+- A same-sign obstruction for global amplitude readouts
+
+The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
+
+`CheckAxioms.lean` prints the axioms of all 527 statements.
 
 Author: NousVolition.
 
