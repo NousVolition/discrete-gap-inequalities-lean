@@ -27,6 +27,7 @@ import E8PlumbingBridge
 import E8CostMirror
 import GolayLeechBridge
 import LeechLattice
+import LeechKissing
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -651,3 +652,55 @@ import LeechLattice
 #print axioms LeechLattice.vecFour_not_mem
 #print axioms LeechLattice.vecOnes_not_mem
 #print axioms LeechLattice.leech_min_norm
+
+-- Leech shortest-vector classification and counts (private helpers are included transitively)
+#print axioms LeechMinimal.sum_of_signed_support
+#print axioms LeechMinimal.norm_of_signed_support
+#print axioms LeechMinimal.coordinate_sq_le
+#print axioms LeechMinimal.four_classification
+#print axioms LeechMinimal.octad_classification
+#print axioms LeechMinimal.odd_classification
+#print axioms LeechMinimal.minimal_classification
+#print axioms LeechMinimal.four_mem_norm
+#print axioms LeechMinimal.octad_mem_norm
+#print axioms LeechMinimal.oddVector_residue
+#print axioms LeechMinimal.oddVector_norm
+#print axioms LeechMinimal.oddVector_sum
+#print axioms LeechMinimal.oddVector_mem
+#print axioms LeechMinimal.odd_mem_norm
+#print axioms LeechMinimal.minimal_iff
+#print axioms LeechCodeCounts.word_encode_injective
+#print axioms LeechCodeCounts.encodeWord_bijective
+#print axioms LeechCodeCounts.card_codeword
+#print axioms LeechCodeCounts.blockCounts_eight
+#print axioms LeechCodeCounts.weightCounts_eight
+#print axioms LeechCodeCounts.weightCounts_eight_sum
+#print axioms LeechCodeCounts.card_octad_eq_weightCounts
+#print axioms LeechCodeCounts.card_octad
+#print axioms LeechSignVectors.signedVector_values
+#print axioms LeechSignVectors.signedVector_support
+#print axioms LeechSignVectors.signedVector_recover
+#print axioms LeechSignVectors.signedVector_injective
+#print axioms LeechSignVectors.signedVector_negative_card
+#print axioms LeechSignVectors.evenSigns_precomp
+#print axioms LeechSignVectors.card_evenSigns_eight
+#print axioms LeechMinimal.fourMap_bijective
+#print axioms LeechMinimal.card_four_params
+#print axioms LeechMinimal.card_four
+#print axioms LeechMinimal.oddVector_injective
+#print axioms LeechMinimal.oddMap_bijective
+#print axioms LeechMinimal.card_odd
+#print axioms LeechMinimal.signed_two_residue
+#print axioms LeechMinimal.octad_support
+#print axioms LeechMinimal.octadMap_bijective
+#print axioms LeechMinimal.card_octad_params
+#print axioms LeechMinimal.card_octad_vectors
+#print axioms LeechMinimal.four_octad_disjoint
+#print axioms LeechMinimal.oddShape_parity
+#print axioms LeechMinimal.four_odd_disjoint
+#print axioms LeechMinimal.octad_odd_disjoint
+#print axioms LeechMinimal.familyMap_bijective
+#print axioms LeechMinimal.leech_kissing_number
+#print axioms LeechMinimal.card_minimal_eq_code_formula
+#print axioms LeechMinimal.shortest_iff_norm32
+#print axioms LeechMinimal.card_shortest_vectors

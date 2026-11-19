@@ -28,8 +28,9 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
 | [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — tied to the proved Golay counts** | 9 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
-| [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest length 32; the count of shortest vectors is not** | 42 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice the 196,560 count is about. |
-| **Total** | | **603** | Includes 16 statements for the six-point path gap. |
+| [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest squared length 32** | 43 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice the count is about; browser generator correspondence remains open. |
+| [The Leech lattice's shortest vectors](docs/leech-shortest-vectors.md) | **Proved — three disjoint shapes and 196,560 shortest vectors** | 50 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the count is proved for the Lean lattice; the browser's generator is different. |
+| **Total** | | **654** | Includes supporting lemmas and the lattice construction. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
@@ -41,7 +42,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) lists all **552 named statements**. The [six-point path verification record](docs/path-six-verification.json) documents the preceding 32-module build and its successful 551-statement axiom audit, including the pinned versions and source hashes. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists **654 declarations**, including all 50 public theorems in the shortest-vector proof. The [Leech verification record](docs/leech-shortest-verification.json) records the new compilation and complete axiom audit, with source hashes and the scope of reused build artifacts. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -474,7 +475,7 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 
 ## The Golay-to-Leech counting bridge
 
-`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are written out as a table so the arithmetic stays quick, and `golayWeightCount_eq_code` proves the table is exactly the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`. So the 196,560 count rests on the proved code, not on typed-in numbers. Nothing here builds the Leech lattice itself, or proves that the three shells are exactly its shortest vectors (`LeechLattice.lean` builds the lattice and proves its smallest length; the matching of shells to shortest vectors is still open).
+`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are written out as a table so the arithmetic stays quick, and `golayWeightCount_eq_code` proves the table agrees with the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`. This file proves the counting formula. [LeechKissing.lean](LeechKissing.lean) now connects that formula to all the shortest vectors of the lattice defined in `LeechLattice.lean`, through a complete classification and bijections for the three families.
 
 | Result | Statement |
 |---|---|
@@ -521,9 +522,11 @@ The proofs use `decide` or `rfl`; the two links to the code rewrite with `golay_
 
 The proofs are ordinary Lean proofs plus small `decide` checks on single vectors and on the all-one codeword; nothing reruns the 4,096-codeword checks.
 
-**Not proved yet.** The file does not sort the length-32 vectors into the three shapes `(±4)² 0²²`, `(±2)⁸ 0¹⁶` and `(∓3)(±1)²³`, or count them, so the 196,560 count is still arithmetic only (in `GolayLeechBridge.lean`). It also does not prove the lattice's determinant or symmetry group, and it does not compare this form of the Golay code with other published forms.
+**The next two steps are proved.** [The shortest-vector proof](docs/leech-shortest-vectors.md) sorts every vector of squared length 32 into the three shapes `(±4)² 0²²`, `(±2)⁸ 0¹⁶` and `(∓3)(±1)²³`, proves the converse membership rules, and counts the distinct vectors: 1,104 + 97,152 + 98,304 = 196,560. `card_shortest_vectors` states the result for shortest nonzero vectors of `InLeech`.
 
-**File.** `LeechLattice.lean` (namespace `LeechLattice`). 42 results.
+**Still unproved.** The lattice's volume/determinant and symmetry group, and the correspondence between this Golay generator and the playground's modulo-23 generator.
+
+**File.** `LeechLattice.lean` (namespace `LeechLattice`). 42 theorems and the lattice construction are audited. The eight new modules ending in `LeechKissing.lean` add 50 public theorems.
 
 ## Edge-optimal sets of the hypercube
 
