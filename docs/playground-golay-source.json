@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/NousVolition/sparkle-sand-playground",
+  "scope": "Verbatim source slice with CRLF normalized to LF, stopping before DOM updates and floating-point projection.",
+  "file": "index.html",
+  "end": "document.getElementById('sTotal')",
+  "start": "const Q = [];",
+  "template": "page-src-leech",
+  "source_slice_sha256": "679e289d3cdcb814b7225e756dfe56cd58789f8193d23082ee87ca4d9599b072",
+  "commit": "c89951d26251006fe9a5c6f3d12d1df61a88ddf0"
+}

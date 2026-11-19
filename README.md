@@ -17,7 +17,7 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The wall and the push](WallPush.lean) | **Proved — for the defined models** | 52 | — |
 | [Harper stage 1: the squash lemma](Harper.lean) | **Proved — conditional lemma** | 18 | — |
 | [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 | — |
-| [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): different Golay generator; formal correspondence remains unproved. |
+| [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the modulo-23 generator now has a [proved coordinate correspondence](docs/playground-golay.md). |
 | [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): exact cube maximum and optimality labels, with the logarithmic upper bound shown separately. |
 | [The E₈ plumbing matrix](E8PlumbingBridge.lean) | **Proved** | 8 | — |
 | [The E₈ cost mirror](E8CostMirror.lean) | **Proved** | 1 | — |
@@ -28,11 +28,12 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
 | [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — tied to the proved Golay counts** | 9 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
-| [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest squared length 32** | 43 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice the count is about; browser generator correspondence remains open. |
-| [The Leech lattice's shortest vectors](docs/leech-shortest-vectors.md) | **Proved — three disjoint shapes and 196,560 shortest vectors** | 50 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the count is proved for the Lean lattice; the browser's generator is different. |
-| **Total** | | **654** | Includes supporting lemmas and the lattice construction. |
+| [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest squared length 32** | 43 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the same lattice conditions hold in the playground code’s coordinates by a proved permutation. |
+| [The Leech lattice's shortest vectors](docs/leech-shortest-vectors.md) | **Proved — three disjoint shapes and 196,560 shortest vectors** | 50 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the classification and count transfer to the playground code’s coordinates. |
+| [The playground’s Golay generator](docs/playground-golay.md) | **Proved — coordinate correspondence and transfer of the Leech results** | 28 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): 4,096 codewords and 196,560 shortest vectors in the corresponding formal model; JavaScript output checked separately. |
+| **Total** | | **682** | Includes supporting lemmas and the lattice construction. |
 
-The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
+The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum. The [Golay correspondence](docs/playground-golay.md) now connects the two code constructions.
 
 A few scope distinctions matter:
 
@@ -42,7 +43,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) lists **654 declarations**, including all 50 public theorems in the shortest-vector proof. The [Leech verification record](docs/leech-shortest-verification.json) records the new compilation and complete axiom audit, with source hashes and the scope of reused build artifacts. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists **682 declarations**, including the 28 new correspondence and transfer theorems. The [Golay correspondence verification](docs/playground-golay-verification.json) records the new compilation and complete axiom audit, with source hashes and the scope of reused build artifacts. The earlier [Leech verification record](docs/leech-shortest-verification.json) retains its historical 654-declaration audit. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -524,7 +525,9 @@ The proofs are ordinary Lean proofs plus small `decide` checks on single vectors
 
 **The next two steps are proved.** [The shortest-vector proof](docs/leech-shortest-vectors.md) sorts every vector of squared length 32 into the three shapes `(±4)² 0²²`, `(±2)⁸ 0¹⁶` and `(∓3)(±1)²³`, proves the converse membership rules, and counts the distinct vectors: 1,104 + 97,152 + 98,304 = 196,560. `card_shortest_vectors` states the result for shortest nonzero vectors of `InLeech`.
 
-**Still unproved.** The lattice's volume/determinant and symmetry group, and the correspondence between this Golay generator and the playground's modulo-23 generator.
+**The playground generator now matches.** [PlaygroundGolay.lean](PlaygroundGolay.lean) proves that the modulo-23 recipe gives the same code after a specified coordinate permutation. [PlaygroundLeech.lean](PlaygroundLeech.lean) transfers membership, minimum length, classification and the 196,560 count from the existing proofs. [Evidence and reproduction instructions](docs/playground-golay.md) distinguish the Lean model from the separately checked JavaScript.
+
+**Still unproved.** The lattice’s volume/determinant and symmetry group, and a formal account of browser execution, projection and animation.
 
 **File.** `LeechLattice.lean` (namespace `LeechLattice`). 42 theorems and the lattice construction are audited. The eight new modules ending in `LeechKissing.lean` add 50 public theorems.
 
