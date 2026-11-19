@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, and the gap toy's mirror in rational and real-time forms are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 292 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, and the exact clock and even-ring reflection bridges are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 339 statements.
 
 Author: NousVolition.
 
@@ -46,7 +46,7 @@ The coordinate `z = 1 - g / u` is multiplied by `r` (`z_step`). Reversing its si
 
 For `0 < g < A`, `blows_up` proves that every height `A + M`, with `M > 0`, is attained at a rational factor `1 ≤ r < A / (A - g)`. At the limiting factor, the below-gap mirror is `g / 2` (`mirror_time`). For `0 < u < g` and `r ≥ 1`, the below-gap solution stays positive, does not exceed its starting height, and satisfies the explicit bound `step g r u * (r * (g - u)) ≤ g * u`.
 
-**Scope.** This is an algebraic growth-factor model. The identification `r = exp(g * t)`, a derivative with respect to real clock time, and a real-time blow-up limit are not formalized here. Lean's rational division is total: division by zero evaluates to zero, not infinity. The value of `step` at its pole must therefore not be interpreted as a physical height; `blows_up` concerns unbounded heights strictly before that pole. This nonlinear toy is separate from the linear store in `Gap.lean`.
+**Scope.** This module is an algebraic growth-factor model. The real clock and blow-up limit are proved in `GapMirrorCalculus.lean`, and their exact connection to this model through `r = exp(g * t)` is proved in `GapMirrorBridge.lean` below. Lean's rational division is total: division by zero evaluates to zero, not infinity. The value of `step` at its pole must therefore not be interpreted as a physical height; `blows_up` concerns unbounded heights strictly before that pole. This nonlinear toy is separate from the linear store in `Gap.lean`.
 
 ## The mirror in real clock time
 
@@ -57,6 +57,37 @@ Its explicit scalar solution is `bump g A t = g / (1 - (1 - g / A) * exp(g * t))
 For `0 < A < g`, the bump tends to zero as time tends to infinity (`fades`). For `0 < g < A`, the time `T = log(A / (A - g)) / g` is positive (`blowTime_pos`), the denominator stays positive before `T` (`finite_before`), and the bump tends to positive infinity as `t` approaches `T` from below (`blows_up`). At that time the below-gap mirror is exactly `g / 2` (`mirror_time`); `mirror_sum` proves the reciprocal-height identity.
 
 The file retains all 11 theorem statements and four definitions from the supplied calculus draft, with a separate namespace, focused imports, and an additional positive-time theorem. Its axiom reports are included in `CheckAxioms.lean` and checked by CI. The blow-up result is a left-hand limit: total real division still assigns zero to the displayed formula at the pole. These are statements about an explicit scalar solution with no spatial spreading; a general uniqueness theorem is not included.
+
+## From growth factors to real clock time
+
+[GapMirrorBridge.lean](GapMirrorBridge.lean) proves 23 statements connecting the rational module with the real calculus module. Its `realStep` uses the same rational expression over the reals; `cast_step` proves exact agreement on rational inputs. For `A != 0`, `real_step_at_time` proves
+
+```
+realStep g (exp (g * t)) A = GapMirrorCalculus.bump g A t
+```
+
+For `0 < g < A` and `0 <= t < T`, where `T = log(A / (A - g)) / g`, `same_motion_before_blowup` also proves positivity of the algebraic denominator and the factor bounds `1 <= exp(g * t) < A / (A - g)`. Each rational factor in that forward range has exact real clock `log(r) / g` (`rational_step_at_clock`); no assumption that arbitrary real exponentials are rational is needed.
+
+`both_in_future` retains the shared positive-time event: the upper bump diverges from the left while its mirror equals `g / 2`. That time is an endpoint only for the upper bump: `mirror_continues` proves the lower partner remains regular, keeps decreasing, and tends to zero. The remaining clock lemmas distinguish this blow-up from a lower bump's half-height crossing, whose time can be positive, zero, or negative.
+
+## The even ring and the gap mirror: a proved algebraic connection
+
+[RingGapBridge.lean](RingGapBridge.lean) proves 24 statements for a nonempty even ring. With `size f = sum_j f(j)^2` and `cost f = sum_j (f(j+1) - f(j))^2`, the user's alternating flip is `flip f j = (-1)^j.val * f j`. The wraparound edge is included. `size_flip` and `cost_flip` prove
+
+```
+size (flip f) = size f
+cost (flip f) = 4 * size f - cost f
+```
+
+The new observable `height g f = 2 * g * size f / cost f` assigns a bump height to a pattern. For `g > 0`, `size f > 0`, and `0 < cost f < 4 * size f`, `height_flip` proves
+
+```
+height g (flip f) = GapMirrorCalculus.mirror g (height g f)
+```
+
+Thus flipping the ring produces exactly the mirror of its assigned bump. Equivalently, `z = 1 - g / height` equals `1 - cost / (2 * size)` and changes sign under the flip. This is a proved algebraic connection through an explicit observable. Zero and maximal cost are excluded from the finite positive pair interpretation.
+
+**Motion.** This map preserves reflection but does not preserve the usual ring heat evolution. `height_scale` proves that nonzero rescaling leaves the assigned height unchanged. The checked six-point wave `(1, 1/2, -1/2, -1, -1/2, 1/2)` has mean zero, size and cost both 3, and discrete Laplacian `-f`. Its heat update, using exactly the defining formula of `RingDecay.heatStep`, keeps its assigned height at `2*g` for every step size other than 1, including the repository's range `0 <= t <= 1/4` (`six_wave_heat_height`). The gap rule at that height has positive rate `2*g^2` (`six_wave_gap_rate`). No further dynamics proof is needed for the reflection result; a claim of shared motion would need a different map or evolution rule. This file checks the explicit heat-update formula without importing the full Fourier proof in `RingDecay.lean`.
 
 ## Hypercube isoperimetric inequality
 

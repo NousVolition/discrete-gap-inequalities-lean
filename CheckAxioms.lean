@@ -3,6 +3,8 @@ import Wirtinger
 import Gap
 import GapMirror
 import GapMirrorCalculus
+import GapMirrorBridge
+import RingGapBridge
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -83,6 +85,53 @@ import EdgeOptimal
 #print axioms GapMirrorCalculus.blows_up
 #print axioms GapMirrorCalculus.mirror_sum
 #print axioms GapMirrorCalculus.mirror_time
+#print axioms GapMirrorBridge.cast_z
+#print axioms GapMirrorBridge.cast_mirror
+#print axioms GapMirrorBridge.cast_step
+#print axioms GapMirrorBridge.denominator_factor
+#print axioms GapMirrorBridge.real_step_at_time
+#print axioms GapMirrorBridge.factor_at_blowTime
+#print axioms GapMirrorBridge.before_iff
+#print axioms GapMirrorBridge.same_motion_before_blowup
+#print axioms GapMirrorBridge.rational_step_at_time
+#print axioms GapMirrorBridge.clock_factor
+#print axioms GapMirrorBridge.rational_step_at_clock
+#print axioms GapMirrorBridge.real_step_solves_before
+#print axioms GapMirrorBridge.both_in_future
+#print axioms GapMirrorBridge.mirror_between
+#print axioms GapMirrorBridge.lower_regular
+#print axioms GapMirrorBridge.mirror_continues
+#print axioms GapMirrorBridge.total_log_clock_identity
+#print axioms GapMirrorBridge.factor_at_halfTime
+#print axioms GapMirrorBridge.half_time_reaches_half
+#print axioms GapMirrorBridge.halfTime_pos_iff
+#print axioms GapMirrorBridge.halfTime_neg_iff
+#print axioms GapMirrorBridge.halfTime_at_half
+#print axioms GapMirrorBridge.halfTime_mirror
+#print axioms RingGapBridge.sign_sq
+#print axioms RingGapBridge.sign_mod
+#print axioms RingGapBridge.sign_next
+#print axioms RingGapBridge.flip_flip
+#print axioms RingGapBridge.size_flip
+#print axioms RingGapBridge.flipped_edge
+#print axioms RingGapBridge.sum_shift
+#print axioms RingGapBridge.cost_pair
+#print axioms RingGapBridge.cost_flip
+#print axioms RingGapBridge.normalized_pair
+#print axioms RingGapBridge.gap_over_height
+#print axioms RingGapBridge.z_height
+#print axioms RingGapBridge.z_flip
+#print axioms RingGapBridge.height_flip
+#print axioms RingGapBridge.height_pos
+#print axioms RingGapBridge.height_above_gap_iff
+#print axioms RingGapBridge.size_scale
+#print axioms RingGapBridge.cost_scale
+#print axioms RingGapBridge.height_scale
+#print axioms RingGapBridge.six_wave_sums
+#print axioms RingGapBridge.six_wave_laplacian
+#print axioms RingGapBridge.six_wave_height
+#print axioms RingGapBridge.six_wave_heat_height
+#print axioms RingGapBridge.six_wave_gap_rate
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ
