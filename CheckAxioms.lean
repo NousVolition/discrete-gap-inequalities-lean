@@ -28,6 +28,7 @@ import E8CostMirror
 import GolayLeechBridge
 import LeechLattice
 import LeechKissing
+import PlaygroundLeech
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -704,3 +705,33 @@ import LeechKissing
 #print axioms LeechMinimal.card_minimal_eq_code_formula
 #print axioms LeechMinimal.shortest_iff_norm32
 #print axioms LeechMinimal.card_shortest_vectors
+
+-- Playground Golay correspondence and transfer of the existing Leech results
+#print axioms PlaygroundGolay.quadraticResidues_eq
+#print axioms PlaygroundGolay.computedBasis_eq
+#print axioms PlaygroundGolay.toPlay_toLean
+#print axioms PlaygroundGolay.toLean_toPlay
+#print axioms PlaygroundGolay.isPlayWord_iff
+#print axioms PlaygroundGolay.word_xor
+#print axioms PlaygroundGolay.encodeWith_xor
+#print axioms PlaygroundGolay.encodeWith_zero
+#print axioms PlaygroundGolay.isPlayWord_false
+#print axioms PlaygroundGolay.isPlayWord_xor
+#print axioms PlaygroundGolay.forward_row
+#print axioms PlaygroundGolay.reverse_row
+#print axioms PlaygroundGolay.encodeWith_property
+#print axioms PlaygroundGolay.play_toLean
+#print axioms PlaygroundGolay.lean_toPlay
+#print axioms PlaygroundGolay.code_correspondence
+#print axioms PlaygroundGolay.weight_toLean
+#print axioms PlaygroundGolay.card_play_code
+#print axioms PlaygroundLeech.sum_toLean
+#print axioms PlaygroundLeech.norm_toLean
+#print axioms PlaygroundLeech.residue_toLean
+#print axioms PlaygroundLeech.lattice_correspondence
+#print axioms PlaygroundLeech.toLean_ne_zero
+#print axioms PlaygroundLeech.play_norm_ge_32
+#print axioms PlaygroundLeech.shortest_correspondence
+#print axioms PlaygroundLeech.play_shortest_iff_norm32
+#print axioms PlaygroundLeech.play_minimal_iff
+#print axioms PlaygroundLeech.card_play_shortest_vectors

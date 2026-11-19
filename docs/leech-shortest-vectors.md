@@ -47,9 +47,9 @@ lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 ```
 
-The new modules are Lake libraries; `LeechKissing` is a default build target and is imported by `CheckAxioms`. The [verification record](leech-shortest-verification.json) gives the compilation scope, source hashes and audit result. The [axiom output](leech-shortest-axioms.txt) includes all 654 audited declarations, including the 50 new public theorems. The audit allows only `propext`, `Classical.choice` and `Quot.sound`; private helper proofs are covered through their public dependents.
+The modules are Lake libraries; `LeechKissing` is a default build target and is imported by `CheckAxioms`. The [verification record](leech-shortest-verification.json) preserves the compilation scope, source hashes and audit result at commit `8dea8004e700f5ddd9eeea942ab9518d4463a28c`. The [axiom output](leech-shortest-axioms.txt) includes all 654 audited declarations, including the 50 new public theorems. The audit allows only `propext`, `Classical.choice` and `Quot.sound`; private helper proofs are covered through their public dependents.
 
-To check that the saved evidence still matches the sources, run `python3 scripts/check_leech_evidence.py`. That command checks hashes and the saved axiom reports; it does not rerun Lean.
+To check that historical record, check out commit `8dea8004e700f5ddd9eeea942ab9518d4463a28c` and run `python3 scripts/check_leech_evidence.py`. For the current correspondence evidence use `python3 scripts/check_playground_evidence.py`. That command checks hashes and the saved axiom reports; it does not rerun Lean.
 
 The audit parser also now handles theorem names ending in an apostrophe, including the existing `LeechLattice.sum_add'` and `sum_neg'`. Its five regression checks cover these names, axiom-free proofs, nonstandard axioms, missing reports and an empty inventory: `python3 .github/test_check_axioms.py`. CI runs these checks before the Lean build.
 
@@ -57,4 +57,4 @@ The audit parser also now handles theorem names ending in an apostrophe, includi
 
 This proves the shortest-vector classification and count for `InLeech`/`leechLattice`. It does not prove the lattice's volume/determinant or its symmetry group, nor does it formalize a separate Euclidean sphere-packing construction.
 
-The [playground's Leech page](https://nousvolition.github.io/sparkle-sand-playground/#leech) uses a different, modulo-23 Golay generator. A coordinate correspondence with this repository's modulo-11 systematic generator remains unproved. The new lattice theorem therefore does not certify that browser implementation or its displayed trajectories.
+The [playground's Leech page](https://nousvolition.github.io/sparkle-sand-playground/#leech) uses a different, modulo-23 Golay generator. The [coordinate correspondence is now proved](playground-golay.md), and the existing minimum-length and shortest-vector results transfer to that code’s lattice. The actual JavaScript outputs have a separate reproducible check; browser execution and displayed trajectories are not formalized.
