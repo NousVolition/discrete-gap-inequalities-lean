@@ -6,6 +6,7 @@ import GapMirrorCalculus
 import GapMirrorBridge
 import RingGapBridge
 import FourDotGapBridge
+import TwoWaveGapBridge
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -159,6 +160,61 @@ import EdgeOptimal
 #print axioms FourDotGapBridge.readout_blows_up
 #print axioms FourDotGapBridge.flipped_at_pole
 #print axioms FourDotGapBridge.ring_regular_at_pole
+#print axioms TwoWaveGapBridge.gap_pos
+#print axioms TwoWaveGapBridge.flat_gap
+#print axioms TwoWaveGapBridge.energy_zero
+#print axioms TwoWaveGapBridge.energy_pos
+#print axioms TwoWaveGapBridge.energy_deriv
+#print axioms TwoWaveGapBridge.energy_factor
+#print axioms TwoWaveGapBridge.ordinary_reduced
+#print axioms TwoWaveGapBridge.signed_reduced
+#print axioms TwoWaveGapBridge.ordinary_between
+#print axioms TwoWaveGapBridge.signed_above_gap
+#print axioms TwoWaveGapBridge.ordinary_z
+#print axioms TwoWaveGapBridge.signed_z
+#print axioms TwoWaveGapBridge.signed_is_mirror
+#print axioms TwoWaveGapBridge.ordinary_motion
+#print axioms TwoWaveGapBridge.signed_motion
+#print axioms TwoWaveGapBridge.crossing_factor
+#print axioms TwoWaveGapBridge.energies_equal_iff
+#print axioms TwoWaveGapBridge.rough_larger_before
+#print axioms TwoWaveGapBridge.pole_time_pos_iff
+#print axioms TwoWaveGapBridge.pole_time_neg_iff
+#print axioms TwoWaveGapBridge.equal_sizes_pole_zero
+#print axioms TwoWaveGapBridge.pole_eq_blowTime
+#print axioms TwoWaveGapBridge.ordinary_solves
+#print axioms TwoWaveGapBridge.signed_solves_regular
+#print axioms TwoWaveGapBridge.signed_solves_before
+#print axioms TwoWaveGapBridge.signed_blows_up
+#print axioms TwoWaveGapBridge.ordinary_at_pole
+#print axioms TwoWaveGapBridge.no_future_pole
+#print axioms TwoWaveGapBridge.future_pole_iff
+#print axioms TwoWaveGapBridge.ordinary_fades
+#print axioms TwoWaveGapBridge.pure_rough
+#print axioms TwoWaveGapBridge.pure_smooth
+#print axioms TwoWaveGapBridge.cost_ratio_map
+#print axioms TwoWaveGapBridge.signed_ratio_map
+#print axioms TwoWaveGapBridge.mirror_at_time
+#print axioms TwoWaveGapBridge.cross_shift
+#print axioms TwoWaveGapBridge.cost_eq_neg_dot_heat
+#print axioms TwoWaveGapBridge.size_mix
+#print axioms TwoWaveGapBridge.dot_mix
+#print axioms TwoWaveGapBridge.heat_mix
+#print axioms TwoWaveGapBridge.cost_mix
+#print axioms TwoWaveGapBridge.coefficient_deriv
+#print axioms TwoWaveGapBridge.coefficient_energy
+#print axioms TwoWaveGapBridge.continuous_heat
+#print axioms TwoWaveGapBridge.flow_size
+#print axioms TwoWaveGapBridge.flow_cost
+#print axioms TwoWaveGapBridge.ring_readout
+#print axioms TwoWaveGapBridge.ring_motion
+#print axioms TwoWaveGapBridge.ring_signed_mirror
+#print axioms TwoWaveGapBridge.ring_regular
+#print axioms TwoWaveGapBridge.ring_signed_event
+#print axioms TwoWaveGapBridge.flat4_eigen
+#print axioms TwoWaveGapBridge.rough4_eigen
+#print axioms TwoWaveGapBridge.four_mode_data
+#print axioms TwoWaveGapBridge.concrete_signed_event
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ

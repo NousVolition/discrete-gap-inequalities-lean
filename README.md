@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, and the four-dot map preserving both motion and reflection are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 365 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, and the two-wave heat-to-gap map are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 420 statements.
 
 Author: NousVolition.
 
@@ -105,6 +105,34 @@ The flipped trajectory also equals the bump started from the mirrored initial he
 `pole_eq_blowTime` identifies `T` with the gap toy's blow-up time. At `T`, the upper readout diverges from the left (`readout_blows_up`) and the flipped readout equals 1 (`flipped_at_pole`). The ring itself reaches `(0, 1, 0, -1)` continuously (`ring_regular_at_pole`). Thus the singularity is in the readout, while the ring heat trajectory remains regular.
 
 This is an exact correspondence on the stated family for continuous heat, with fixed gap 2. It does not identify an Euler step with continuous heat at the same duration, nor all ring patterns with scalar bumps. The map is different from the amplitude-independent cost/size map in `RingGapBridge.lean`. The finite-height interpretation excludes the pole; Lean's totalized division value at the pole is not an infinite height.
+
+## Two waves: the cost/size map and the signed pole
+
+[TwoWaveGapBridge.lean](TwoWaveGapBridge.lean) proves 55 statements for orthogonal real eigenmodes on a nonempty periodic ring, with eigenvalues `ls < lr`. For initial coefficients `a`, `b` and modes `v`, `w`, their initial squared sizes are `P0 = a^2 * size v` and `Q0 = b^2 * size w`. The explicit continuous heat trajectory uses coefficients `a * exp(-ls*t)` and `b * exp(-lr*t)`.
+
+The file proves the ring's integration-by-parts identity (`cost_eq_neg_dot_heat`), then its two-mode size and cost formulas (`flow_size`, `flow_cost`). `continuous_heat` verifies the heat equation at every coordinate. Thus `ring_readout` connects the actual pattern to Claude's formula:
+
+```
+g = 2 * (lr - ls)
+P(t) = P0 * exp(-2*ls*t)
+Q(t) = Q0 * exp(-2*lr*t)
+u(t) = 2 * (cost/size - ls) = g * Q(t) / (P(t) + Q(t))
+s(t) = g * Q(t) / (Q(t) - P(t))
+```
+
+For positive `P0` and `Q0`, the ordinary readout `u` stays between 0 and `g` and tends to zero. The signed readout `s` is exactly the gap toy's mirror of `u` (`ring_signed_mirror`). It comes from replacing the sum of the modal quadratic forms by their difference (`signed_ratio_map`); it is not the ordinary cost/size of a real pattern. The file proves exact equality with `GapMirrorCalculus.bump` using the same real clock, and the ODE `u' = u^2 - g*u` for both readouts wherever their denominators are nonzero (`ordinary_solves`, `signed_solves_regular`).
+
+The positive squared sizes cross at exactly one real time, `T = log(Q0/P0)/g` (`energies_equal_iff`). The future-pole classification is checked explicitly:
+
+| Initial squared sizes | Signed denominator |
+|---|---|
+| `Q0 > P0` | Reaches zero at the positive time `T`; the signed readout tends to positive infinity from the left. |
+| `Q0 = P0` | Is already zero at tagging, `T = 0`. |
+| `Q0 < P0` | Has no zero at any future time; the crossing time is negative. |
+
+At a future pole, the ordinary readout equals `g/2`, while every ring coordinate remains continuous (`ring_signed_event`). A flat/alternating four-dot example proves that the eigenmode and orthogonality assumptions are realizable: its initial squared sizes are 4 and 16, its gap is 8, and its ordinary readout is 4 at the signed pole (`concrete_signed_event`). Pure rough and pure smooth readouts are respectively `g` and 0. `flat_gap` proves that a flat mode paired with eigenvalue `lr` gives scalar gap `2*lr`.
+
+The generic ring theorems state their eigenmode and orthogonality hypotheses explicitly. The signed mirror here is a readout of the specified decomposition, not the alternating ring flip. The clock is continuous heat; no equivalence with an Euler step of the same duration is asserted. Blow-up is a one-sided limit of the signed readout, while the heat trajectory remains regular; Lean's totalized division value at the pole is not a finite-height continuation.
 
 ## Hypercube isoperimetric inequality
 
