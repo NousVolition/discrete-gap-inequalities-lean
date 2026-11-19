@@ -1,0 +1,190 @@
+{
+  "status": "PASS_SOURCE_AND_NUMERICAL_CHECKS_ONLY",
+  "source_commit": "03ef852cce4ae0d2cdb2319c413b6755bcf6e593",
+  "source_url": "https://github.com/NousVolition/sparkle-sand-playground/blob/03ef852cce4ae0d2cdb2319c413b6755bcf6e593/index.html",
+  "normalized_html_sha256": "b5eb5238b1aef886b42dc3a342540ac150aa8eb1398311afdec2a74475a40fc2",
+  "golay_lean_sha256": "3194ab309e42a1a90d854dac5edd35d06f52da0b69c7e653704899e2bccb6c81",
+  "path": {
+    "points": 6,
+    "displayed_gap": 0.268,
+    "proved_Poincare_constant": 0.06666666666666667
+  },
+  "cube": {
+    "m": 3,
+    "internal": 2,
+    "boundary": 5,
+    "maxBound": 2.377443751081734,
+    "exact_maximum": 2,
+    "three_vertex_sets_checked": 56,
+    "displayed_shortfall": 0.3774437510817341,
+    "finding": "The logarithmic upper bound is not the exact fixed-cardinality maximum."
+  },
+  "cycle_heat": [
+    {
+      "speed": 1,
+      "dt": 0.004,
+      "gap": 0.9999999999999998,
+      "factor": 0.996,
+      "maximum_wave_update_difference": 0
+    },
+    {
+      "speed": 4,
+      "dt": 0.016,
+      "gap": 0.9999999999999998,
+      "factor": 0.984,
+      "maximum_wave_update_difference": 0
+    },
+    {
+      "speed": 10,
+      "dt": 0.04,
+      "gap": 0.9999999999999998,
+      "factor": 0.96,
+      "maximum_wave_update_difference": 5.551115123125783e-17
+    }
+  ],
+  "unit_distance_rings": [
+    {
+      "k": 1,
+      "directions": 4,
+      "x": {
+        "left": 3.9999999999999996,
+        "right": 4,
+        "ratio": 1.0000000000000002
+      },
+      "y": {
+        "left": 3.9999999999999996,
+        "right": 4,
+        "ratio": 1.0000000000000002
+      }
+    },
+    {
+      "k": 2,
+      "directions": 4,
+      "x": {
+        "left": 7.999999999999999,
+        "right": 8,
+        "ratio": 1.0000000000000002
+      },
+      "y": {
+        "left": 7.999999999999999,
+        "right": 8,
+        "ratio": 1.0000000000000002
+      }
+    },
+    {
+      "k": 5,
+      "directions": 8,
+      "x": {
+        "left": 11.715728752538098,
+        "right": 12,
+        "ratio": 1.0242640687119287
+      },
+      "y": {
+        "left": 11.715728752538098,
+        "right": 12,
+        "ratio": 1.0242640687119287
+      }
+    },
+    {
+      "k": 25,
+      "directions": 12,
+      "x": {
+        "left": 40.192378864668385,
+        "right": 44,
+        "ratio": 1.0947349035535379
+      },
+      "y": {
+        "left": 40.192378864668385,
+        "right": 44,
+        "ratio": 1.0947349035535379
+      }
+    },
+    {
+      "k": 65,
+      "directions": 16,
+      "x": {
+        "left": 79.16528618826179,
+        "right": 84,
+        "ratio": 1.0610711341362533
+      },
+      "y": {
+        "left": 79.16528618826179,
+        "right": 84,
+        "ratio": 1.0610711341362533
+      }
+    }
+  ],
+  "cipher_gauge": {
+    "sharp": [
+      {
+        "n": 3,
+        "W": 1.0000000000000002,
+        "ok": true
+      },
+      {
+        "n": 4,
+        "W": 1.0000000000000002,
+        "ok": true
+      },
+      {
+        "n": 5,
+        "W": 1,
+        "ok": true
+      },
+      {
+        "n": 7,
+        "W": 1.0000000000000002,
+        "ok": true
+      },
+      {
+        "n": 12,
+        "W": 1.0000000000000007,
+        "ok": true
+      },
+      {
+        "n": 60,
+        "W": 0.999999999999991,
+        "ok": true
+      },
+      {
+        "n": 120,
+        "W": 0.9999999999999706,
+        "ok": true
+      }
+    ],
+    "constant": {
+      "n": 8,
+      "lambda1": 0.5857864376269049,
+      "R": null,
+      "W": null,
+      "flat": true
+    }
+  },
+  "cipher_certificate": {
+    "decoded": "ABBA",
+    "valid": true,
+    "tampered": false,
+    "exported_theorems": 2,
+    "lean_compilation": "not run; not included in the 527 audited statements"
+  },
+  "golay": {
+    "playground_basis_size": 12,
+    "codewords": 4096,
+    "weight_distribution": {
+      "0": 1,
+      "8": 759,
+      "12": 2576,
+      "16": 759,
+      "24": 1
+    },
+    "same_coordinate_codewords_in_common": 4,
+    "identical_codeword_sets": false,
+    "scope": "No coordinate-equivalence or Leech-lattice theorem is proved by this check."
+  },
+  "limitations": [
+    "No live controls were exercised.",
+    "Floating-point checks are not proofs.",
+    "No new Lean statements or browser-to-Lean equivalence certificates were added.",
+    "No cipher correctness, solver convergence, or uniqueness claim is checked."
+  ]
+}

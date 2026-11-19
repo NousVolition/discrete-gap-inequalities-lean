@@ -4,27 +4,29 @@ This repository contains Lean proofs of gap inequalities and their consequences 
 
 Every item below has checked Lean proofs. **Proved** refers to the formal statements with their stated hypotheses. The counts include supporting lemmas.
 
-| Result | Proof status | Checked statements |
-| --- | --- | ---: |
-| Four original packages: [Poincaré](Poincare.lean), [Wirtinger](Wirtinger.lean), [Hug gap](Gap.lean) and [hypercube edge-isoperimetric inequality](Isoperimetric.lean) | **Proved** | 47 |
-| [Ring decay proof](RingDecay.lean) | **Proved** | 14 |
-| [Vertex-isoperimetric proof](HarperSquash.lean) | **Proved — full Harper theorem** | 21 |
-| [Polygon isoperimetric inequality](Polygon.lean) | **Proved** | 10 |
-| [The cube's gap with Cheeger's inequality](CubeCheeger.lean) | **Proved — cube gap and Cheeger's easy direction** | 17 |
-| [Short bridges connecting the cycle, polygon and cube](Bridges.lean) | **Proved** | 5 |
-| [The gap of the grid made of two rings](Torus.lean) | **Proved** | 31 |
-| [The wall and the push](WallPush.lean) | **Proved — for the defined models** | 52 |
-| [Harper stage 1: the squash lemma](Harper.lean) | **Proved — conditional lemma** | 18 |
-| [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 |
-| [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 |
-| [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 |
-| The gap toy's mirror in [rational](GapMirror.lean) and [real-time](GapMirrorCalculus.lean) forms | **Proved — for the explicit scalar model** | 31 |
-| The [exact clock](GapMirrorBridge.lean) and [even-ring reflection](RingGapBridge.lean) bridges | **Proved — with different motion scopes; see below** | 47 |
-| [The four-dot map preserving both motion and reflection](FourDotGapBridge.lean) | **Proved — for the specified four-dot family** | 26 |
-| The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 |
-| [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 |
-| [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 |
-| **Total** | | **527** |
+| Result | Proof status | Checked statements | Playground connection |
+| --- | --- | ---: | --- |
+| Four original packages: [Poincaré](Poincare.lean), [Wirtinger](Wirtinger.lean), [Hug gap](Gap.lean) and [hypercube edge-isoperimetric inequality](Isoperimetric.lean) | **Proved** | 47 | Path/cycle/cube: [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy). Cycle applications: [Unit Distances](https://nousvolition.github.io/sparkle-sand-playground/#unit-distances) and [Cipher](https://nousvolition.github.io/sparkle-sand-playground/#cipher). |
+| [Ring decay proof](RingDecay.lean) | **Proved** | 14 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): six-point cycle heat update. |
+| [Vertex-isoperimetric proof](HarperSquash.lean) | **Proved — full Harper theorem** | 21 | — |
+| [Polygon isoperimetric inequality](Polygon.lean) | **Proved** | 10 | — |
+| [The cube's gap with Cheeger's inequality](CubeCheeger.lean) | **Proved — cube gap and Cheeger's easy direction** | 17 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): cube gap and cut examples. |
+| [Short bridges connecting the cycle, polygon and cube](Bridges.lean) | **Proved** | 5 | — |
+| [The gap of the grid made of two rings](Torus.lean) | **Proved** | 31 | — |
+| [The wall and the push](WallPush.lean) | **Proved — for the defined models** | 52 | — |
+| [Harper stage 1: the squash lemma](Harper.lean) | **Proved — conditional lemma** | 18 | — |
+| [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 | — |
+| [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): different Golay generator; formal correspondence remains unproved. |
+| [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy) displays the logarithmic bound; this file proves the exact maximum. |
+| The gap toy's mirror in [rational](GapMirror.lean) and [real-time](GapMirrorCalculus.lean) forms | **Proved — for the explicit scalar model** | 31 | — |
+| The [exact clock](GapMirrorBridge.lean) and [even-ring reflection](RingGapBridge.lean) bridges | **Proved — with different motion scopes; see below** | 47 | — |
+| [The four-dot map preserving both motion and reflection](FourDotGapBridge.lean) | **Proved — for the specified four-dot family** | 26 | — |
+| The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
+| [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
+| [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
+| **Total** | | **527** | No new Lean statements from these demonstrations. |
+
+The playground links are numerical illustrations and applications. **They do not change the proof statuses or the total of 527 statements.** A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) distinguish the sharper displayed path gap, the cube's logarithmic bound versus its exact maximum, and the different Golay construction.
 
 A few scope distinctions matter:
 
