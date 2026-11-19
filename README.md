@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, and the two-wave heat-to-gap maps for continuous flow and the exact discrete step are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 460 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, the gap toy's mirror in rational and real-time forms, the exact clock and even-ring reflection bridges, the four-dot map preserving both motion and reflection, the two-wave heat-to-gap maps for continuous flow and the exact discrete step, and an amplitude map preserving motion and the actual ring flip are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 520 statements.
 
 Author: NousVolition.
 
@@ -156,6 +156,43 @@ Thus the exact toy clock is `k log(r)/g`; the heat clock is `k τ`. For example,
 The signed readout is `s_k = g Q/(Q − P r^k)`, the gap mirror of the ordinary readout at each sample. For `0 < P < Q`, regular evolution before its pole is exactly `P r^k < Q`. Its toy pole time is `log(Q/P)/g`, and its real-valued step index is `log(Q/P)/log(r)`. A discrete sample hits the pole precisely when `P r^k = Q`. The checked four-dot examples distinguish landing on the pole (`τ = 1/8`, `P = 4`, `Q = 16`) from skipping it (`τ = 3/16`): in the latter, the signed values jump from `32/3` to `−8/3`, the toy pole lies strictly between samples 0 and 1, and every integer sample has a nonzero denominator. The ordinary readout remains finite at the sampled pole and equals `g/2`.
 
 If `cr = 0`, one actual heat step removes the rough mode. The finite-factor and finite-clock theorems explicitly exclude that endpoint. Algebraic identities use Lean's totalized division; the strict pre-pole statements establish the domain of regular motion. Reflection here is `GapMirrorCalculus.mirror` between the ordinary and signed readouts.
+
+## Two waves preserving motion and the actual ring flip
+
+`TwoWaveFlipBridge.lean` gives a new amplitude-dependent construction, with 60 checked theorems. Choose nonzero orthogonal real eigenmodes `v,w` on a nonempty even ring, with `w = RingGapBridge.flip v`. The proof derives `λ1 + λ2 = 4` from the actual heat generator and spatial flip. Orthogonal projection recovers the signed coefficients `a,b` from the ring pattern `f = a v + b w`.
+
+Define
+
+```
+A(a,b) = (a |b| − b |a|) / 2
+U(f)   = 4 A(a,b) / (A(a,b) − 1).
+```
+
+The actual ring flip exchanges `a,b`, so it negates `A` and gives exactly `GapMirrorCalculus.mirror 4 (U f)`. Continuous heat multiplies `A` by `exp(−4t)`. Consequently `U` follows the gap equation with toy gap `4` and the same continuous clock. `paired_motion_and_flip` proves both correspondences on the forward interval before the pole, including the heat solution starting from the flipped initial pattern. Heat and flip can give different ring patterns when performed in different orders; this readout gives them the same value.
+
+The checked conditions and limits are explicit:
+
+| Question | Exact statement for this construction |
+|---|---|
+| When is the readout active? | Away from its pole, `U ≠ 0` exactly when `a b < 0`. Same-sign coefficients and missing modes give zero. |
+| When are both mirrored heights finite? | Their denominators are nonzero exactly when `A ≠ 1` and `A ≠ −1`. |
+| When are both strictly positive? | Exactly when `abs A > 1`. Choose the upper member by taking `A > 1`. |
+| What is the forward upper interval? | For initial `A0 > 1`, `0 ≤ t < log(A0)/4`; the upper height exceeds `4` and its mirror lies between `2` and `4`. |
+| Why toy gap 4? | For `height g A = g A/(A−1)` with a nonzero regular amplitude decaying at rate `σ`, the same-clock gap ODE holds if and only if `g = σ`. The paired product has `σ = λ1+λ2 = 4`. |
+| Would a nonzero linear amplitude readout work? | Reflection and same-clock decay require coefficients `d = −c` and `λ1 = λ2 = g`; for flip-paired ring modes this is exactly `λ1 = λ2 = g = 2`. |
+
+The discrete results use the repository's actual `RingDecay.heatStep` and all its integer iterates. With positive multipliers `c1 = 1−τλ1` and `c2 = 1−τλ2`, the exact factor and clock below apply. For `A0 ≠ 0` and `A0 ≠ 1`, the readout matches the explicit bump at that clock:
+
+```
+r = 1 / (c1 c2)               Δ = log(r) / 4
+A_k = (c1 c2)^k A0            U_k = bump 4 U0 (k Δ).
+```
+
+On an active pair, a positive amplitude scaling exists if and only if both multipliers are positive (`positive_step_scale_iff`). For a positive heat step and flip-paired rates this gives `r > 1` and `Δ > 0`. The strict sampled condition `r^k < A0` gives the finite upper/mirror correspondence; `iterate_flip_readout` also checks agreement between heat after the initial flip and flipping after heat. Algebraic identities use Lean's totalized division; the finite-pair statements specify the regular domain.
+
+The concrete four-dot example uses the flat and alternating modes with coefficients `2` and `−1`. Its initial heights are `8` and `8/3`, and its continuous pole time is `log(2)/4`. An actual heat step `τ = 1/16` has `r = 4/3`, `Δ = log(4/3)/4`, and heights `12` and `12/5`.
+
+This map retains signed amplitudes and depends on the chosen mode normalization. Its toy gap and discrete factor differ from the earlier cost/size two-wave map, which remains unchanged. The classification covers this construction and the stated linear class; it does not claim that these exhaust all possible nonlinear maps.
 
 ## Hypercube isoperimetric inequality
 

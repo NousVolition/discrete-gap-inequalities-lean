@@ -8,6 +8,7 @@ import RingGapBridge
 import FourDotGapBridge
 import TwoWaveGapBridge
 import TwoWaveDiscreteGapBridge
+import TwoWaveFlipBridge
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -256,6 +257,66 @@ import EdgeOptimal
 #print axioms TwoWaveDiscreteGapBridge.concrete_clock
 #print axioms TwoWaveDiscreteGapBridge.concrete_hits_pole
 #print axioms TwoWaveDiscreteGapBridge.concrete_skips_pole
+#print axioms TwoWaveFlipBridge.orient_swap
+#print axioms TwoWaveFlipBridge.orient_pos_neg
+#print axioms TwoWaveFlipBridge.orient_neg_pos
+#print axioms TwoWaveFlipBridge.orient_zero_iff
+#print axioms TwoWaveFlipBridge.orient_ne_zero_iff
+#print axioms TwoWaveFlipBridge.orient_positive_iff
+#print axioms TwoWaveFlipBridge.orient_scale
+#print axioms TwoWaveFlipBridge.orient_heat
+#print axioms TwoWaveFlipBridge.height_zero
+#print axioms TwoWaveFlipBridge.height_nonzero_iff
+#print axioms TwoWaveFlipBridge.height_reflection
+#print axioms TwoWaveFlipBridge.height_above_gap
+#print axioms TwoWaveFlipBridge.height_dilation
+#print axioms TwoWaveFlipBridge.height_motion
+#print axioms TwoWaveFlipBridge.decay_before_pole
+#print axioms TwoWaveFlipBridge.pole_eq_blowTime
+#print axioms TwoWaveFlipBridge.finite_pair_iff
+#print axioms TwoWaveFlipBridge.matching_rate_iff
+#print axioms TwoWaveFlipBridge.linear_readout_iff
+#print axioms TwoWaveFlipBridge.decay_deriv
+#print axioms TwoWaveFlipBridge.height_deriv
+#print axioms TwoWaveFlipBridge.solves_iff
+#print axioms TwoWaveFlipBridge.linear_paired_iff
+#print axioms TwoWaveFlipBridge.sign_prev
+#print axioms TwoWaveFlipBridge.heat_flip
+#print axioms TwoWaveFlipBridge.flipped_eigen
+#print axioms TwoWaveFlipBridge.flip_reverse
+#print axioms TwoWaveFlipBridge.paired_eigenvalues
+#print axioms TwoWaveFlipBridge.dot_flip
+#print axioms TwoWaveFlipBridge.modal_flip
+#print axioms TwoWaveFlipBridge.amplitude_flip
+#print axioms TwoWaveFlipBridge.readout_flip
+#print axioms TwoWaveFlipBridge.modal_mix_left
+#print axioms TwoWaveFlipBridge.modal_mix_right
+#print axioms TwoWaveFlipBridge.amplitude_mix
+#print axioms TwoWaveFlipBridge.readout_mix
+#print axioms TwoWaveFlipBridge.active_iff
+#print axioms TwoWaveFlipBridge.flip_mix
+#print axioms TwoWaveFlipBridge.amplitude_flow
+#print axioms TwoWaveFlipBridge.flow_readout
+#print axioms TwoWaveFlipBridge.paired_motion_and_flip
+#print axioms TwoWaveFlipBridge.signed_multiplier_positive_iff
+#print axioms TwoWaveFlipBridge.orient_scaled_opposite
+#print axioms TwoWaveFlipBridge.positive_step_scale_iff
+#print axioms TwoWaveFlipBridge.step_factor_positive
+#print axioms TwoWaveFlipBridge.step_clock_factor
+#print axioms TwoWaveFlipBridge.step_factor_forward
+#print axioms TwoWaveFlipBridge.step_clock_forward
+#print axioms TwoWaveFlipBridge.iterate_clock_factor
+#print axioms TwoWaveFlipBridge.product_power_factor
+#print axioms TwoWaveFlipBridge.iterate_amplitude
+#print axioms TwoWaveFlipBridge.iterate_readout_motion
+#print axioms TwoWaveFlipBridge.iterate_flip_readout
+#print axioms TwoWaveFlipBridge.discrete_mirror_before
+#print axioms TwoWaveFlipBridge.height_positive_iff
+#print axioms TwoWaveFlipBridge.positive_pair_iff
+#print axioms TwoWaveFlipBridge.flat_rough_flip
+#print axioms TwoWaveFlipBridge.concrete_readouts
+#print axioms TwoWaveFlipBridge.concrete_both
+#print axioms TwoWaveFlipBridge.concrete_step
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ
