@@ -72,7 +72,7 @@ For `0 < g < A` and `0 <= t < T`, where `T = log(A / (A - g)) / g`, `same_motion
 
 ## The even ring and the gap mirror: a proved algebraic connection
 
-[RingGapBridge.lean](RingGapBridge.lean) proves 24 statements for a nonempty even ring. With `size f = sum_j f(j)^2` and `cost f = sum_j (f(j+1) - f(j))^2`, the user's alternating flip is `flip f j = (-1)^j.val * f j`. The wraparound edge is included. `size_flip` and `cost_flip` prove
+[RingGapBridge.lean](RingGapBridge.lean) proves 24 statements for a nonempty even ring. With `size f = sum_j f(j)^2` and `cost f = sum_j (f(j+1) - f(j))^2`, the alternating flip is `flip f j = (-1)^j.val * f j`. The wraparound edge is included. `size_flip` and `cost_flip` prove
 
 ```
 size (flip f) = size f
@@ -196,7 +196,7 @@ This map retains signed amplitudes and depends on the chosen mode normalization.
 
 ## Same-sign obstruction for global amplitude readouts
 
-`TwoWaveReadoutObstruction.lean` proves the proposed obstruction for every real-valued amplitude readout `W` satisfying these two laws, with real rates `l ≠ m`:
+`TwoWaveReadoutObstruction.lean` proves that global heat covariance and antisymmetry force every real-valued amplitude readout `W` to vanish on same-sign pairs when the real rates `l` and `m` differ. The two identities are:
 
 ```
 ∀ a b t, W (a * exp(-l*t)) (b * exp(-m*t)) = exp(-g*t) * W a b

@@ -7,16 +7,18 @@ import Mathlib.Tactic.NormNum
 /-!
 # A same-sign obstruction for every globally covariant amplitude readout
 
-This formalizes the user's proposed statement without a continuity, smoothness,
-linearity, measurability, or positivity assumption on the readout or on the rates.
-`W : ℝ → ℝ → ℝ` obeys the displayed motion identity for every real time and is
-antisymmetric under exchanging its inputs. If `l ≠ m`, then `W a b = 0`
-whenever `a*b > 0`, covering both strictly positive and strictly negative inputs.
+Global heat covariance and antisymmetry force a real-valued amplitude readout to
+vanish on same-sign pairs when the two heat rates differ. Specifically,
+`W : ℝ → ℝ → ℝ` satisfies the displayed motion identity for every real time and
+every input pair, and changes sign when its inputs are exchanged. If `l ≠ m`,
+then `W a b = 0` whenever `a*b > 0`, covering both strictly positive and strictly
+negative inputs. No continuity, smoothness, linearity, or measurability of `W`
+is required. Neither the readout nor the rates are required to be positive.
 
 The proof evolves the pair to the diagonal at `log(b/a)/(m-l)`. The time can
-have either sign. This is an obstruction for the stated global amplitude laws;
+have either sign. This is an obstruction under the stated global identities;
 it does not by itself classify readouts with only a restricted time/state domain.
-The final theorem checks why the distinct-rate hypothesis is essential.
+The final theorem proves that the conclusion can fail when the rates are equal.
 -/
 
 open Real
@@ -28,7 +30,7 @@ theorem diagonal_zero (W : ℝ → ℝ → ℝ)
   have h := flip x x
   linarith
 
-/-- Same-sign nonzero coefficients meet at this exact real time. -/
+/-- Two nonzero coefficients with the same sign become equal under heat evolution at this time. -/
 theorem meeting_time (l m a b : ℝ) (hlm : l ≠ m) (ha : a ≠ 0) (hr : 0 < b / a) :
     a * exp (-l * (log (b / a) / (m - l))) =
       b * exp (-m * (log (b / a) / (m - l))) := by
@@ -49,7 +51,8 @@ theorem meeting_time (l m a b : ℝ) (hlm : l ≠ m) (ha : a ≠ 0) (hr : 0 < b 
   have hab : a * (b / a) = b := by field_simp
   rw [hsplit, ← mul_assoc, hab]
 
-/-- The main obstruction. The motion and flip hypotheses are exactly the user's laws. -/
+/-- Global heat covariance and antisymmetry force the readout to vanish on same-sign pairs
+when the two heat rates differ. -/
 theorem zero_of_same_sign (l m g : ℝ) (hlm : l ≠ m) (W : ℝ → ℝ → ℝ)
     (motion : ∀ a b t : ℝ,
       W (a * exp (-l * t)) (b * exp (-m * t)) = exp (-g * t) * W a b)
@@ -83,7 +86,7 @@ theorem zero_of_negative (l m g : ℝ) (hlm : l ≠ m) (W : ℝ → ℝ → ℝ)
     (a b : ℝ) (ha : a < 0) (hb : b < 0) : W a b = 0 :=
   zero_of_same_sign l m g hlm W motion flip a b (mul_pos_of_neg_of_neg ha hb)
 
-/-- The two conclusions in the form requested by the user. -/
+/-- The readout vanishes for two positive coefficients and for two negative coefficients. -/
 theorem proposed_statement (l m g : ℝ) (hlm : l ≠ m) (W : ℝ → ℝ → ℝ)
     (motion : ∀ a b t : ℝ,
       W (a * exp (-l * t)) (b * exp (-m * t)) = exp (-g * t) * W a b)
@@ -93,7 +96,8 @@ theorem proposed_statement (l m g : ℝ) (hlm : l ≠ m) (W : ℝ → ℝ → �
   exact ⟨fun a b ha hb => zero_of_positive l m g hlm W motion flip a b ha hb,
     fun a b ha hb => zero_of_negative l m g hlm W motion flip a b ha hb⟩
 
-/-- When both rates equal g, W(a,b)=a-b obeys both laws and distinguishes same-sign pairs. -/
+/-- When both heat rates equal the readout rate, W(a,b)=a-b satisfies both identities
+and distinguishes same-sign pairs. -/
 theorem equal_rates_counterexample (l : ℝ) :
     (∀ a b t : ℝ, a * exp (-l * t) - b * exp (-l * t) = exp (-l * t) * (a - b)) ∧
     (∀ a b : ℝ, b - a = -(a - b)) ∧

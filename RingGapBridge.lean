@@ -9,7 +9,7 @@ import Mathlib.Tactic.FinCases
 
 For a real pattern on a nonempty even ring, `size` is the sum of squares and `cost` is the
 sum of squared differences around the ring, as in the repository's `Wirtinger.lean`.
-`flip f j = (-1)^j.val * f j` is the user's alternating sign flip, including the closing edge.
+`flip f j = (-1)^j.val * f j` is the alternating sign flip, including the closing edge.
 
 The new observable `height g f = 2*g*size f / cost f` assigns a scalar bump height to a pattern.
 On the domain `g > 0`, `size f > 0`, and `0 < cost f < 4*size f`, flipping the pattern gives
@@ -35,7 +35,7 @@ noncomputable def flip (f : ZMod n → ℝ) (j : ZMod n) : ℝ := (-1) ^ j.val *
 
 noncomputable def normalizedCost (f : ZMod n → ℝ) : ℝ := cost f / (2 * size f)
 
-/-- A proposed ring observable, with its exact reflection property proved below. -/
+/-- A ring observable whose reflection identity is proved below. -/
 noncomputable def height (g : ℝ) (f : ZMod n → ℝ) : ℝ := 2 * g * size f / cost f
 
 theorem sign_sq (k : ℕ) : ((-1 : ℝ) ^ k) ^ 2 = 1 := by
