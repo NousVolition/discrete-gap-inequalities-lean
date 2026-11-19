@@ -29,6 +29,7 @@ import GolayLeechBridge
 import LeechLattice
 import LeechKissing
 import PlaygroundLeech
+import LeechBasis
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -735,3 +736,34 @@ import PlaygroundLeech
 #print axioms PlaygroundLeech.play_shortest_iff_norm32
 #print axioms PlaygroundLeech.play_minimal_iff
 #print axioms PlaygroundLeech.card_play_shortest_vectors
+
+-- Leech lattice basis, determinant and unimodularity
+#print axioms LeechBasis.leechBasis_zero_odd
+#print axioms LeechBasis.leechBasis_even_facts
+#print axioms LeechBasis.leechBasis_mem
+#print axioms LeechBasis.basisSpan_le
+#print axioms LeechBasis.mem_basisSpan_of_coeffs
+#print axioms LeechBasis.twoRow_coeffs
+#print axioms LeechBasis.fourDiff_coeffs
+#print axioms LeechBasis.twoRow_mem
+#print axioms LeechBasis.fourDiff_mem
+#print axioms LeechBasis.eightLast_mem
+#print axioms LeechBasis.fourDiff_eight_apply
+#print axioms LeechBasis.mem_span_of_four
+#print axioms LeechBasis.encodeNat_mod_check
+#print axioms LeechBasis.encodeNat_mod_4096
+#print axioms LeechBasis.golay_eq_false_of_first12
+#print axioms LeechBasis.twoRow_apply_low
+#print axioms LeechBasis.mem_span_of_even
+#print axioms LeechBasis.closure_leechBasis
+#print axioms LeechBasis.leechBasis_upper
+#print axioms LeechBasis.basisMatrix_upper
+#print axioms LeechBasis.leechBasis_diag_prod
+#print axioms LeechBasis.basisMatrix_det
+#print axioms LeechBasis.leechBasis_linearIndependent
+#print axioms LeechBasis.gram_dvd_eight
+#print axioms LeechBasis.gram_diag_dvd_sixteen
+#print axioms LeechBasis.basisMatrix_mul_transpose
+#print axioms LeechBasis.leech_unimodular
+#print axioms LeechBasis.leech_inner_dvd_eight
+#print axioms LeechBasis.leech_norm_dvd_sixteen

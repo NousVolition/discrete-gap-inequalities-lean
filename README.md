@@ -31,7 +31,8 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest squared length 32** | 43 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the same lattice conditions hold in the playground code’s coordinates by a proved permutation. |
 | [The Leech lattice's shortest vectors](docs/leech-shortest-vectors.md) | **Proved — three disjoint shapes and 196,560 shortest vectors** | 50 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the classification and count transfer to the playground code’s coordinates. |
 | [The playground’s Golay generator](docs/playground-golay.md) | **Proved — coordinate correspondence and transfer of the Leech results** | 28 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): 4,096 codewords and 196,560 shortest vectors in the corresponding formal model; JavaScript output checked separately. |
-| **Total** | | **682** | Includes supporting lemmas and the lattice construction. |
+| [A basis of the Leech lattice and unimodularity](LeechBasis.lean) | **Proved — explicit basis spans the lattice, determinant 8¹², unimodular and even** | 29 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice's volume, for the Lean lattice. |
+| **Total** | | **711** | Includes supporting lemmas and the lattice construction. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum. The [Golay correspondence](docs/playground-golay.md) now connects the two code constructions.
 
@@ -43,7 +44,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) lists **682 declarations**, including the 28 new correspondence and transfer theorems. The [Golay correspondence verification](docs/playground-golay-verification.json) records the new compilation and complete axiom audit, with source hashes and the scope of reused build artifacts. The earlier [Leech verification record](docs/leech-shortest-verification.json) retains its historical 654-declaration audit. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists **711 declarations**, including the 28 correspondence and transfer theorems and the 29 theorems of the Leech basis and unimodularity proof. The [Golay correspondence verification](docs/playground-golay-verification.json) records the new compilation and complete axiom audit, with source hashes and the scope of reused build artifacts. The earlier [Leech verification record](docs/leech-shortest-verification.json) retains its historical 654-declaration audit. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -527,9 +528,35 @@ The proofs are ordinary Lean proofs plus small `decide` checks on single vectors
 
 **The playground generator now matches.** [PlaygroundGolay.lean](PlaygroundGolay.lean) proves that the modulo-23 recipe gives the same code after a specified coordinate permutation. [PlaygroundLeech.lean](PlaygroundLeech.lean) transfers membership, minimum length, classification and the 196,560 count from the existing proofs. [Evidence and reproduction instructions](docs/playground-golay.md) distinguish the Lean model from the separately checked JavaScript.
 
-**Still unproved.** The lattice’s volume/determinant and symmetry group, and a formal account of browser execution, projection and animation.
+**Still unproved.** The lattice’s symmetry group, and a formal account of browser execution, projection and animation. (The volume is now proved: see [the basis section](#a-basis-of-the-leech-lattice-and-unimodularity).)
 
 **File.** `LeechLattice.lean` (namespace `LeechLattice`). 42 theorems and the lattice construction are audited. The eight new modules ending in `LeechKissing.lean` add 50 public theorems.
+
+## A basis of the Leech lattice and unimodularity
+
+`LeechBasis.lean` gives 24 explicit vectors that span the Leech lattice of `LeechLattice.lean` (coordinates scaled by `√8`), and proves the lattice is unimodular. Mathlib has no notion of the volume of a lattice, so unimodularity is stated through the basis and its Gram matrix (the table of all dot products of basis vectors).
+
+**The basis.** Row 0 is `(1, 1, …, 1, -3)`. Rows 1 to 11 are twice the Golay generator rows 1 to 11 from `GolayMatrixDistance.lean`. Rows 12 to 22 are `4 eᵢ + 4 e₂₃`, and row 23 is `8 e₂₃`. Each row starts in its own column, so the matrix is upper triangular, with diagonal 1, then 2 eleven times, then 4 eleven times, then 8. Its determinant is `2³⁶ = 8¹²`, which is exactly the volume a unimodular lattice has after scaling by `√8`.
+
+**Why the basis spans.** Take any lattice vector. If its entries are odd, subtract row 0 to make them even. Then subtract twice the Golay rows picked out by its first 12 entries. What is left still lies in the lattice and has entries that are multiples of 4 in the first 12 places, so its Golay codeword is zero on its first 12 positions, and a codeword like that is zero (checked over all 4,096 messages). So every entry is a multiple of 4 and the total is a multiple of 8, and such a vector is a combination of `4 eₖ - 4 e₂₃` and `8 e₂₃`. The building blocks are written as explicit whole-number combinations of the basis (found by back substitution) and checked with `decide +kernel`.
+
+| Result | Statement |
+|---|---|
+| `leechBasis_mem` | every basis vector is in the lattice |
+| `closure_leechBasis` | the whole-number combinations of the basis are exactly the lattice |
+| `golay_eq_false_of_first12` | a Golay codeword that is zero on its first 12 positions is zero |
+| `mem_span_of_four` | a vector with every entry a multiple of 4 and total a multiple of 8 is in the span |
+| `basisMatrix_det` | the basis matrix has determinant `8¹²` |
+| `leechBasis_linearIndependent` | the 24 basis vectors are linearly independent |
+| `leech_unimodular` | every Gram entry is divisible by 8, the Gram matrix divided by 8 has determinant 1, and every diagonal Gram entry is divisible by 16 |
+| `leech_inner_dvd_eight` | the dot product of any two lattice vectors is divisible by 8 |
+| `leech_norm_dvd_sixteen` | every lattice vector has squared length divisible by 16 |
+
+After dividing the coordinates by `√8`, `leech_unimodular` says the lattice is unimodular (determinant 1), and the last two results say it is integral and even, for every vector and not only the basis. The proofs use `decide +kernel` for the finite checks; nothing uses `native_decide`.
+
+**Not proved yet.** The symmetry group of the lattice (Conway's group `Co₀`), and a comparison of this basis with other published bases.
+
+**File.** `LeechBasis.lean` (namespace `LeechBasis`). 29 theorems.
 
 ## Edge-optimal sets of the hypercube
 
