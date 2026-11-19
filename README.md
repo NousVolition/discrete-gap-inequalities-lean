@@ -7,6 +7,7 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | Result | Proof status | Checked statements | Playground connection |
 | --- | --- | ---: | --- |
 | Four original packages: [Poincaré](Poincare.lean), [Wirtinger](Wirtinger.lean), [Hug gap](Gap.lean) and [hypercube edge-isoperimetric inequality](Isoperimetric.lean) | **Proved** | 47 | Path/cycle/cube: [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy). Cycle applications: [Unit Distances](https://nousvolition.github.io/sparkle-sand-playground/#unit-distances) and [Cipher](https://nousvolition.github.io/sparkle-sand-playground/#cipher). |
+| [Six-point path gap](PathSix.lean) | **Proved — sharp bound, equality case and rounding** | 16 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): the gap is `2 − √3`, which rounds to `0.268`. |
 | [Ring decay proof](RingDecay.lean) | **Proved** | 14 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): six-point cycle heat update. |
 | [Vertex-isoperimetric proof](HarperSquash.lean) | **Proved — full Harper theorem** | 21 | — |
 | [Polygon isoperimetric inequality](Polygon.lean) | **Proved** | 10 | — |
@@ -25,9 +26,9 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
-| **Total** | | **535** | No new Lean statements from these demonstrations. |
+| **Total** | | **551** | Includes 16 statements for the six-point path gap. |
 
-The playground links are numerical illustrations and applications. **They do not change the proof statuses or the total of 535 statements.** A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) distinguish the sharper displayed path gap, the cube's logarithmic bound versus its exact maximum, and the different Golay construction.
+The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
 A few scope distinctions matter:
 
@@ -37,7 +38,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) prints the axioms of all **535 named statements**. The [Lean build and axiom audit passed](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44469764528) for commit [`3e2226e`](https://github.com/NousVolition/discrete-gap-inequalities-lean/commit/3e2226e2af6b356b6c1bf47ab931cbeedcc33f66). The [audit](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists all **551 named statements**. All 32 project modules passed local Lean compilation, and the complete 551-statement axiom audit passed; the [verification record](docs/path-six-verification.json) includes the pinned versions and source hashes. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -52,6 +53,16 @@ Author: NousVolition.
 Equivalently, the Dirichlet form of the path Laplacian is at least `2 / (n(n-1))` times the squared norm on mean-zero data.
 
 The original note is kept, wording unchanged, at [docs/discrete-poincare.md](docs/discrete-poincare.md), and is included below.
+
+## Six-point path gap
+
+For six real values with zero sum, [PathSix.lean](PathSix.lean) proves
+
+```text
+(2 − √3) * ∑_{i=0}^{5} f(i)² ≤ ∑_{i=0}^{4} (f(i+1) − f(i))².
+```
+
+The nonzero vector `(1, √3−1, 2−√3, √3−2, 1−√3, −1)` attains equality, so the coefficient cannot be increased. Lean also proves `0.2679491924 < 2−√3 < 0.2679491925`: Trilogy's `0.268` is correct to three decimals, but is not itself a valid lower-bound coefficient. See the [proof explanation and reproduction instructions](docs/path-six-gap.md).
 
 ## Cycle Wirtinger
 
@@ -593,6 +604,8 @@ lake build
 ### Related
 
 `Poincare.lean` proves an elementary, non-sharp inequality for the path (free ends) with constant `n(n-1)/2`. The sharp path constant `1/(4 sin²(π/(2n)))` needs the cosine transform and is not included.
+
+**Later addition:** [PathSix.lean](PathSix.lean) proves the sharp six-point case directly by sums of squares. The preceding note's exclusion still applies to a proof of the general sharp formula for arbitrary path length.
 
 ## The gap: what holds the past finite
 

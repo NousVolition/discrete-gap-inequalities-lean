@@ -1,4 +1,5 @@
 import Poincare
+import PathSix
 import Wirtinger
 import Gap
 import GapMirror
@@ -31,6 +32,22 @@ import E8PlumbingBridge
 #print axioms DiscretePoincare.pair_sum
 #print axioms DiscretePoincare.poincare
 #print axioms DiscretePoincare.mean_has_no_gap
+#print axioms PathSix.sqrt_three_bounds
+#print axioms PathSix.gap_pos
+#print axioms PathSix.mass_nonneg
+#print axioms PathSix.symmetric_bound
+#print axioms PathSix.antisymmetric_identity
+#print axioms PathSix.antisymmetric_bound
+#print axioms PathSix.poincare
+#print axioms PathSix.mode_mean_zero
+#print axioms PathSix.mode_mass_pos
+#print axioms PathSix.mode_equality
+#print axioms PathSix.sharp
+#print axioms PathSix.valid_bound_iff
+#print axioms PathSix.gap_decimal_bounds
+#print axioms PathSix.display_rounding_bin
+#print axioms PathSix.display_exceeds_gap
+#print axioms PathSix.rounded_value_not_valid_bound
 #print axioms CycleWirtinger.ortho
 #print axioms CycleWirtinger.conj_e
 #print axioms CycleWirtinger.e_eq_exp
