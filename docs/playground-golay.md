@@ -64,10 +64,12 @@ node scripts/check_playground_golay.cjs
 node scripts/check_playground_golay.cjs ../sparkle-sand-playground/index.html
 ```
 
-The [verification record](playground-golay-verification.json) records fresh local compilation of the two new modules and `CheckAxioms`, using default compiler options apart from options explicitly in the source. It distinguishes reused, unchanged local artifacts from newly compiled modules. The [axiom output](playground-golay-axioms.txt) covers all 682 audited declarations, including all 28 new public theorems. Only `propext`, `Classical.choice` and `Quot.sound` are allowed. CI builds the project and repeats the audit.
+The [verification record](playground-golay-verification.json) preserves the local compilation and 682-declaration audit at commit `93bd83600728124ec12becfd3cdc4e23778da1d1`, including all 28 correspondence and transfer theorems. It distinguishes reused, unchanged local artifacts from newly compiled modules. The [axiom output](playground-golay-axioms.txt) belongs to that historical revision. The later [GitHub build for `14518ce`](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44511224784), which adds the basis and volume proof, passed with **711 declarations checked, 0 nonstandard, 0 missing**. Only `propext`, `Classical.choice` and `Quot.sound` are allowed.
 
-`python3 scripts/check_playground_evidence.py` checks the saved source hashes, audit inventory and replay record. It does not rerun Lean or JavaScript. The older shortest-vector receipt and its 654-declaration audit are retained as historical evidence at commit `8dea8004e700f5ddd9eeea942ab9518d4463a28c`.
+At commit `93bd83600728124ec12becfd3cdc4e23778da1d1`, `python3 scripts/check_playground_evidence.py` checks the saved source hashes, audit inventory and replay record. It does not rerun Lean or JavaScript; later changes to the audit inventory intentionally fail its historical hash check. Use the build and audit commands above for the current checkout. The older shortest-vector receipt and its 654-declaration audit are retained as historical evidence at commit `8dea8004e700f5ddd9eeea942ab9518d4463a28c`.
 
-## Still open
+## Volume and remaining scope
 
-The lattice's volume/determinant and symmetry group remain unproved in this project. The coordinate permutation here identifies two presentations of a code; it is not a classification of lattice symmetries. Browser execution, floating-point projection and animation also remain outside these Lean proofs.
+The volume result is now proved in [LeechBasis.lean](../LeechBasis.lean): the basis spans the lattice and has determinant `8^12`, and the Gram matrix divided by 8 has determinant 1. Together with the proved divisibility of every squared length by 16, this gives unimodularity and evenness after the standard `1/√8` rescaling. These statements use the existing Lean coordinates; this correspondence file does not add a separate volume-transfer theorem in the playground's coordinates.
+
+The lattice's symmetry group remains unproved. The coordinate permutation identifies two presentations of a code; it is not a classification of lattice symmetries. Browser execution, floating-point projection and animation also remain outside these Lean proofs.
