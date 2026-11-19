@@ -28,7 +28,8 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
 | [The Golay-to-Leech counting bridge](GolayLeechBridge.lean) | **Proved — tied to the proved Golay counts** | 9 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the 196,560 shortest-vector count. |
-| **Total** | | **561** | Includes 16 statements for the six-point path gap. |
+| [The Leech lattice and its smallest length](LeechLattice.lean) | **Proved — definition, closure and smallest length 32; the count of shortest vectors is not** | 42 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice the 196,560 count is about. |
+| **Total** | | **603** | Includes 16 statements for the six-point path gap. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum and the different Golay construction.
 
@@ -473,7 +474,7 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 
 ## The Golay-to-Leech counting bridge
 
-`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are written out as a table so the arithmetic stays quick, and `golayWeightCount_eq_code` proves the table is exactly the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`. So the 196,560 count rests on the proved code, not on typed-in numbers. Nothing here builds the Leech lattice itself, or proves that the three shells are exactly its shortest vectors.
+`GolayLeechBridge.lean` checks the arithmetic behind the standard count of the 196,560 shortest vectors of the 24-dimensional Leech lattice. The Golay weight counts 1 / 759 / 2576 / 759 / 1 are written out as a table so the arithmetic stays quick, and `golayWeightCount_eq_code` proves the table is exactly the weight distribution proved from the generator matrix in `GolayMatrixDistance.lean`. So the 196,560 count rests on the proved code, not on typed-in numbers. Nothing here builds the Leech lattice itself, or proves that the three shells are exactly its shortest vectors (`LeechLattice.lean` builds the lattice and proves its smallest length; the matching of shells to shortest vectors is still open).
 
 | Result | Statement |
 |---|---|
@@ -490,6 +491,39 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 The proofs use `decide` or `rfl`; the two links to the code rewrite with `golay_weight_distribution` first.
 
 **File.** `GolayLeechBridge.lean` (namespace `GolayLeechBridge`). 9 results.
+
+## The Leech lattice and its smallest length
+
+`LeechLattice.lean` builds the 24-dimensional Leech lattice from the Golay code proved in `GolayMatrixDistance.lean`, and proves that its shortest nonzero vectors have squared length 32. Coordinates are whole numbers, scaled up by `√8` as usual.
+
+**The code.** A word on 24 positions is a Golay codeword (`IsGolayWord`) when it is the bits of `encodeNat m` for some message `m < 4096`, read with the same bit test that `popcount24` uses. So it is the same code, not a new one. Encoding respects adding messages bit by bit (`encodeNat_xor`), which makes the code closed under adding words. The weight facts come straight from the existing theorems `golay_doubly_even_and_d_min_8` and `golay_min_distance_bound`.
+
+**The lattice.** The definition follows Conway and Sloane, *Sphere Packings, Lattices and Groups*, chapter 4, section 11. A vector `x` of 24 whole numbers is in the lattice when, for `m = 0` or `m = 1`, every entry leaves remainder `m` on division by 2, the total leaves remainder `4m` on division by 8, and for every remainder `k` on division by 4 the positions with `x i ≡ k (mod 4)` form a Golay codeword (`InLeech`). In the even case only the positions with `x i ≡ 2 (mod 4)` need checking, and in the odd case only those with `x i ≡ 3 (mod 4)` (`inLeech_iff`).
+
+**The smallest length.** There are three cases. If every entry is odd, they cannot all be `±1`: the `-1` entries would sit on a codeword, so there would be a multiple of 4 of them, and the total would leave remainder 0 on division by 8 instead of 4. So some entry is at least 3 in size, and the squares add up to at least `9 + 23 = 32`. If every entry is even and some entry is `2 (mod 4)`, those entries sit on a nonzero codeword, so there are at least 8 of them, each with square at least 4. If every entry is a multiple of 4, a single nonzero entry would have to be a multiple of 8 (from the total), and otherwise there are two entries with square at least 16.
+
+| Result | Statement |
+|---|---|
+| `encodeNat_xor` | encoding the bitwise sum of two messages gives the bitwise sum of their codewords |
+| `isGolayWord_xor` | the sum of two codewords is a codeword |
+| `isGolayWord_not` | flipping every bit of a codeword gives a codeword |
+| `golay_weight_mod_four` | every codeword has a multiple of 4 ones (from `golay_doubly_even_and_d_min_8`) |
+| `golay_weight_ge_eight` | every nonzero codeword has at least 8 ones (from `golay_min_distance_bound`) |
+| `inLeech_iff` | the full Conway–Sloane condition is the same as the short even-or-odd test |
+| `leechLattice` | the lattice as an additive subgroup of `ℤ²⁴`: it contains `0` and is closed under adding and negating |
+| `oddLeech_norm_ge` | a lattice vector with all odd entries has squared length at least 32 |
+| `evenLeech_norm_ge_of_two` | an even lattice vector with some entry `2 (mod 4)` has squared length at least 32 |
+| `evenLeech_norm_ge_of_four` | a nonzero lattice vector with all entries multiples of 4 has squared length at least 32 |
+| `leech_norm_ge_32` | every nonzero lattice vector has squared length at least 32 |
+| `vecFourFour_mem`, `vecOctad_mem`, `vecThree_mem` | `(4, 4, 0, …)`, `2` on an octad, and `(-3, 1, …, 1)` are in the lattice, each with squared length 32 |
+| `vecFour_not_mem`, `vecOnes_not_mem` | `(4, 0, …)` and `(1, …, 1)` are not in the lattice |
+| `leech_min_norm` | 32 is the least squared length of a nonzero lattice vector |
+
+The proofs are ordinary Lean proofs plus small `decide` checks on single vectors and on the all-one codeword; nothing reruns the 4,096-codeword checks.
+
+**Not proved yet.** The file does not sort the length-32 vectors into the three shapes `(±4)² 0²²`, `(±2)⁸ 0¹⁶` and `(∓3)(±1)²³`, or count them, so the 196,560 count is still arithmetic only (in `GolayLeechBridge.lean`). It also does not prove the lattice's determinant or symmetry group, and it does not compare this form of the Golay code with other published forms.
+
+**File.** `LeechLattice.lean` (namespace `LeechLattice`). 42 results.
 
 ## Edge-optimal sets of the hypercube
 

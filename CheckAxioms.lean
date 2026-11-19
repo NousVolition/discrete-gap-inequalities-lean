@@ -26,6 +26,7 @@ import EdgeOptimal
 import E8PlumbingBridge
 import E8CostMirror
 import GolayLeechBridge
+import LeechLattice
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -605,3 +606,48 @@ import GolayLeechBridge
 #print axioms GolayLeechBridge.E8_and_Leech_summary
 #print axioms GolayLeechBridge.golayWeightCount_eq_code
 #print axioms GolayLeechBridge.leech_kissing_from_code
+
+-- Leech lattice from the Golay code: definition and smallest length
+#print axioms LeechLattice.natBit_eq
+#print axioms LeechLattice.bitAt_eq_testBit
+#print axioms LeechLattice.bitAt_xor
+#print axioms LeechLattice.popcount_foldl
+#print axioms LeechLattice.popcount24_eq_card_bitAt
+#print axioms LeechLattice.popcount24_eq_card
+#print axioms LeechLattice.encodeNat_eq_foldl
+#print axioms LeechLattice.u32_xor_left_comm
+#print axioms LeechLattice.foldl_encodeStep_xor
+#print axioms LeechLattice.encodeNat_xor
+#print axioms LeechLattice.encodeNat_zero
+#print axioms LeechLattice.word_encodeNat_4095
+#print axioms LeechLattice.word_zero
+#print axioms LeechLattice.isGolayWord_false
+#print axioms LeechLattice.isGolayWord_true
+#print axioms LeechLattice.isGolayWord_xor
+#print axioms LeechLattice.isGolayWord_not
+#print axioms LeechLattice.card_true_of_isGolayWord
+#print axioms LeechLattice.golay_weight_mod_four
+#print axioms LeechLattice.golay_weight_ge_eight
+#print axioms LeechLattice.inLeech_iff
+#print axioms LeechLattice.sum_add'
+#print axioms LeechLattice.sum_neg'
+#print axioms LeechLattice.evenLeech_add
+#print axioms LeechLattice.oddLeech_add
+#print axioms LeechLattice.odd_even_add
+#print axioms LeechLattice.evenLeech_neg
+#print axioms LeechLattice.oddLeech_neg
+#print axioms LeechLattice.leechLattice
+#print axioms LeechLattice.mem_leechLattice
+#print axioms LeechLattice.oddLeech_norm_ge
+#print axioms LeechLattice.evenLeech_norm_ge_of_two
+#print axioms LeechLattice.evenLeech_norm_ge_of_four
+#print axioms LeechLattice.leech_norm_ge_32
+#print axioms LeechLattice.vecFourFour_mem
+#print axioms LeechLattice.vecFourFour_norm
+#print axioms LeechLattice.vecOctad_mem
+#print axioms LeechLattice.vecOctad_norm
+#print axioms LeechLattice.vecThree_mem
+#print axioms LeechLattice.vecThree_norm
+#print axioms LeechLattice.vecFour_not_mem
+#print axioms LeechLattice.vecOnes_not_mem
+#print axioms LeechLattice.leech_min_norm
