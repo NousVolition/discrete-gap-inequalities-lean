@@ -1,6 +1,7 @@
 import Poincare
 import Wirtinger
 import Gap
+import GapMirror
 import Isoperimetric
 import RingDecay
 import HarperSquash
@@ -50,6 +51,25 @@ import EdgeOptimal
 #print axioms HugGap.steady_input_stays
 #print axioms HugGap.breath_keeps_four_fifths
 #print axioms HugGap.breath_out_is_a_gap
+#print axioms GapMirror.step_one
+#print axioms GapMirror.step_step
+#print axioms GapMirror.step_change
+#print axioms GapMirror.edge
+#print axioms GapMirror.rate_mirror
+#print axioms GapMirror.z_step
+#print axioms GapMirror.z_mirror
+#print axioms GapMirror.mirror_ne_zero
+#print axioms GapMirror.mirror_sum
+#print axioms GapMirror.mirror_step
+#print axioms GapMirror.blow_factor
+#print axioms GapMirror.blow_shape
+#print axioms GapMirror.finite_before
+#print axioms GapMirror.blows_up
+#print axioms GapMirror.mirror_time
+#print axioms GapMirror.below_denominator
+#print axioms GapMirror.below_positive
+#print axioms GapMirror.below_never_grows
+#print axioms GapMirror.below_fades
 #print axioms HypercubeIso.hammingDist_cons
 #print axioms HypercubeIso.sum_cube_succ
 #print axioms HypercubeIso.size_succ

@@ -1,6 +1,6 @@
 # Discrete gap inequalities
 
-These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, and the edge-optimal sets of the hypercube are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `CheckAxioms.lean` prints the axioms of all 261 statements.
+These results belong to one problem: the gap. A gap is a floor on smoothing, and a floor on how much a store holds. The four original packages, the ring decay proof, the vertex-isoperimetric proof, the polygon isoperimetric inequality, the cube's gap with Cheeger's inequality, the short bridges that tie the cycle, the polygon and the cube together, the gap of the grid made of two rings, the wall and the push, Harper stage 1 (the squash lemma), the one-floor reading that restates the wave, the patch and the shape, the extended binary Golay code, the edge-optimal sets of the hypercube, and the gap toy's mirror are collected here as one Lean project. They share Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`; `GapMirror.lean` uses Lean core only. `CheckAxioms.lean` prints the axioms of all 280 statements.
 
 Author: NousVolition.
 
@@ -31,6 +31,22 @@ The original note is kept, wording unchanged, at [docs/cycle-wirtinger.md](docs/
 **`finite_iff_gap`:** a store that adds up a steady positive input stays finite for all time exactly when it lets go at a rate above zero.
 
 The original note is kept, wording unchanged, at [docs/hug-gap.md](docs/hug-gap.md), and is included below.
+
+## The gap toy's mirror
+
+[GapMirror.lean](GapMirror.lean), beside `Gap.lean`, contains 19 theorems over rational numbers for the scalar toy with rate `u * u - g * u` and no spatial spreading. It uses Lean core only. The supplied `GapMirror_1.lean` is retained unchanged under this module name.
+
+The algebraic evolution is
+
+```
+step g r u = g * u / (r * g - (r - 1) * u)
+```
+
+The coordinate `z = 1 - g / u` is multiplied by `r` (`z_step`). Reversing its sign pairs an above-gap starting height `A` with `mirror g A = g * A / (2 * A - g)`. The pairing commutes with evolution where the stated denominators are nonzero (`mirror_step`), and the reciprocal heights obey `mirror_sum`.
+
+For `0 < g < A`, `blows_up` proves that every height `A + M`, with `M > 0`, is attained at a rational factor `1 ≤ r < A / (A - g)`. At the limiting factor, the below-gap mirror is `g / 2` (`mirror_time`). For `0 < u < g` and `r ≥ 1`, the below-gap solution stays positive, does not exceed its starting height, and satisfies the explicit bound `step g r u * (r * (g - u)) ≤ g * u`.
+
+**Scope.** This is an algebraic growth-factor model. The identification `r = exp(g * t)`, a derivative with respect to real clock time, and a real-time blow-up limit are not formalized here. Lean's rational division is total: division by zero evaluates to zero, not infinity. The value of `step` at its pole must therefore not be interpreted as a physical height; `blows_up` concerns unbounded heights strictly before that pole. This nonlinear toy is separate from the linear store in `Gap.lean`.
 
 ## Hypercube isoperimetric inequality
 
