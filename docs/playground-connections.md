@@ -1,6 +1,6 @@
 # Playground connections and proof coverage
 
-The [Sparkle Sand Playground](https://nousvolition.github.io/sparkle-sand-playground/) supplies numerical examples for several results in the README. This review adds links and clarifies coverage; it adds **no Lean theorem**. The formal audit still contains **527 named statements**.
+The [Sparkle Sand Playground](https://nousvolition.github.io/sparkle-sand-playground/) supplies numerical examples for several results in the README. This review adds links and clarifies coverage; it adds **no Lean theorem**. The formal audit still contains **535 named statements**.
 
 The reviewed [playground source](https://github.com/NousVolition/sparkle-sand-playground/blob/03ef852cce4ae0d2cdb2319c413b6755bcf6e593/index.html) is commit `03ef852cce4ae0d2cdb2319c413b6755bcf6e593`. The deployed HTML fetched during the review matched that source after normalizing line endings. Its normalized SHA256 is `b5eb5238b1aef886b42dc3a342540ac150aa8eb1398311afdec2a74475a40fc2`.
 
@@ -35,7 +35,7 @@ The [reproduction script](../scripts/check_playground_connections.cjs) pins the 
 - Trilogy's six-point cosine heat update at speeds 1, 4 and 10: steps `0.004`, `0.016` and `0.04`, all within `RingDecay`'s proved interval `0 ≤ t ≤ 1/4`. The largest difference from the expected mode multiplier is `5.552e-17`.
 - Unit Distances rings with `k = 1, 2, 5, 25, 65`, using both coordinate axes. All ten numerical comparisons satisfy the bound to the stated numerical tolerance; the first two rings reach equality to rounding.
 - The cipher gauge's seven cosine fixtures at lengths `3, 4, 5, 7, 12, 60, 120`. All give `W=1` within `1e-9`. A constant window is reported as flat with an undefined ratio, rather than assigned a spurious finite value. JSON records that undefined ratio as `null`.
-- A four-character cipher fixture using two symbols and decoding to `ABBA`: its JavaScript certificate passes, and a changed claimed plaintext fails. The exporter emits two Lean statements, but this review did **not** compile that export. Generated key-decoding checks are outside the 527-statement project audit; even a compiled decoding identity would not prove that the key is the intended one.
+- A four-character cipher fixture using two symbols and decoding to `ABBA`: its JavaScript certificate passes, and a changed claimed plaintext fails. The exporter emits two Lean statements, but this review did **not** compile that export. Generated key-decoding checks are outside the 535-statement project audit; even a compiled decoding identity would not prove that the key is the intended one.
 - Both Golay constructions enumerate 4,096 distinct codewords with weight distribution `1 / 759 / 2576 / 759 / 1` at weights `0, 8, 12, 16, 24`. With the coordinates numbered as written in the two implementations, their sets share **four** codewords and are not identical. This does not refute equivalence under a coordinate permutation; it identifies a correspondence that has not been checked in Lean here.
 
 All of these are external computation checks. They do not supply new hypotheses or certified floating-point error bounds to Lean, and they do not increase the proof count.

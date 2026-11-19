@@ -116,7 +116,7 @@ const report = {
   cycle_heat:cycle,
   unit_distance_rings:unit,
   cipher_gauge:cipher,
-  cipher_certificate:{...certificate,lean_compilation:'not run; not included in the 527 audited statements'},
+  cipher_certificate:{...certificate,lean_compilation:'not run; not included in the 535 audited statements'},
   golay:{playground_basis_size:leech.basisSize,codewords:leech.code.length,
     weight_distribution:histogram(leech.code),same_coordinate_codewords_in_common:intersection,
     identical_codeword_sets:intersection===4096,

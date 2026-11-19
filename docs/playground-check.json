@@ -165,7 +165,7 @@
     "valid": true,
     "tampered": false,
     "exported_theorems": 2,
-    "lean_compilation": "not run; not included in the 527 audited statements"
+    "lean_compilation": "not run; not included in the 535 audited statements"
   },
   "golay": {
     "playground_basis_size": 12,

@@ -18,15 +18,16 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 | — |
 | [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): different Golay generator; formal correspondence remains unproved. |
 | [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): exact cube maximum and optimality labels, with the logarithmic upper bound shown separately. |
+| [The E₈ plumbing matrix](E8PlumbingBridge.lean) | **Proved** | 8 | — |
 | The gap toy's mirror in [rational](GapMirror.lean) and [real-time](GapMirrorCalculus.lean) forms | **Proved — for the explicit scalar model** | 31 | — |
 | The [exact clock](GapMirrorBridge.lean) and [even-ring reflection](RingGapBridge.lean) bridges | **Proved — with different motion scopes; see below** | 47 | — |
 | [The four-dot map preserving both motion and reflection](FourDotGapBridge.lean) | **Proved — for the specified four-dot family** | 26 | — |
 | The two-wave heat-to-gap maps for [continuous flow](TwoWaveGapBridge.lean) and [the exact discrete step](TwoWaveDiscreteGapBridge.lean) | **Proved — under the stated mode and domain conditions** | 95 | — |
 | [An amplitude map preserving motion and the actual ring flip](TwoWaveFlipBridge.lean) | **Proved — for the specified construction** | 60 | — |
 | [A same-sign obstruction for global amplitude readouts](TwoWaveReadoutObstruction.lean) | **Proved — for unequal rates and the stated global identities** | 7 | — |
-| **Total** | | **527** | No new Lean statements from these demonstrations. |
+| **Total** | | **535** | No new Lean statements from these demonstrations. |
 
-The playground links are numerical illustrations and applications. **They do not change the proof statuses or the total of 527 statements.** A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) distinguish the sharper displayed path gap, the cube's logarithmic bound versus its exact maximum, and the different Golay construction.
+The playground links are numerical illustrations and applications. **They do not change the proof statuses or the total of 535 statements.** A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) distinguish the sharper displayed path gap, the cube's logarithmic bound versus its exact maximum, and the different Golay construction.
 
 A few scope distinctions matter:
 
@@ -36,7 +37,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) prints the axioms of all **527 named statements**. The [Lean build and axiom audit passed](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44469764528) for commit [`3e2226e`](https://github.com/NousVolition/discrete-gap-inequalities-lean/commit/3e2226e2af6b356b6c1bf47ab931cbeedcc33f66). The [audit](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports. The proof sources are unchanged by this README update.
+[CheckAxioms.lean](CheckAxioms.lean) prints the axioms of all **535 named statements**. The [Lean build and axiom audit passed](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44469764528) for commit [`3e2226e`](https://github.com/NousVolition/discrete-gap-inequalities-lean/commit/3e2226e2af6b356b6c1bf47ab931cbeedcc33f66). The [audit](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -478,6 +479,23 @@ The exhaustive checks run over all 4,096 codewords and use `decide +kernel`.
 **Numerical check.** For `n ≤ 4`, every vertex set was checked against the maximum, and `dir (bin n m) = 2 h m` held for every `m`. For `n = 5, 6`, 20,000 random sets each stayed at or below `dir (bin n m)`. The binary-sum inequality held for all `a, b < 300`.
 
 **File.** `EdgeOptimal.lean` (namespace `HypercubeEdgeOptimal`). 25 results.
+
+## The E₈ plumbing matrix
+
+`E8PlumbingBridge.lean` records the A₄ and E₈ plumbing intersection matrices, checks that they are symmetric, and computes their determinants and the E₈ trace. It also counts even-parity vertices of the 8-cube and pairs of coordinates, which add to 240. These are matrix and count checks; they do not prove that the counted vectors are the roots of the lattice defined by `E8_matrix`.
+
+| Result | Statement |
+|---|---|
+| `A4_isSymm` | the A₄ plumbing matrix is symmetric |
+| `A4_det` | the determinant of the A₄ plumbing matrix is 5 |
+| `E8_isSymm` | the E₈ plumbing matrix is symmetric |
+| `E8_det` | the determinant of the E₈ plumbing matrix is 1 |
+| `E8_trace` | the trace of the E₈ plumbing matrix is −16 |
+| `card_spinor_roots` | the 8-cube has 128 even-parity vertices |
+| `card_integer_roots` | 4 times the number of unordered pairs of distinct coordinates in `Fin 8` is 112 |
+| `total_E8_roots` | those two counts add to 240 |
+
+**File.** `E8PlumbingBridge.lean` (namespace `E8PlumbingBridge`). 8 results.
 
 ## Build
 
