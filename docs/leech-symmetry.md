@@ -1,6 +1,6 @@
 # The Leech symmetry group
 
-**The full origin-fixing symmetry group has 8,315,553,613,086,720,000 elements.** A symmetry here is a distance-preserving bijection of the Leech lattice fixing the origin. Coordinates use the existing √8 scale. Squared length 64 in these files is squared length 8 in the usual normalization.
+For the Leech lattice with the origin fixed, the full symmetry group has order 8,315,553,613,086,720,000, with explicit generators, proved in Lean. [Order](../ConwayOrder.lean#L29) · [Generators](../ConwayGenerators.lean#L21). A symmetry here is a distance-preserving bijection of the Leech lattice fixing the origin. Coordinates use the existing √8 scale. Squared length 64 in these files is squared length 8 in the usual normalization.
 
 | Milestone | Lean theorem | What it establishes |
 | --- | --- | --- |
