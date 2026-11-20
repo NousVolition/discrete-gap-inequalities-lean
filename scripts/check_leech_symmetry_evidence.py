@@ -10,8 +10,6 @@ root = Path(__file__).resolve().parents[1]
 records = [json.loads(p.read_text(encoding='utf-8')) for p in (root/'docs').glob('leech-symmetry-verification*.json')]
 record = max(records, key=lambda r: r['verified_at_utc'])
 assert record['status'] == 'PASS'
-assert record['full_conway_classification'] == 'UNPROVED'
-assert record['norm64_transitivity'] == 'UNPROVED'
 
 def digest(path):
     return hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
@@ -31,7 +29,18 @@ for module in record.get('theorem_modules', ['LeechSymmetry', 'LeechMonomial', '
     names.extend(namespace + '.' + n for n in re.findall(r'^theorem (\w+)', source, re.M))
 assert names == record['new_public_theorems']
 assert set(names) <= set(targets), 'A new theorem is missing from the audit'
+milestones = {
+    'ConwayMoves.norm64_transitive': 'norm64_transitivity',
+    'ConwayOrder.card_aut': 'full_conway_classification',
+}
+for theorem, field in milestones.items():
+    assert record[field] == ('PROVED' if theorem in names else 'UNPROVED')
+if record['full_conway_classification'] == 'PROVED':
+    assert 'ConwayGenerators.listed_generate' in names
+    assert record['full_group_order'] == '8315553613086720000'
+    source = (root / 'ConwayOrder.lean').read_text(encoding='utf-8')
+    assert re.search(r'^theorem card_aut\s*:\s*Nat\.card LeechSymmetry\.Aut\s*=\s*8315553613086720000\s*:=', source, re.M)
 subprocess.run([sys.executable, str(root / '.github/check_axioms.py'),
                 str(root / 'CheckAxioms.lean'), str(axioms)], check=True)
 print(f'PASS: saved evidence matches {len(names)} symmetry theorems and {len(record["preserved_source_sha256"])} unchanged existing proof files.')
-print('Co0 status: partial. This command checks saved evidence.')
+print('Co0 order proof:', record['full_conway_classification'], '(saved evidence).')

@@ -169,3 +169,30 @@ name = "MathieuGroup"
 
 [[lean_lib]]
 name = "LeechSextet"
+
+[[lean_lib]]
+name = "ConwayMoves"
+
+[[lean_lib]]
+name = "ConwayTransitivity"
+
+[[lean_lib]]
+name = "ConwayCoordinates"
+
+[[lean_lib]]
+name = "ConwayGenerators"
+
+[[lean_lib]]
+name = "ConwayTally"
+
+[[lean_lib]]
+name = "ConwayNeighborCount"
+
+[[lean_lib]]
+name = "ConwayPairs"
+
+[[lean_lib]]
+name = "ConwayStabilizer"
+
+[[lean_lib]]
+name = "ConwayOrder"
