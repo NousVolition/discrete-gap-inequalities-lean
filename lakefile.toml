@@ -208,3 +208,6 @@ name = "LeechNorm48Count"
 
 [[lean_lib]]
 name = "LeechNorm48"
+
+[[lean_lib]]
+name = "LeechNorm48Pairs"

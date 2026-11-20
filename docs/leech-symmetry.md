@@ -52,6 +52,12 @@ For each residue word, Lean counts the coordinate choices that give the required
 
 To reproduce, run `lake build LeechNorm48 CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [verification record](leech-symmetry-verification-2026-11-20-norm48-shell.json) and [full transcript](axioms-2026-11-20-norm48-shell.txt) cover 959 declarations.
 
+### Opposite pairs at squared length 48
+
+Each vector v of squared length 48 belongs to one unordered pair {v, −v}. Negation preserves squared length, and the only integer vector equal to its own negative is zero. Each pair therefore has two distinct members. Choosing a pair and marking one member recovers one vector. The 16,773,120 vectors give **8,386,560 opposite pairs**. [Pair membership](../LeechNorm48Pairs.lean#L22) · [Two distinct members](../LeechNorm48Pairs.lean#L29) · [Count theorem](../LeechNorm48Pairs.lean#L41).
+
+To reproduce the pair count, run `lake build LeechNorm48Pairs CheckAxioms` and the axiom-check commands above. The [verification record](leech-symmetry-verification-2026-11-20-norm48-pairs.json) and [full transcript](axioms-2026-11-20-norm48-pairs.txt) cover 962 declarations.
+
 ## Vectors of squared length 64
 
 Every lattice vector of squared length 64 belongs to one coordinate frame. Move the vector to the first standard axis. Any frame containing that axis consists of the 48 norm-64 vectors in its congruence class modulo twice the lattice, so it must be the standard frame. Moving it back gives the unique frame containing the original vector. [Unique frame](../LeechCoordinateFrames.lean#L140).
