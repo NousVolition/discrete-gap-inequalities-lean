@@ -1114,6 +1114,10 @@ import LightBounceAndCapture
 #print axioms LeechLayers.card_dot_neg_eight
 #print axioms LeechLayers.card_dot_pos_sixteen
 #print axioms LeechLayers.card_dot_neg_sixteen
+#print axioms LeechLayers.pos_thirty_two_layer_iff
+#print axioms LeechLayers.neg_thirty_two_layer_iff
+#print axioms LeechLayers.card_dot_pos_thirty_two
+#print axioms LeechLayers.card_dot_neg_thirty_two
 
 #print axioms RingSumMinusTwelfth.two_sin_mul_sin_step
 #print axioms RingSumMinusTwelfth.sum_two_sin_mul_sin

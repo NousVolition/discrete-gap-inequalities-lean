@@ -222,4 +222,60 @@ theorem card_dot_neg_sixteen (s : PlayShortestVectors) :
     Nat.card {v : PlayShortestVectors // dot s.val v.val = -16} = 4600 := by
   exact_mod_cast (play_count s (-4)).trans ((count_neg 4).trans counts.2)
 
+private theorem eq_zero_of_normSq_zero (v : Vec) (h : normSq v = 0) : v = 0 := by
+  funext i
+  have hi := single_le_sum (f := fun j => v j ^ 2) (fun j _ => sq_nonneg (v j)) (mem_univ i)
+  change v i ^ 2 ≤ normSq v at hi
+  rw [h] at hi
+  exact sq_eq_zero_iff.mp (le_antisymm hi (sq_nonneg _))
+
+/-- The +32 layer contains only the chosen shortest vector. -/
+theorem pos_thirty_two_layer_iff (s : PlayShortestVectors) (v : Vec) :
+    IsPlayShortest v ∧ dot s.val v = 32 ↔ v = s.val := by
+  have ns := ((play_shortest_iff_norm32 _).mp s.property).2
+  constructor
+  · rintro ⟨hv, hd⟩
+    have nv := ((play_shortest_iff_norm32 _).mp hv).2
+    have hz : s.val - v = 0 := eq_zero_of_normSq_zero _ (by
+      rw [normSq_sub, ns, nv, hd]; decide)
+    exact (sub_eq_zero.mp hz).symm
+  · rintro rfl
+    exact ⟨s.property, by simpa only [dot, normSq, pow_two] using ns⟩
+
+/-- The −32 layer contains only the negative of the chosen shortest vector. -/
+theorem neg_thirty_two_layer_iff (s : PlayShortestVectors) (v : Vec) :
+    IsPlayShortest v ∧ dot s.val v = -32 ↔ v = -s.val := by
+  obtain ⟨hs, ns⟩ := (play_shortest_iff_norm32 _).mp s.property
+  constructor
+  · rintro ⟨hv, hd⟩
+    have nv := ((play_shortest_iff_norm32 _).mp hv).2
+    have hz : s.val + v = 0 := eq_zero_of_normSq_zero _ (by
+      rw [normSq_add, ns, nv, hd]; decide)
+    rw [add_comm] at hz
+    exact add_eq_zero_iff_eq_neg.mp hz
+  · rintro rfl
+    have hn : InPlayLeech (-s.val) := (lattice_correspondence _).mpr
+      (leechLattice.neg_mem ((lattice_correspondence _).mp hs))
+    refine ⟨(play_shortest_iff_norm32 _).mpr ⟨hn, (normSq_neg _).trans ns⟩, ?_⟩
+    simpa [dot, normSq, pow_two] using congrArg Neg.neg ns
+
+private theorem card_layer_of_singleton (s : PlayShortestVectors) (k : ℤ) (w : Vec)
+    (hw : ∀ v : Vec, IsPlayShortest v ∧ dot s.val v = k ↔ v = w) :
+    Nat.card {v : PlayShortestVectors // dot s.val v.val = k} = 1 := by
+  classical
+  rw [Nat.card_eq_fintype_card, Fintype.card_eq_one_iff]
+  obtain ⟨hs, hd⟩ := (hw w).mpr rfl
+  refine ⟨⟨⟨w, hs⟩, hd⟩, fun v => ?_⟩
+  exact Subtype.ext (Subtype.ext ((hw v.val.val).mp ⟨v.val.property, v.property⟩))
+
+/-- The +32 layer has one shortest vector. -/
+theorem card_dot_pos_thirty_two (s : PlayShortestVectors) :
+    Nat.card {v : PlayShortestVectors // dot s.val v.val = 32} = 1 :=
+  card_layer_of_singleton s 32 s.val (pos_thirty_two_layer_iff s)
+
+/-- The −32 layer has one shortest vector. -/
+theorem card_dot_neg_thirty_two (s : PlayShortestVectors) :
+    Nat.card {v : PlayShortestVectors // dot s.val v.val = -32} = 1 :=
+  card_layer_of_singleton s (-32) (-s.val) (neg_thirty_two_layer_iff s)
+
 end LeechLayers

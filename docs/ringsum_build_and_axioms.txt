@@ -1,16 +1,16 @@
 RingSumMinusTwelfth.lean build and axiom check
 Repository: NousVolition/discrete-gap-inequalities-lean
-Base main commit: 76cd2ec6457370a1d110935a570987d48b1edd34
-Checked at (UTC): 2026-11-20T10:28:54.560102+00:00
+Base main commit: af2deea39a014d3e4f646a69dcf6106b16a0339b
+Checked at (UTC): 2026-11-20T10:34:53.484359+00:00
 Lean: Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
 Mathlib: 85e3a25e006c35636f0e53b0e9296caca2685bc0
 Source SHA256 (LF): 70932f54f27ae93bdca5240e72bf324cd8142bb6a26dac715d2b65ea371e2c65
 
 The file proves 30.51405 < 2 cot(π/48) < 30.51415. At n = 24 the bar total rounds to 30.5141.
-RingSumMinusTwelfth.lean and CheckAxioms.lean compiled. LeechLayers.lean was rebuilt from the base revision.
+Recompiled with the pinned toolchain: LeechLayers.lean, RingSumMinusTwelfth.lean, CheckAxioms.lean.
 The other 78 project dependencies used compiled files with matching sources, toolchain and lockfile.
-1038 declarations checked, 0 nonstandard, 0 missing
-Base declarations: 1013
+1042 declarations checked, 0 nonstandard, 0 missing
+Base declarations: 1017
 New declarations: 25 (13 theorems and 12 helper lemmas)
 Axiom checker regression tests: passed
 Full axiom transcript: docs/axioms-2026-11-20-ring-sum.txt
