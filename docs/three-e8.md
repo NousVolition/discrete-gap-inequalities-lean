@@ -108,7 +108,6 @@ The replay also records the number of shortest vectors in each glue coset and
 the component squared-length patterns. Those particular distributions are
 measured outputs; the Lean results above do not claim to prove them.
 
-The browser projection, glow, interaction and full lattice symmetry group are
-outside these proofs. The 240-point E₈ pictures are reference root projections;
+The [full symmetry group](leech-symmetry-order.md) is proved for the same lattice. The browser projection, glow and interaction remain outside Lean. The 240-point E₈ pictures are reference root projections;
 a highlighted component can lie in a shifted copy. The screen does not show
 24-dimensional distances faithfully.

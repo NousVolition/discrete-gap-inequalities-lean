@@ -1,0 +1,35 @@
+{
+  "proof_branch": {
+    "audited_total": 900,
+    "run_id": 44674594813,
+    "url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813",
+    "conclusion": "success",
+    "verified_at_utc": "2026-11-20T04:32:18.6659064Z",
+    "job_id": 136083297509,
+    "head": "390745d891661d41f9cd244bc811bffef914657b",
+    "axiom_summary": "900 declarations checked, 0 nonstandard, 0 missing",
+    "log_sha256": "78865e24eec16e9e251022af943ebe0d5de0fc6709f2d9f932fed7a4af495075"
+  },
+  "pull_request": {
+    "run_id": 44674659364,
+    "conclusion": "success",
+    "audited_total": 949,
+    "axiom_summary": "949 declarations checked, 0 nonstandard, 0 missing",
+    "job_id": 136083513003,
+    "log_sha256": "3671f9bd63b5196aeb31f1b55a0a305ba3c75069f9149ef003e5d5cb5ea080a3",
+    "head": "390745d891661d41f9cd244bc811bffef914657b",
+    "verified_at_utc": "2026-11-20T04:32:20.5328050Z",
+    "url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364"
+  },
+  "merged_main": {
+    "head": "a0498c80c24b1e14925e25233afc93b235429e7b",
+    "verified_at_utc": "2026-11-20T04:35:30.3290642Z",
+    "job_id": 136084952916,
+    "run_id": 44675102913,
+    "audited_total": 949,
+    "axiom_summary": "949 declarations checked, 0 nonstandard, 0 missing",
+    "url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913",
+    "log_sha256": "e187e4f27e4312e12278ed78ff37220a5da079c7832fa9019c7e97eab7055808",
+    "conclusion": "success"
+  }
+}
