@@ -1,3 +1,5 @@
+import LeechNorm80Layers
+import LeechNorm64Layers
 import LeechNorm80
 import LeechLayers
 import LeechNorm48
@@ -1144,3 +1146,12 @@ import LightBounceAndCapture
 #print axioms RingSumMinusTwelfth.mu_eq_bar_sq
 #print axioms RingSumMinusTwelfth.bar_eq_sqrt_mu
 #print axioms RingSumMinusTwelfth.sum_sqrt_mu_eq_two_cot
+#print axioms LeechLayers.card_dot_layer
+#print axioms LeechNorm48Layers.shell_card
+#print axioms LeechNorm48Layers.diff_moments
+#print axioms LeechLayers.card_norm48_dot_layer
+
+#print axioms LeechLayers.card_norm64_dot_layer
+
+#print axioms LeechShellMoments.diff_moments
+#print axioms LeechLayers.card_norm80_dot_layer

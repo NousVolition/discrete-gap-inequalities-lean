@@ -96,6 +96,18 @@ For even coordinates, words of weight 0 or 24 give no vectors at this length. Fl
 
 ## Layers along a shortest vector
 
+Choose any shortest vector *s*. The table counts shortest vectors *v* by their dot product *s · v* in the playground’s integer coordinates. [Lean proof of the whole table](../LeechLayers.lean#L304).
+
+| Dot product | Number of shortest vectors |
+|---|---:|
+| 0 | 93,150 |
+| −8 or +8 | 47,104 each |
+| −16 or +16 | 4,600 each |
+| −32 or +32 | 1 each |
+| Every other integer, including −24 and +24 | 0 |
+
+Each vector has one dot product with *s*. The seven occupied layers contain 93,150 + 2 × (47,104 + 4,600 + 1) = 196,560 vectors. That accounts for every shortest vector.
+
 For any shortest vector in the playground coordinates, 93,150 of the 196,560 shortest vectors are perpendicular to it. The coordinate permutation preserves the dot product, so the central layer follows from the partner count. A dot product of +24 would give a difference of squared length 16. A dot product of −24 would give a sum of squared length 16. Both would be nonzero lattice vectors below the minimum of 32. [Partner count](../ConwayOrder.lean#L15) · [Central layer in playground coordinates](../LeechLayers.lean#L18) · [Empty slots](../LeechLayers.lean#L27) · [Minimum length](../PlaygroundLeech.lean#L57).
 
 For every shortest vector *s*, the [−8](../LeechLayers.lean#L211) and [+8](../LeechLayers.lean#L206) layers each have **47,104** vectors. The [−16](../LeechLayers.lean#L221) and [+16](../LeechLayers.lean#L216) layers each have **4,600**. The signs refer to the dot product *s · v* in the playground’s integer coordinates.
@@ -108,7 +120,70 @@ The [+32 layer](../LeechLayers.lean#L233) contains only *s*. When *s · v = 32*,
 
 The Layers view also counts the generated vectors for the current selection and draws the projection in the browser.
 
-Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-end-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-end-layers.json) cover 1017 declarations.
+Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-layer-table.txt) and [verification record](leech-symmetry-verification-2026-11-20-layer-table.json) cover 1018 declarations.
+
+## Layers for squared length 48
+
+Choose any shortest vector *s* as the axis. Let *v* run over all lattice vectors of squared length 48 in the playground’s integer coordinates. [Lean proof of the layer table](../LeechLayers.lean#L446).
+
+| Dot product *s · v* | Number of vectors |
+|---|---:|
+| 0 | 6,476,800 |
+| −8 or +8 | 4,147,200 each |
+| −16 or +16 | 953,856 each |
+| −24 or +24 | 47,104 each |
+| Every other integer | 0 |
+
+The seven counts add up to 16,773,120. Lattice dot products are multiples of 8. The vectors *s − v* and *s + v* are both nonzero, so their squared lengths are at least 32. This puts *s · v* between −24 and +24. [Allowed dot products](../LeechLayers.lean#L334).
+
+At +24, subtract *v* from *s*. The result is a shortest vector in the +8 layer. Subtract it from *s* again to recover *v*. This pairs the two layers and gives 47,104 vectors in each. Negation gives the same count at −24. [Bijection](../LeechLayers.lean#L372).
+
+The proof first uses the axis (4, −4, 0, …). Write *d = v₀ − v₁*, so the dot product is *4d*. Coordinate permutations, sign changes and the four-coordinate lattice move give two sums over the whole shell. The sum of *d²* is 67,092,480, and the sum of *d⁴* is 743,178,240. Together with the total and the two outer counts, these determine the counts at 0, ±8 and ±16. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Second and fourth powers](../LeechNorm48Moments.lean#L30) · [Layer counts](../LeechLayers.lean#L412) · [Change of axis](../LeechLayers.lean#L429).
+
+Run `lake build LeechNorm48Moments LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm48-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm48-layers.json) cover 1021 declarations.
+
+## Layers for squared length 64
+
+Choose any shortest vector *s*. The table counts vectors *v* of squared length 64 in the playground’s integer coordinates. [Lean proof](../LeechNorm64Layers.lean#L159).
+
+| Dot product *s · v* | Number of vectors |
+|---|---:|
+| 0 | 133,204,500 |
+| −8 or +8 | 95,385,600 each |
+| −16 or +16 | 32,788,800 each |
+| −24 or +24 | 4,147,200 each |
+| −32 or +32 | 93,150 each |
+| Every other integer | 0 |
+
+The nine layers add up to 398,034,000. To count them, first fix a length-64 vector and count the shortest vectors that meet it at each dot product. A symmetry can take that length-64 vector to (8, 0, …), where the dot product is eight times the first coordinate. All 48 signed coordinate axes give the same count. [Signed axes](../LeechNorm64Layers.lean#L78).
+
+The three shortest-vector shapes give the counts across those axes. A vector with two entries of magnitude 4 hits zero 44 times and each of ±32 twice. A vector with eight entries of magnitude 2 hits zero 32 times and each of ±16 eight times. An odd vector hits each of ±8 on 23 axes and each of ±24 on one. There are 1,104, 97,152 and 98,304 shortest vectors of these shapes, respectively. No other dot product occurs. [Count by shape](../LeechNorm64Layers.lean#L128).
+
+Now fix the shortest vector instead. Count all pairs (*s*, *v*) at the chosen dot product, once for each choice of *s* and once for each choice of *v*. Symmetry makes each count independent of which vector is fixed. There are 398,034,000 choices for *v* and 196,560 for *s*, so the count for a fixed *s* is 2,025 times the count for a fixed *v*. [Counting pairs](../LeechNorm64Layers.lean#L59).
+
+Run `lake build LeechNorm64Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm64-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm64-layers.json) cover 1022 declarations.
+
+## Layers for squared length 80
+
+Fix any shortest vector *s*. This table counts the vectors *v* of squared length 80 in the playground’s integer coordinates. [Lean proof](../LeechNorm80Layers.lean#L160).
+
+| Dot product *s · v* | Number of vectors |
+|---|---:|
+| 0 | 1,384,998,912 |
+| −8 or +8 | 1,062,195,200 each |
+| −16 or +16 | 458,086,400 each |
+| −24 or +24 | 95,385,600 each |
+| −32 or +32 | 6,476,800 each |
+| −40 or +40 | 47,104 each |
+| Every other integer | 0 |
+
+The eleven layers add up to 4,629,381,120. All lattice dot products are multiples of 8. Both *s − v* and *s + v* are nonzero lattice vectors, so each has squared length at least 32. Their squared lengths are *112 − 2(s · v)* and *112 + 2(s · v)*. This puts *s · v* between −40 and +40. [Allowed dot products](../LeechNorm80Layers.lean#L78).
+
+Subtracting *v* from *s* pairs three layers with ones already counted. A vector at +24 goes to a vector of squared length 64 at +8. A vector at +32 goes to squared length 48 at zero. A vector at +40 goes to squared length 32 at −8. Subtract from *s* again to get the original vector back. Negating *v* gives the same counts on the negative side. [Pairing](../LeechNorm80Layers.lean#L26) · [Counts from the earlier tables](../LeechNorm80Layers.lean#L43).
+
+For the remaining counts, take the shortest axis (4, −4, 0, …) and write *d = v₀ − v₁*. Its dot product with *v* is *4d*. The sum of *d²* over the shell is 30,862,540,800, and the sum of *d⁴* is 569,769,984,000. These two sums and the shell total determine the counts at 0, ±8 and ±16. The moment formulas also give the earlier length-48 result. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm80Layers.lean#L146) · [Change of axis](../LeechNorm80Layers.lean#L104).
+
+Run `lake build LeechNorm80Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm80-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm80-dot-layers.json) cover 1024 declarations.
 
 ## Verification
 
