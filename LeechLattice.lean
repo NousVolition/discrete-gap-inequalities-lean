@@ -37,7 +37,7 @@ the lattice when, for `m = 0` or `m = 1`:
 3. for every remainder `k` on division by 4, the positions `i` with `x i ≡ k (mod 4)` form a
    Golay codeword.
 
-That is `InLeech`, written exactly in this "for every remainder" form. `inLeech_iff` shows it
+That is `InLeech`, written in this "for every remainder" form. `inLeech_iff` shows it
 comes down to a simpler test: in the even case the positions with `x i ≡ 2 (mod 4)` form a
 codeword, and in the odd case the positions with `x i ≡ 3 (mod 4)` form a codeword (the other
 remainders then take care of themselves, because flipping every bit of a codeword gives a
@@ -59,7 +59,7 @@ into three cases:
 * **All entries multiples of 4.** A single nonzero entry would have to be a multiple of 8 (from
   the total), giving at least 64; otherwise two nonzero entries give at least `16 + 16`.
 
-`leech_min_norm` shows 32 is really reached, and states the result as "32 is the least squared
+`leech_min_norm` shows 32 is reached, and states the result as "32 is the least squared
 length of a nonzero lattice vector". As a check that the definition is the standard one, the file
 also shows one vector of each of the three standard shapes is in the lattice
 (`(4, 4, 0, …)`, `2` on an octad, `(-3, 1, …, 1)`), and two nearby vectors are not

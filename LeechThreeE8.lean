@@ -12,8 +12,8 @@ Coordinates retain the project's √8 scale. Each of the three base lattices is
 matrix. In ordinary Leech units the base is (√2 E₈)³.
 
 The twelve explicit glue vectors and the base generate precisely `leechLattice`.
-The finite integer tables are witnesses, checked by Lean's kernel; they are not
-assumed correct on the authority of the discovery script.
+The finite integer tables are witnesses. Lean's kernel checks them.
+The script that found them is not trusted.
 -/
 
 namespace LeechThreeE8
@@ -33,7 +33,7 @@ theorem block_norm (x : Vec) : (∑ i, x (coordinate i) ^ 2) = ∑ i, x i ^ 2 :=
   intro i
   rfl
 
-/-- The base really is three copies of the displayed eight simple roots. -/
+/-- The base is three copies of the eight simple roots above, one per block. -/
 theorem base_blocks : ∀ i j : Fin 24,
     base i (coordinate j) = if i.val / 8 = j.val / 8 then
       e8Root (Fin.ofNat 8 i.val) (Fin.ofNat 8 j.val) else 0 := by decide +kernel
