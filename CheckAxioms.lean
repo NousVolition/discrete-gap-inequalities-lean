@@ -1,3 +1,4 @@
+import LeechNorm80Layers
 import LeechNorm64Layers
 import LeechNorm80
 import LeechLayers
@@ -1124,3 +1125,6 @@ import LightBounceAndCapture
 #print axioms LeechLayers.card_norm48_dot_layer
 
 #print axioms LeechLayers.card_norm64_dot_layer
+
+#print axioms LeechShellMoments.diff_moments
+#print axioms LeechLayers.card_norm80_dot_layer
