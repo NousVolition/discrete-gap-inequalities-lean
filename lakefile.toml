@@ -148,3 +148,15 @@ name = "LeechMonomial"
 
 [[lean_lib]]
 name = "LeechFrameStabilizer"
+
+[[lean_lib]]
+name = "MathieuData"
+
+[[lean_lib]]
+name = "MathieuBase"
+
+[[lean_lib]]
+name = "MathieuGroup"
+
+[[lean_lib]]
+name = "LeechSextet"

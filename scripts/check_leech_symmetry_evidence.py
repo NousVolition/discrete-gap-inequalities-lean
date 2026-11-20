@@ -7,7 +7,8 @@ import subprocess
 import sys
 
 root = Path(__file__).resolve().parents[1]
-record = json.loads((root / 'docs/leech-symmetry-verification.json').read_text(encoding='utf-8'))
+records = [json.loads(p.read_text(encoding='utf-8')) for p in (root/'docs').glob('leech-symmetry-verification*.json')]
+record = max(records, key=lambda r: r['verified_at_utc'])
 assert record['status'] == 'PASS'
 assert record['full_conway_classification'] == 'UNPROVED'
 assert record['norm64_transitivity'] == 'UNPROVED'
@@ -24,12 +25,13 @@ assert digest(axioms) == record['axiom_output_sha256'], 'Axiom output changed'
 targets = re.findall(r'^#print axioms (\S+)', (root / 'CheckAxioms.lean').read_text(encoding='utf-8'), re.M)
 assert len(targets) == len(set(targets)) == record['checked_declarations']
 names = []
-for module in ['LeechSymmetry', 'LeechMonomial', 'LeechFrameStabilizer']:
+for module in record.get('theorem_modules', ['LeechSymmetry', 'LeechMonomial', 'LeechFrameStabilizer']):
     source = (root / (module + '.lean')).read_text(encoding='utf-8')
-    names.extend('LeechSymmetry.' + n for n in re.findall(r'^theorem (\w+)', source, re.M))
+    namespace = re.search(r'^namespace (\S+)', source, re.M)[1]
+    names.extend(namespace + '.' + n for n in re.findall(r'^theorem (\w+)', source, re.M))
 assert names == record['new_public_theorems']
 assert set(names) <= set(targets), 'A new theorem is missing from the audit'
 subprocess.run([sys.executable, str(root / '.github/check_axioms.py'),
                 str(root / 'CheckAxioms.lean'), str(axioms)], check=True)
 print(f'PASS: saved evidence matches {len(names)} symmetry theorems and {len(record["preserved_source_sha256"])} unchanged existing proof files.')
-print('Full Co0 classification and norm-64 transitivity remain unproved. This command does not rerun Lean.')
+print('Co0 status: partial. This command checks saved evidence.')

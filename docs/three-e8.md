@@ -75,7 +75,7 @@ classification of even unimodular lattices.
 
 The 32 new public theorems are included in [CheckAxioms.lean](../CheckAxioms.lean).
 That verification audited 743 declarations. The later [symmetry work](leech-symmetry.md)
-extends the inventory to 795. Only `propext`,
+brings the inventory to 830. Only `propext`,
 `Classical.choice` and `Quot.sound` are permitted. There are no `sorry` proofs,
 `native_decide` proofs or additional assumptions about the construction data.
 

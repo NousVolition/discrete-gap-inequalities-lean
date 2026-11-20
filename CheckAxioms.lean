@@ -32,6 +32,9 @@ import PlaygroundLeech
 import LeechBasis
 import LeechThreeE8Cosets
 import LeechFrameStabilizer
+import LeechSextet
+import MathieuGroup
+import MathieuBase
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -857,3 +860,39 @@ import LeechFrameStabilizer
 #print axioms LeechSymmetry.signedPermutation_preserves_frame
 #print axioms LeechSymmetry.frame_stabilizer_iff
 #print axioms LeechSymmetry.eq_top_of_norm64_transitive
+
+#print axioms GolayMathieu.block_weight
+#print axioms GolayMathieu.block_golay
+#print axioms GolayMathieu.weight_relabel
+#print axioms GolayMathieu.xor_weight
+#print axioms GolayMathieu.octad_unique
+#print axioms GolayMathieu.block_fixed
+#print axioms GolayMathieu.fixed_base
+#print axioms GolayMathieu.allowed_image
+#print axioms GolayMathieu.pointMap_injective
+#print axioms GolayMathieu.rep_rows
+#print axioms GolayMathieu.perm_of_forward
+#print axioms GolayMathieu.rep_code
+#print axioms GolayMathieu.level_zero_iff
+#print axioms GolayMathieu.rep_hits
+#print axioms GolayMathieu.rep_prefix
+#print axioms GolayMathieu.sectionAt_hits
+#print axioms GolayMathieu.image_assemble
+#print axioms GolayMathieu.image_card
+#print axioms GolayMathieu.card_step
+#print axioms GolayMathieu.card_last
+#print axioms GolayMathieu.card_mathieu
+#print axioms GolayMathieu.generation_step
+#print axioms GolayMathieu.generators_complete
+#print axioms LeechSextet.symmetric
+#print axioms LeechSextet.square
+#print axioms LeechSextet.numer_twice
+#print axioms LeechSextet.numer_norm
+#print axioms LeechSextet.mem_of_check
+#print axioms LeechSextet.basis_image
+#print axioms LeechSextet.integral_image
+#print axioms LeechSextet.move_mem_double
+#print axioms LeechSextet.move_add
+#print axioms LeechSextet.move_norm
+#print axioms LeechSextet.move_square
+#print axioms LeechSextet.moves_frame

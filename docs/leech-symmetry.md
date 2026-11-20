@@ -1,84 +1,36 @@
-# Leech symmetries: what is proved so far
+# The Leech symmetry group
 
-The full Conway-group classification is **not proved yet**. The new files establish
-the symmetry group as a finite group, construct its Golay sign changes, and
-classify the symmetries that preserve the standard coordinate frame. They reuse
-the existing lattice, minimum, shortest-vector count, basis and integrality
-proofs. The volume proof is unchanged.
+**Co₀ status is partial.** A symmetry here is a distance-preserving bijection of the Leech lattice fixing the origin. Coordinates use the existing √8 scale. Squared length 64 in these files is squared length 8 in the usual normalization.
 
-Here “symmetry” means a distance-preserving bijection of the lattice fixing the
-origin. Translations are not part of this group. `mem_autGroup_iff` proves that
-this definition agrees with the additive, squared-length-preserving bijections
-used in the formalization. We do not restrict symmetries to integer matrices on
-the ambient integer grid.
-
-All coordinates retain the project's √8 scale: squared length 32 here is
-squared length 4 in the usual normalization; 64 here is 8 there.
-
-## Checked in Lean
-
-| File | Result | Scope |
+| Milestone | Lean theorem | What it proves |
 | --- | --- | --- |
-| [LeechSymmetry.lean](../LeechSymmetry.lean) | `shortest_span` | The 196,560 shortest vectors generate the whole lattice over ℤ. |
-| Same | `shortestAction_injective`, `aut_finite` | Every symmetry is determined by its action on that shell; the full symmetry group is finite. No order is computed. |
-| Same | `mem_autGroup_iff` | The group includes every distance-preserving lattice bijection fixing zero. |
-| Same | `centralNegation_sq`, `centralNegation_commutes`, `centralNegation_ne_one` | Negation is a nonidentity central involution. This does not classify the entire center. |
-| Same | `norm64_sameModTwo_orthogonal` | Two norm-64 vectors in the same class modulo 2Λ are equal, opposite, or orthogonal. |
-| Same | `standard_class_iff`, `card_standardFrame` | The norm-64 vectors congruent to `8e₀` modulo 2Λ are the 48 vectors `±8eᵢ`. Other classes have not been counted. |
-| Same | `fixes_axis_preserves_frame` | Fixing `8e₀` forces a symmetry to preserve this frame. |
-| [LeechMonomial.lean](../LeechMonomial.lean) | `signFlip_mem`, `card_signSubgroup` | Negating the coordinates selected by any Golay codeword preserves every lattice vector. These operations form a subgroup of order 4,096. |
-| Same | `permute_mem`, `permutationAut` | Every coordinate permutation preserving the defined Golay code gives a lattice symmetry. The code-permutation group has not been classified as M₂₄. |
-| [LeechFrameStabilizer.lean](../LeechFrameStabilizer.lean) | `frame_stabilizer_iff` | A symmetry preserves the standard frame iff it is a Golay sign change followed by a code-preserving coordinate permutation. |
-| Same | `eq_top_of_norm64_transitive` | A **conditional** completeness criterion: a subgroup containing those sign changes and coordinate permutations is the full group if it can send `8e₀` to every norm-64 lattice vector. The transitivity hypothesis remains unproved. |
+| 1. Explicit code reorderings | [GolayMathieu.rep_code](../MathieuGroup.lean#L52) | Each of 129 listed permutations of the 24 coordinates preserves the extended binary Golay code. |
+| 2. Size of the reordering group | [GolayMathieu.card_mathieu](../MathieuGroup.lean#L147) | The group of **all** code-preserving coordinate permutations has 244,823,040 elements. The same file proves that the displayed list generates it. |
+| 3. A symmetry moving the standard axes | [LeechSextet.moves_frame](../LeechSextet.lean#L135) | An explicit lattice involution takes `8e₀` outside the 48 standard axis vectors. |
+| 4. Reaching every vector of squared length 64 | Open | A proof that the generated symmetries send `8e₀` to each such vector is still needed. |
+| 5. Size of the full symmetry group | Open | The target is 8,315,553,613,086,720,000. |
 
-There are 52 new audited theorems, including supporting lemmas. The complete
-inventory has 795 declarations. The [verification record](leech-symmetry-verification.json)
-records the compiler commands, source hashes, reused dependencies and axiom audit.
+For the second milestone, mark coordinates 0, 1, 2, 3, 4, 13 and 5 in that order. After fixing the earlier marks, the next one has 24, 23, 22, 21, 20, 3 and 16 possible images, respectively. Lean checks a permutation for each choice. Fixing all seven marks fixes seventeen particular octads, whose membership patterns distinguish all 24 coordinates. Multiplying the seven orbit lengths gives the group order. [Seven-point proof](../MathieuBase.lean) · [Reproducible permutation data](../scripts/build_mathieu_data.py).
 
-The proof of the sign changes uses `LeechBasis.leech_inner_dvd_eight`: twice a
-Golay codeword is a lattice vector, so its inner product with any lattice vector
-is divisible by eight. The sum of the coordinates selected by that codeword is
-therefore divisible by four. Negating them preserves the required sum modulo
-eight. This uses the existing integrality proof for arbitrary lattice vectors.
+For the third milestone, split the coordinates into six tetrads. In each tetrad subtract half the sum of its entries from every coordinate, then negate the second tetrad. The existing basis lets Lean check that division by two lands in the lattice for every input. The matrix identity proves preservation of squared length. [Formula and proof](../LeechSextet.lean).
 
-## What remains for the full group
+## Earlier results used here
 
-1. Supply explicit generators for the code-permutation group and prove that they
-   generate all of it. Establish its order, 244,823,040, and the identification
-   with M₂₄.
-2. Construct symmetries that move between coordinate frames and check them against
-   the existing lattice. Prove the required transitivity, or a sufficient finite
-   orbit certificate, inside Lean. An external search can find witnesses; it
-   cannot supply a trusted orbit or group-order assertion.
-3. Count the relevant orbit and stabilizer to derive the order of the full group.
-   The standard frame route has 8,292,375 frames and frame stabilizer
-   `2¹² : M₂₄`, giving `8,315,553,613,086,720,000` symmetries. **Those frame counts,
-   the M₂₄ order and the resulting Co₀ order are literature targets, not Lean
-   results in this repository.** See [Wilson, sections 5.2–5.3](https://webspace.maths.qmul.ac.uk/r.a.wilson/simplegroups_files/notes5.pdf)
-   for the frame argument and [ATLAS: M₂₄](https://brauer.maths.qmul.ac.uk/Atlas/v3/spor/M24/)
-   for the stated M₂₄ order and standard generators.
+- `mem_autGroup_iff` identifies the additive norm-preserving bijections with the distance-preserving bijections fixing zero. The 196,560 shortest vectors span the lattice, and the action on them is faithful. Negation is a central involution. [LeechSymmetry.lean](../LeechSymmetry.lean).
+- The squared-length-64 vectors congruent to `8e₀` modulo twice the lattice are the 48 vectors `±8eᵢ`. Fixing one axis preserves this standard frame. [Standard frame proof](../LeechSymmetry.lean).
+- Golay sign changes form a subgroup of order 4,096. The sum congruence follows from integrality of the existing lattice. [LeechMonomial.lean](../LeechMonomial.lean).
+- A symmetry preserves the frame iff it is a code permutation composed with a Golay sign change. The remaining group-generation statement is conditional on reaching every squared-length-64 lattice vector. [Frame stabilizer and conditional theorem](../LeechFrameStabilizer.lean).
 
-The current code does not prove that a proposed Co₀ generating set is complete,
-identify the full center, construct the quotient Co₁, or prove its simplicity.
-The three-E₈ gluing theorem identifies the lattice being studied; it does not by
-itself classify symmetries that move the chosen E₈ blocks.
+The literature gives 8,292,375 frames and the target Co₀ order above. The frame count and full group order remain open in these Lean files. [Wilson, §§5.2–5.3](https://webspace.maths.qmul.ac.uk/r.a.wilson/simplegroups_files/notes5.pdf).
 
-## Reproduce the checks
-
-Use the repository's Lean toolchain and pinned Mathlib revision:
+## Reproduce the proofs
 
 ```sh
-lake build LeechFrameStabilizer CheckAxioms
+python3 scripts/build_mathieu_data.py --check
+lake build MathieuGroup LeechSextet CheckAxioms
 lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 python3 scripts/check_leech_symmetry_evidence.py
 ```
 
-The final command checks saved evidence against the current source; it does not
-run Lean. The first three commands recompile the dependency chain and audit the
-proofs. The expected audit is `795 declarations checked, 0 nonstandard, 0 missing`.
-Only `propext`, `Classical.choice` and `Quot.sound` are accepted. No new axioms,
-`sorry` proofs or native-evaluation certificates are used.
-
-No playground JavaScript, numerical replay or animation claim is added by this
-work. The earlier browser evidence remains separate from these Lean results.
+The audit covers 830 declarations, including 35 added for milestones 1–3. Lean's kernel checks the permutation tables and the doubled matrix. The last command compares saved hashes and axiom reports with the checkout. [Current verification](leech-symmetry-verification-2026-11-20-m123.json) · [Earlier 795-declaration audit](leech-symmetry-verification.json).
