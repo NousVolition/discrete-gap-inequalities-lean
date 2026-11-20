@@ -26,6 +26,7 @@ import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
 import PlumbingStick
+import PlumbingHelp
 import E8CostMirror
 import GolayLeechBridge
 import LeechLattice
@@ -641,6 +642,20 @@ import MathieuBase
 #print axioms PlumbingStick.cost_single
 #print axioms PlumbingStick.two_separate_pos
 #print axioms PlumbingStick.one_joint_breaks
+
+-- Shares, determinants and cost for a row with one stick
+#print axioms PlumbingHelp.total_spare
+#print axioms PlumbingHelp.stickCost_as_joints
+#print axioms PlumbingHelp.stickCost_seven_four
+#print axioms PlumbingHelp.rowStick_det
+#print axioms PlumbingHelp.margin_eq_help
+#print axioms PlumbingHelp.margin_pos_iff_help
+#print axioms PlumbingHelp.margin_zero_iff_help
+#print axioms PlumbingHelp.e8_help
+#print axioms PlumbingHelp.free_ride_middle
+#print axioms PlumbingHelp.free_ride_nine
+#print axioms PlumbingHelp.ten_breaks
+#print axioms PlumbingHelp.seven_never_free_iff
 
 -- E8 cost mirror
 #print axioms E8CostMirror.cost_pair
