@@ -13,7 +13,7 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [Polygon isoperimetric inequality](Polygon.lean) | **Proved** | 10 | — |
 | [The cube's gap with Cheeger's inequality](CubeCheeger.lean) | **Proved — cube gap and Cheeger's easy direction** | 17 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): cube gap and cut examples. |
 | [Short bridges connecting the cycle, polygon and cube](Bridges.lean) | **Proved** | 5 | — |
-| [The gap of the grid made of two rings](Torus.lean) | **Proved** | 31 | — |
+| [Cartesian graph products and periodic grids](Torus.lean) | **Proved** | 53 | — |
 | [The wall and the push](WallPush.lean) | **Proved — for the defined models** | 52 | — |
 | [Harper stage 1: the squash lemma](Harper.lean) | **Proved — conditional lemma** | 18 | — |
 | [The one-floor reading that restates the wave, patch and shape](Unify.lean) | **Proved — comparison and transfer lemmas** | 16 | — |
@@ -33,7 +33,7 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The playground’s Golay generator](docs/playground-golay.md) | **Proved — coordinate correspondence and transfer of the Leech results** | 28 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): 4,096 codewords and 196,560 shortest vectors in the corresponding formal model; JavaScript output checked separately. |
 | [A basis of the Leech lattice and unimodularity](LeechBasis.lean) | **Proved — explicit basis spans the lattice, determinant 8¹², unimodular and even** | 29 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the lattice's volume, for the Lean lattice. |
 | [Three E₈ lattices glued into the Leech lattice](docs/three-e8.md) | **Proved — equality of lattices and 4,096 distinct gluing shifts** | 32 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): three linked E₈ views; minimum, count and volume reuse the existing proofs. Browser calculations are checked separately. |
-| **Total** | | **743** | Includes supporting lemmas and the lattice construction. |
+| **Total** | | **765** | Includes supporting lemmas and the lattice construction. |
 
 The playground links are numerical illustrations and applications. The [six-point path proof](docs/path-six-gap.md) gives the gap `2 − √3`, which Trilogy displays as `0.268`; the rounded decimal is slightly too large to use as a lower bound. A dash means no direct example was identified in this review. The [playground comparison and reproducible checks](docs/playground-connections.md) keep browser calculations separate from Lean proofs, including the cube's exact maximum. The [Golay correspondence](docs/playground-golay.md) now connects the two code constructions.
 
@@ -45,7 +45,7 @@ A few scope distinctions matter:
 
 The project uses Lean `v4.34.0-rc2` and Mathlib `85e3a25e006c35636f0e53b0e9296caca2685bc0`. `GapMirror.lean` uses Lean core only.
 
-[CheckAxioms.lean](CheckAxioms.lean) lists **743 declarations**, including the 32 three-E₈ theorems. The [three-E₈ verification record](docs/three-e8-verification.json) records the local compilation and complete axiom audit; the [integer replay](docs/three-e8-replay.json) is separate browser-source evidence. The [comment wording check](docs/lean-comment-verification-2026-11-20.json) confirms that the later prose edit changes no Lean code; [current source hashes](docs/three-e8-verification-2026-11-20-comments.json) are recorded separately. The new construction reuses the 28 correspondence and transfer theorems and the 29 Leech basis theorems. The [GitHub build for `14518ce`](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44511224784) passed all 711 axiom checks. The [Golay correspondence verification](docs/playground-golay-verification.json) preserves its historical 682-declaration audit at `93bd836`, with source hashes and the scope of reused build artifacts. The earlier [Leech verification record](docs/leech-shortest-verification.json) retains its historical 654-declaration audit. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. These records are kept unchanged. Dated records from November 19, 2026 ([Leech](docs/leech-shortest-verification-2026-11-19.json), [Golay correspondence](docs/playground-golay-verification-2026-11-19.json), [axiom output](docs/axioms-2026-11-19.txt)) re-check the Leech and Golay correspondence evidence against the then-current 711-declaration audit, and the [November 20 Leech](docs/leech-shortest-verification-2026-11-20-three-e8.json) and [Golay](docs/playground-golay-verification-2026-11-20-three-e8.json) records extend that evidence to the 743-declaration audit. `scripts/check_leech_evidence.py` and `scripts/check_playground_evidence.py` compare the checkout against the newest dated record. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
+[CheckAxioms.lean](CheckAxioms.lean) lists **765 declarations**, including 22 new Cartesian-product and ring results. The [full axiom output for these products](docs/axioms-2026-11-20-cartesian-products.txt) lists all 765 results. The [three-E₈ verification record](docs/three-e8-verification.json) records the local compilation and complete axiom audit; the [integer replay](docs/three-e8-replay.json) is separate browser-source evidence. The [comment wording check](docs/lean-comment-verification-2026-11-20.json) confirms that the later prose edit changes no Lean code; [source hashes for the comment revision](docs/three-e8-verification-2026-11-20-comments.json) are recorded separately. The new construction reuses the 28 correspondence and transfer theorems and the 29 Leech basis theorems. The [GitHub build for `14518ce`](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44511224784) passed all 711 axiom checks. The [Golay correspondence verification](docs/playground-golay-verification.json) preserves its historical 682-declaration audit at `93bd836`, with source hashes and the scope of reused build artifacts. The earlier [Leech verification record](docs/leech-shortest-verification.json) retains its historical 654-declaration audit. The earlier [six-point path record](docs/path-six-verification.json) retains its historical 551-statement audit. These records are kept unchanged. Dated records from November 19, 2026 ([Leech](docs/leech-shortest-verification-2026-11-19.json), [Golay correspondence](docs/playground-golay-verification-2026-11-19.json), [axiom output](docs/axioms-2026-11-19.txt)) re-check the Leech and Golay correspondence evidence against the then-current 711-declaration audit, and the [November 20 Leech](docs/leech-shortest-verification-2026-11-20-three-e8.json) and [Golay](docs/playground-golay-verification-2026-11-20-three-e8.json) records extend that evidence to the 743-declaration audit. `scripts/check_leech_evidence.py` and `scripts/check_playground_evidence.py` compare the checkout against the newest dated record. The [GitHub workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/lean.yml) runs the Lean build and axiom audit on every push. The [audit checker](.github/check_axioms.py) accepts only `propext`, `Classical.choice` and `Quot.sound`; it rejects `sorryAx`, other axioms and missing reports.
 
 Author: NousVolition.
 
@@ -374,7 +374,11 @@ Numerical check (outside Lean): `cycle_gap_two` is 4; `cube_poincare` held on ra
 
 **File.** `Bridges.lean` (namespace `Bridges`).
 
-## The grid made of two rings
+## Cartesian graph products and periodic grids
+
+`CartesianGraphProduct.boxPi_gap_sharp` proves that the sharp Poincaré gap of a nonempty finite family of finite simple graphs is the minimum of the sharp factor gaps. Each undirected edge counts once. When all factor vertex sets are nonempty, a constant works on the product exactly when it works on every factor. The empty product has one vertex and admits every real bound.
+
+The weighted theorem `CartesianGraphProduct.pi_gap_sharp` allows nonnegative weights and edge multiplicities. Applied to rings of periods at least two, it gives the sharp gap of a periodic grid in any finite positive dimension (`RingGrid.torus_gap_sharp`).
 
 `Torus.lean` proves the gap of the flat grid `ZMod m × ZMod n`. The grid is two rings laid across each other: each point `(i, j)` has a neighbor one step along the first ring, `(i + 1, j)`, and one step along the second ring, `(i, j + 1)`. The energy of `f` is the sum over all points of `(f(i+1, j) − f(i, j))² + (f(i, j+1) − f(i, j))²`. The ring gap is `gap k = 2 − 2 cos(2π/k) = 4 sin²(π/k)`, the same `RingDecay.gap` used in the ring decay proof.
 
@@ -412,7 +416,7 @@ Write `lap f` for `4 f` minus the four neighbors (with wrap). One heat step is `
 
 The proof shows that each step shrinks the squared size by at least this factor.
 
-**File.** `Torus.lean` (namespace `RingGrid`).
+**File.** `Torus.lean` (namespaces `CartesianGraphProduct` and `RingGrid`).
 
 
 ## The wall, the push, and the balance
