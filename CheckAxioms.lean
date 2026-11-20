@@ -1,3 +1,4 @@
+import LeechCoordinateFrames
 import ConwayMoves
 import ConwayTransitivity
 import ConwayCoordinates
@@ -1034,3 +1035,7 @@ import MathieuBase
 #print axioms ConwayOrder.card_partner
 #print axioms ConwayOrder.card_pairs
 #print axioms ConwayOrder.card_aut
+
+#print axioms LeechCoordinateFrames.frame_transitive
+#print axioms LeechCoordinateFrames.card_frame_stabilizer
+#print axioms LeechCoordinateFrames.card_coordinate_frames
