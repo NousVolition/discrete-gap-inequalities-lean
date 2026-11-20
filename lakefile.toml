@@ -231,4 +231,7 @@ name = "LeechNorm80"
 name = "LeechLayers"
 
 [[lean_lib]]
+name = "LeechNorm48Moments"
+
+[[lean_lib]]
 name = "LightBounceAndCapture"
