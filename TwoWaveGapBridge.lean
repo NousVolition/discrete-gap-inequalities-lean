@@ -147,7 +147,7 @@ theorem crossing_factor (ls lr P Q : ℝ) (hl : ls < lr) (hP : 0 < P) (hQ : 0 < 
   unfold poleTime
   rw [mul_div_cancel₀ _ hg, exp_log (div_pos hQ hP)]
 
-/-- The two positive squared mode sizes agree at exactly one real time. -/
+/-- The two positive squared mode sizes agree at a unique real time. -/
 theorem energies_equal_iff (ls lr P Q t : ℝ)
     (hl : ls < lr) (hP : 0 < P) (hQ : 0 < Q) :
     energy ls P t = energy lr Q t ↔ t = poleTime ls lr P Q := by
@@ -344,7 +344,7 @@ theorem cross_shift (f : ZMod n → ℝ) :
       intro j _
       ring
 
-/-- Discrete integration by parts on the periodic ring, with exactly the existing edge cost. -/
+/-- Discrete integration by parts on the periodic ring, with the existing edge cost. -/
 theorem cost_eq_neg_dot_heat (f : ZMod n → ℝ) :
     RingGapBridge.cost f = -dot f (heatGenerator f) := by
   have hc : RingGapBridge.cost f = 2 * RingGapBridge.size f - 2 * ∑ j, f j * f (j + 1) := by

@@ -47,7 +47,7 @@ def weight (w : Fin 24 → Bool) : ℕ := (univ.filter (fun i => w i = true)).ca
 abbrev Octad := {w : Codeword // weight w.val = 8}
 noncomputable instance : Fintype Octad := Fintype.ofFinite _
 
-/- The block folds in the existing code file really count messages of weight eight. -/
+/- The block folds in the existing code file count messages of weight eight. -/
 private theorem block_fold_eight (start : ℕ) (l : List ℕ) (a b c d e : ℕ) :
     (l.foldl (fun (a,b,c,d,e) k =>
       let w := popcount24 (encodeNat (start+k))

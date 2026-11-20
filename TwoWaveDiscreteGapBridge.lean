@@ -363,7 +363,7 @@ theorem concrete_clock :
     factor 0 4 (1 / 8) = 4 ∧ clock 0 4 (1 / 8) = log 4 / 8 := by
   norm_num [factor, multiplier, clock, gap]
 
-/-- The actual four-dot heat step can land exactly on the signed pole.
+/-- The actual four-dot heat step can land on the signed pole.
 The ordinary readout remains finite and equals half the gap. -/
 theorem concrete_hits_pole :
     readout 0 (RingDecay.heatStep (1 / 8) (mix 1 2 flat4 rough4)) = 4 ∧

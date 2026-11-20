@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "base_commit": "3407db2750d775fcc351a8a4757c70025f100108",
+  "lean_files_compared": 49,
+  "changed_files_code_without_comments_sha256": {
+    "LeechCodeCounts.lean": "a8af84a1f5acf11784c4061c3573d90a8810453b164a233dae2d5e3a03265be7",
+    "LeechLattice.lean": "e401723a692c1366caad20b4e1efd40e7263cf4b5c78522bf7362ae8455d6e15",
+    "LeechThreeE8.lean": "96808ba063e872e45ad961206c6d1c4b5c65fd82032f737bb9a863ddcfe389c8",
+    "TwoWaveDiscreteGapBridge.lean": "6e56eedba575e2dc529f7b9d25519f1cd9af94fa04092ba4dcf8555052e82e38",
+    "TwoWaveGapBridge.lean": "47b8812f1fbfdaeaf994e06eb8e3c652396d0494df5427249e920f92d315a60e"
+  },
+  "scope": "All tracked Lean files compared with the published base after removing line and nested block comments, preserving strings and all remaining characters. No theorem, definition, proof or compiler option changed. This is a source comparison, not a fresh Lean build."
+}
