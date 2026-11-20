@@ -1,6 +1,6 @@
 name = "DiscreteGapInequalities"
 version = "0.1.0"
-defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "CheckAxioms"]
+defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "LeechThreeE8Cosets", "CheckAxioms"]
 
 [[require]]
 name = "mathlib"
@@ -130,3 +130,12 @@ name = "LeechBasis"
 
 [[lean_lib]]
 name = "CheckAxioms"
+
+[[lean_lib]]
+name = "LeechThreeE8Data"
+
+[[lean_lib]]
+name = "LeechThreeE8"
+
+[[lean_lib]]
+name = "LeechThreeE8Cosets"
