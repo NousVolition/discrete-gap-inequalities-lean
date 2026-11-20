@@ -1,6 +1,6 @@
 name = "DiscreteGapInequalities"
 version = "0.1.0"
-defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "GapWaveTail", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "LeechThreeE8Cosets", "CheckAxioms"]
+defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "GapWaveTail", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "PlumbingStick", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "LeechThreeE8Cosets", "LeechFrameStabilizer", "CheckAxioms"]
 
 [[require]]
 name = "mathlib"
@@ -90,6 +90,9 @@ name = "EdgeOptimal"
 name = "E8PlumbingBridge"
 
 [[lean_lib]]
+name = "PlumbingStick"
+
+[[lean_lib]]
 name = "E8CostMirror"
 
 [[lean_lib]]
@@ -142,3 +145,24 @@ name = "LeechThreeE8"
 
 [[lean_lib]]
 name = "LeechThreeE8Cosets"
+
+[[lean_lib]]
+name = "LeechSymmetry"
+
+[[lean_lib]]
+name = "LeechMonomial"
+
+[[lean_lib]]
+name = "LeechFrameStabilizer"
+
+[[lean_lib]]
+name = "MathieuData"
+
+[[lean_lib]]
+name = "MathieuBase"
+
+[[lean_lib]]
+name = "MathieuGroup"
+
+[[lean_lib]]
+name = "LeechSextet"

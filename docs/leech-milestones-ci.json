@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "proof_commit": "37cb4d3d3142728864d6bcc0c8b279a7e051bba5",
+  "audited_total": 830,
+  "runs": [
+    {
+      "url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44662521061",
+      "axiom_summary": "830 declarations checked, 0 nonstandard, 0 missing",
+      "verified_at_utc": "2026-11-20T02:58:04.9542407Z",
+      "audited_total": 830,
+      "job_id": 136043902284,
+      "head": "37cb4d3d3142728864d6bcc0c8b279a7e051bba5",
+      "run_id": 44662521061,
+      "conclusion": "success",
+      "log_sha256": "02c8ecf588076a66f8681e720d4a8544a1827169262798c225af8fdb27e3bb71"
+    },
+    {
+      "url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44662515163",
+      "axiom_summary": "830 declarations checked, 0 nonstandard, 0 missing",
+      "verified_at_utc": "2026-11-20T02:58:06.6798457Z",
+      "audited_total": 830,
+      "job_id": 136043883424,
+      "head": "37cb4d3d3142728864d6bcc0c8b279a7e051bba5",
+      "run_id": 44662515163,
+      "conclusion": "success",
+      "log_sha256": "60dedc16ddbedd8aad40d43bc82b7d93be67ddfb8de18436e1791b0e227ea385"
+    }
+  ],
+  "scope": "GitHub build and full axiom audit checked before the README and Leech page publication updates. Only milestones 1\u20133 are released; Co0 status is partial."
+}

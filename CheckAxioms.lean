@@ -25,6 +25,7 @@ import Unify
 import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
+import PlumbingStick
 import E8CostMirror
 import GolayLeechBridge
 import LeechLattice
@@ -32,6 +33,10 @@ import LeechKissing
 import PlaygroundLeech
 import LeechBasis
 import LeechThreeE8Cosets
+import LeechFrameStabilizer
+import LeechSextet
+import MathieuGroup
+import MathieuBase
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -620,6 +625,23 @@ import LeechThreeE8Cosets
 #print axioms E8PlumbingBridge.card_integer_roots
 #print axioms E8PlumbingBridge.total_E8_roots
 
+-- Stick placement and the cost of one or two plumbings
+#print axioms PlumbingStick.rowStick_seven_four
+#print axioms PlumbingStick.stick_det
+#print axioms PlumbingStick.stick_det_eq_one_iff
+#print axioms PlumbingStick.flipRow_flipRow
+#print axioms PlumbingStick.stick_mirror
+#print axioms PlumbingStick.stick_mirror_det
+#print axioms PlumbingStick.nine_det
+#print axioms PlumbingStick.ten_det
+#print axioms PlumbingStick.cost_as_joints
+#print axioms PlumbingStick.cost_even
+#print axioms PlumbingStick.cost_pos
+#print axioms PlumbingStick.cost_ge_two
+#print axioms PlumbingStick.cost_single
+#print axioms PlumbingStick.two_separate_pos
+#print axioms PlumbingStick.one_joint_breaks
+
 -- E8 cost mirror
 #print axioms E8CostMirror.cost_pair
 
@@ -826,6 +848,97 @@ import LeechThreeE8Cosets
 #print axioms LeechThreeE8.leech_unique_glue
 #print axioms LeechThreeE8.glue_label_count
 
+-- Symmetry foundations, Golay sign changes and the standard frame stabilizer
+#print axioms LeechSymmetry.normSq_add
+#print axioms LeechSymmetry.normSq_neg
+#print axioms LeechSymmetry.normSq_sub
+#print axioms LeechSymmetry.normSq_two_smul
+#print axioms LeechSymmetry.map_norm
+#print axioms LeechSymmetry.map_dot
+#print axioms LeechSymmetry.basis_norm32
+#print axioms LeechSymmetry.shortest_span
+#print axioms LeechSymmetry.axis_mem
+#print axioms LeechSymmetry.axis_norm
+#print axioms LeechSymmetry.dot_axis
+#print axioms LeechSymmetry.axes_sameModTwo
+#print axioms LeechSymmetry.norm64_sameModTwo_orthogonal
+#print axioms LeechSymmetry.sameModTwo_trans
+#print axioms LeechSymmetry.standard_class
+#print axioms LeechSymmetry.map_sameModTwo
+#print axioms LeechSymmetry.fixes_axis_preserves_frame
+#print axioms LeechSymmetry.shortestAction_injective
+#print axioms LeechSymmetry.aut_finite
+#print axioms LeechSymmetry.dot_add_left
+#print axioms LeechSymmetry.mem_autGroup_iff
+#print axioms LeechSymmetry.centralNegation_sq
+#print axioms LeechSymmetry.centralNegation_commutes
+#print axioms LeechSymmetry.centralNegation_ne_one
+#print axioms LeechSymmetry.axis_neg_sameModTwo
+#print axioms LeechSymmetry.standard_class_iff
+#print axioms LeechSymmetry.frameVector_injective
+#print axioms LeechSymmetry.frameVector_surjective
+#print axioms LeechSymmetry.card_standardFrame
+#print axioms LeechSymmetry.twiceWord_mem
+#print axioms LeechSymmetry.signFlip_involutive
+#print axioms LeechSymmetry.signFlip_norm
+#print axioms LeechSymmetry.signFlip_add
+#print axioms LeechSymmetry.selected_sum_dvd_four
+#print axioms LeechSymmetry.signFlip_sum_mod_eight
+#print axioms LeechSymmetry.signFlip_mem
+#print axioms LeechSymmetry.signAut_injective
+#print axioms LeechSymmetry.signAut_sq
+#print axioms LeechSymmetry.signAut_xor
+#print axioms LeechSymmetry.card_signSubgroup
+#print axioms LeechSymmetry.permute_sum
+#print axioms LeechSymmetry.permute_norm
+#print axioms LeechSymmetry.permute_mem
+#print axioms LeechSymmetry.codePermutation_symm
+#print axioms LeechSymmetry.frame_signed_coordinates
+#print axioms LeechSymmetry.residue_isCode
+#print axioms LeechSymmetry.signed_coordinates_code
+#print axioms LeechSymmetry.signed_coordinates_signs
+#print axioms LeechSymmetry.frame_symmetry_factors
+#print axioms LeechSymmetry.signedPermutation_preserves_frame
+#print axioms LeechSymmetry.frame_stabilizer_iff
+#print axioms LeechSymmetry.eq_top_of_norm64_transitive
+
+#print axioms GolayMathieu.block_weight
+#print axioms GolayMathieu.block_golay
+#print axioms GolayMathieu.weight_relabel
+#print axioms GolayMathieu.xor_weight
+#print axioms GolayMathieu.octad_unique
+#print axioms GolayMathieu.block_fixed
+#print axioms GolayMathieu.fixed_base
+#print axioms GolayMathieu.allowed_image
+#print axioms GolayMathieu.pointMap_injective
+#print axioms GolayMathieu.rep_rows
+#print axioms GolayMathieu.perm_of_forward
+#print axioms GolayMathieu.rep_code
+#print axioms GolayMathieu.level_zero_iff
+#print axioms GolayMathieu.rep_hits
+#print axioms GolayMathieu.rep_prefix
+#print axioms GolayMathieu.sectionAt_hits
+#print axioms GolayMathieu.image_assemble
+#print axioms GolayMathieu.image_card
+#print axioms GolayMathieu.card_step
+#print axioms GolayMathieu.card_last
+#print axioms GolayMathieu.card_mathieu
+#print axioms GolayMathieu.generation_step
+#print axioms GolayMathieu.generators_complete
+#print axioms LeechSextet.symmetric
+#print axioms LeechSextet.square
+#print axioms LeechSextet.numer_twice
+#print axioms LeechSextet.numer_norm
+#print axioms LeechSextet.mem_of_check
+#print axioms LeechSextet.basis_image
+#print axioms LeechSextet.integral_image
+#print axioms LeechSextet.move_mem_double
+#print axioms LeechSextet.move_add
+#print axioms LeechSextet.move_norm
+#print axioms LeechSextet.move_square
+#print axioms LeechSextet.moves_frame
+
+-- Gap-wave forcing, single-mode decay and the forecast tail
 #print axioms GapWaveTail.lap_stream
 #print axioms GapWaveTail.carry_two_waves
 #print axioms GapWaveTail.carry_parallel
