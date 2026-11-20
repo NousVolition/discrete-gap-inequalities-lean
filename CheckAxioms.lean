@@ -1,3 +1,12 @@
+import ConwayMoves
+import ConwayTransitivity
+import ConwayCoordinates
+import ConwayGenerators
+import ConwayTally
+import ConwayNeighborCount
+import ConwayPairs
+import ConwayStabilizer
+import ConwayOrder
 import Poincare
 import PathSix
 import Wirtinger
@@ -925,3 +934,48 @@ import MathieuBase
 #print axioms GapWaveTail.forecast_mirror
 #print axioms GapWaveTail.forecast_peak
 #print axioms GapWaveTail.forecast_tail
+
+#print axioms ConwayMoves.four_transitive
+#print axioms ConwayMoves.four_signs
+#print axioms ConwayMoves.sign_mem
+#print axioms ConwayMoves.perm_mem
+#print axioms ConwayMoves.sextet_mem
+#print axioms ConwayMoves.reaches_refl
+#print axioms ConwayMoves.reaches_trans
+#print axioms ConwayMoves.reaches_symm
+#print axioms ConwayMoves.reaches_norm
+#print axioms ConwayMoves.arrange_four
+#print axioms ConwayMoves.first_numer
+#print axioms ConwayMoves.first_norm_move
+#print axioms ConwayMoves.four_sum_bound
+#print axioms ConwayMoves.norm64_transitive
+#print axioms ConwayMoves.generators_span_aut
+#print axioms ConwayIncidence.move_indices
+#print axioms ConwayGenerators.listed_generate
+#print axioms ConwayIncidence.indicator_sum
+#print axioms ConwayIncidence.tally_even
+#print axioms ConwayIncidence.tally_odd
+#print axioms ConwayIncidence.column
+#print axioms ConwayIncidence.column_total
+#print axioms ConwayIncidence.row_total
+#print axioms ConwayIncidence.card_neighbors
+#print axioms ConwayPairs.root_dot
+#print axioms ConwayPairs.roots_sum
+#print axioms ConwayPairs.roots_sub
+#print axioms ConwayPairs.coord_bound
+#print axioms ConwayPairs.four_of_first
+#print axioms ConwayPairs.root_unique
+#print axioms ConwayPairs.pair_transitive
+#print axioms ConwayPairs.shortest_has_partner
+#print axioms ConwayPairs.shortest_transitive
+#print axioms ConwayPairs.fixes_pair_iff
+#print axioms ConwayStabilizer.mask_bits
+#print axioms ConwayStabilizer.card_signs
+#print axioms ConwayStabilizer.card_reorderings_fix_two
+#print axioms ConwayStabilizer.monomial_axis
+#print axioms ConwayStabilizer.monomial_fixes_iff
+#print axioms ConwayStabilizer.assemble_bijective
+#print axioms ConwayStabilizer.card_fix_axes
+#print axioms ConwayOrder.card_partner
+#print axioms ConwayOrder.card_pairs
+#print axioms ConwayOrder.card_aut
