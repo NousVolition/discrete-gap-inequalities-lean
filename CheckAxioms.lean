@@ -1,3 +1,4 @@
+import LeechNorm48
 import LeechCoordinateFrames
 import ConwayMoves
 import ConwayTransitivity
@@ -1041,3 +1042,9 @@ import MathieuBase
 #print axioms LeechCoordinateFrames.card_coordinate_frames
 #print axioms LeechCoordinateFrames.existsUnique_frame_of_norm64
 #print axioms LeechCoordinateFrames.card_norm64_vectors
+
+#print axioms LeechCodeCounts.card_dodecad
+#print axioms LeechNorm48Count.card_picks
+#print axioms LeechNorm48Count.odd_choices
+#print axioms LeechNorm48Count.even_choices
+#print axioms LeechNorm48.card_norm48_vectors

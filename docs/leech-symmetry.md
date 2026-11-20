@@ -31,6 +31,27 @@ A symmetry preserving the standard frame is uniquely determined by a code-preser
 
 To reproduce the frame check, run `lake build LeechCoordinateFrames CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [frame verification record](leech-symmetry-verification-2026-11-20-coordinate-frames.json) and [full audit](axioms-2026-11-20-coordinate-frames.txt) cover 952 declarations.
 
+## Vectors of squared length 48
+
+The Leech lattice has **16,773,120 vectors of squared length 48** in the project's integer coordinates. This is squared length 6 in the usual normalization. The theorem counts all lattice vectors at that length, including both signs. [Count theorem](../LeechNorm48.lean#L171).
+
+Each coordinate lies between −6 and 6. All 24 coordinates have the same parity. In an even vector, the positions congruent to 2 modulo 4 form a Golay codeword. In an odd vector, the positions congruent to 3 do. Its weight is the number of those positions.
+
+| Coordinate parity | Golay residue word | Words | Vectors per word | Subtotal |
+| --- | --- | ---: | ---: | ---: |
+| Even | Weight 8 | 759 | 4,096 | 3,108,864 |
+| Even | Weight 12 | 2,576 | 2,048 | 5,275,648 |
+| Odd | Any weight | 4,096 | 2,048 | 8,388,608 |
+| **Total** | | | | **16,773,120** |
+
+For a weight-eight word, eight entries have magnitude 2 and one of the other sixteen has magnitude 4. For a weight-twelve word, twelve entries of magnitude 2 use the whole squared-length budget. In each case the sum modulo eight fixes the parity of the signs on the entries of magnitude 2.
+
+For an odd vector, each of the 24 entries contributes at least one to the squared length. To add the remaining 24, one entry can have magnitude 5, or three entries can have magnitude 3. The residue word fixes the signs once these positions are chosen. That gives 24 + 2,024 = 2,048 choices per word.
+
+For each residue word, Lean counts the coordinate choices that give the required squared length and sum modulo eight. It removes one coordinate at a time, recording the remaining squared-length budget and the parity needed for the sum. Each vector determines its word and all its coordinate choices, and every accepted choice gives a lattice vector. The even-coordinate count vanishes for every other Golay weight. [Counting recurrence](../LeechNorm48Count.lean#L71) · [Even choices](../LeechNorm48Count.lean#L155) · [Odd choices](../LeechNorm48Count.lean#L152) · [Weight-twelve word count](../LeechDodecadCount.lean#L11).
+
+To reproduce, run `lake build LeechNorm48 CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [verification record](leech-symmetry-verification-2026-11-20-norm48-shell.json) and [full transcript](axioms-2026-11-20-norm48-shell.txt) cover 959 declarations.
+
 ## Vectors of squared length 64
 
 Every lattice vector of squared length 64 belongs to one coordinate frame. Move the vector to the first standard axis. Any frame containing that axis consists of the 48 norm-64 vectors in its congruence class modulo twice the lattice, so it must be the standard frame. Moving it back gives the unique frame containing the original vector. [Unique frame](../LeechCoordinateFrames.lean#L140).
