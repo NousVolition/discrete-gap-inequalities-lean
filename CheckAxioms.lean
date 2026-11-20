@@ -25,6 +25,7 @@ import Unify
 import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
+import PlumbingStick
 import E8CostMirror
 import GolayLeechBridge
 import LeechLattice
@@ -601,6 +602,23 @@ import MathieuBase
 #print axioms E8PlumbingBridge.card_spinor_roots
 #print axioms E8PlumbingBridge.card_integer_roots
 #print axioms E8PlumbingBridge.total_E8_roots
+
+-- Stick placement and the cost of one or two plumbings
+#print axioms PlumbingStick.rowStick_seven_four
+#print axioms PlumbingStick.stick_det
+#print axioms PlumbingStick.stick_det_eq_one_iff
+#print axioms PlumbingStick.flipRow_flipRow
+#print axioms PlumbingStick.stick_mirror
+#print axioms PlumbingStick.stick_mirror_det
+#print axioms PlumbingStick.nine_det
+#print axioms PlumbingStick.ten_det
+#print axioms PlumbingStick.cost_as_joints
+#print axioms PlumbingStick.cost_even
+#print axioms PlumbingStick.cost_pos
+#print axioms PlumbingStick.cost_ge_two
+#print axioms PlumbingStick.cost_single
+#print axioms PlumbingStick.two_separate_pos
+#print axioms PlumbingStick.one_joint_breaks
 
 -- E8 cost mirror
 #print axioms E8CostMirror.cost_pair
