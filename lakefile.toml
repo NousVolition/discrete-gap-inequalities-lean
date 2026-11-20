@@ -211,3 +211,9 @@ name = "LeechNorm48"
 
 [[lean_lib]]
 name = "LeechNorm48Pairs"
+
+[[lean_lib]]
+name = "LeechOppositePairs"
+
+[[lean_lib]]
+name = "LeechShellPairs"

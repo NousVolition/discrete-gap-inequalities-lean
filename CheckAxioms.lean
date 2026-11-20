@@ -1,5 +1,6 @@
 import LeechNorm48
 import LeechNorm48Pairs
+import LeechShellPairs
 import LeechCoordinateFrames
 import ConwayMoves
 import ConwayTransitivity
@@ -1053,3 +1054,9 @@ import MathieuBase
 #print axioms LeechNorm48.existsUnique_opposite_pair
 #print axioms LeechNorm48.card_members_of_opposite_pair
 #print axioms LeechNorm48.card_norm48_opposite_pairs
+
+#print axioms LeechOppositePairs.existsUnique_opposite_pair
+#print axioms LeechOppositePairs.card_members_of_opposite_pair
+#print axioms LeechOppositePairs.card_opposite_pairs
+#print axioms LeechOppositePairs.card_norm32_opposite_pairs
+#print axioms LeechOppositePairs.card_norm64_opposite_pairs
