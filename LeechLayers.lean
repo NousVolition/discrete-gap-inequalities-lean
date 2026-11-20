@@ -278,4 +278,54 @@ theorem card_dot_neg_thirty_two (s : PlayShortestVectors) :
     Nat.card {v : PlayShortestVectors // dot s.val v.val = -32} = 1 :=
   card_layer_of_singleton s (-32) (-s.val) (neg_thirty_two_layer_iff s)
 
+-- The seven layers together contain all 196,560 shortest vectors.
+private theorem dot_mem_layers (s v : PlayShortestVectors) :
+    dot s.val v.val ∈ ({0, 8, -8, 16, -16, 32, -32} : Finset ℤ) := by
+  classical
+  let layers : Finset ℤ := {0, 8, -8, 16, -16, 32, -32}
+  let product (x : PlayShortestVectors) := dot s.val x.val
+  have fiber (k : ℤ) : (univ.filter (fun x => product x = k)).card =
+      Nat.card {x : PlayShortestVectors // dot s.val x.val = k} := by
+    rw [Nat.card_eq_fintype_card, Fintype.card_subtype]
+  have full : (univ.filter (fun x => product x ∈ layers)).card =
+      (univ : Finset PlayShortestVectors).card := by
+    rw [← sum_card_fiberwise_eq_card_filter univ layers product]
+    simp only [fiber, card_univ, card_play_shortest_vectors]
+    norm_num [layers, sum_insert, -Nat.card_eq_fintype_card, card_perpendicular,
+      card_dot_pos_eight, card_dot_neg_eight,
+      card_dot_pos_sixteen, card_dot_neg_sixteen, card_dot_pos_thirty_two, card_dot_neg_thirty_two]
+  have covered : ∀ x ∈ (univ : Finset PlayShortestVectors), product x ∈ layers :=
+    card_filter_eq_iff.mp full
+  change product v ∈ layers
+  simpa only [mem_univ, forall_const] using covered v
+
+/-- For any shortest vector, count the shortest vectors at each integer dot product.
+Every value outside the seven listed here has count zero. -/
+theorem card_dot_layer (s : PlayShortestVectors) (k : ℤ) :
+    Nat.card {v : PlayShortestVectors // dot s.val v.val = k} =
+      if k = 0 then 93150
+      else if k = 8 ∨ k = -8 then 47104
+      else if k = 16 ∨ k = -16 then 4600
+      else if k = 32 ∨ k = -32 then 1
+      else 0 := by
+  split_ifs with h0 h8 h16 h32
+  · subst k
+    exact card_perpendicular s
+  · rcases h8 with rfl | rfl
+    · exact card_dot_pos_eight s
+    · exact card_dot_neg_eight s
+  · rcases h16 with rfl | rfl
+    · exact card_dot_pos_sixteen s
+    · exact card_dot_neg_sixteen s
+  · rcases h32 with rfl | rfl
+    · exact card_dot_pos_thirty_two s
+    · exact card_dot_neg_thirty_two s
+  · classical
+    rw [Nat.card_eq_fintype_card, Fintype.card_eq_zero_iff]
+    refine ⟨fun v => ?_⟩
+    have hm := dot_mem_layers s v.val
+    rw [v.property] at hm
+    simp only [mem_insert, mem_singleton] at hm
+    tauto
+
 end LeechLayers
