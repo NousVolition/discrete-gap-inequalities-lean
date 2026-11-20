@@ -54,9 +54,9 @@ To reproduce, run `lake build LeechNorm48 CheckAxioms`, then `lake env lean Chec
 
 ### Opposite pairs at squared length 48
 
-A vector and its negative have the same squared length. Starting with either one gives the same pair {v, −v}. Only zero is its own negative, so at squared length 48 each pair contributes two vectors. Dividing 16,773,120 by two gives **8,386,560 pairs**. [One pair per vector](../LeechNorm48Pairs.lean#L22) · [Two vectors per pair](../LeechNorm48Pairs.lean#L29) · [Pair count](../LeechNorm48Pairs.lean#L41).
+A vector and its negative have the same squared length. Starting with either one gives the same pair {v, −v}. Only zero is its own negative, so at squared length 48 each pair contributes two vectors. Dividing 16,773,120 by two gives **8,386,560 pairs**. [One pair per vector](../LeechNorm48Pairs.lean#L15) · [Two vectors per pair](../LeechNorm48Pairs.lean#L20) · [Pair count](../LeechNorm48Pairs.lean#L25).
 
-To reproduce the pair count, run `lake build LeechNorm48Pairs CheckAxioms` and the axiom-check commands above. The [verification record](leech-symmetry-verification-2026-11-20-pair-wording.json) and [full transcript](axioms-2026-11-20-norm48-pairs.txt) cover 962 declarations.
+The [verification record](leech-symmetry-verification-2026-11-20-pair-wording.json) and [transcript](axioms-2026-11-20-norm48-pairs.txt) cover the 962 declarations in the length-48 release. The [shared proof and current check commands](#opposite-pairs-at-squared-lengths-32-and-64) cover all three lengths.
 
 ## Vectors of squared length 64
 
@@ -65,6 +65,18 @@ Every lattice vector of squared length 64 belongs to one coordinate frame. Move 
 A frame with one of its members marked now specifies a vector, and each vector gives one such pair. There are 8,292,375 choices of frame and 48 choices of member. Lean therefore counts **398,034,000 vectors** of squared length 64 in the integer coordinates (squared length 8 in the usual normalization). Opposite vectors count separately. [Count theorem](../LeechCoordinateFrames.lean#L151).
 
 The reproduction commands above check both the uniqueness and count theorems. The [verification record](leech-symmetry-verification-2026-11-20-norm64-shell.json) and [full audit](axioms-2026-11-20-norm64-shell.txt) cover 954 declarations.
+
+## Opposite pairs at squared lengths 32 and 64
+
+Pair each vector with its negative. They have the same squared length, and only zero is its own negative. At any positive squared length, each vector belongs to one pair and each pair has two vectors. The length-32, length-48 and length-64 counts all use this [pairing rule](../LeechOppositePairs.lean#L42).
+
+| Squared length in the integer coordinates | Vectors | Opposite pairs |
+| ---: | ---: | ---: |
+| 32 | [196,560](../LeechKissing.lean#L67) | [98,280](../LeechShellPairs.lean#L11) |
+| 48 | [16,773,120](../LeechNorm48.lean#L171) | [8,386,560](../LeechNorm48Pairs.lean#L25) |
+| 64 | [398,034,000](../LeechCoordinateFrames.lean#L151) | [199,017,000](../LeechShellPairs.lean#L19) |
+
+To check all three counts, run `lake build LeechShellPairs LeechNorm48Pairs CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [verification record](leech-symmetry-verification-2026-11-20-shell-pairs.json) and [full axiom output](axioms-2026-11-20-shell-pairs.txt) cover 967 declarations.
 
 ## Verification
 
