@@ -1,0 +1,42 @@
+RingSumMinusTwelfth.lean build and axiom check
+Repository: NousVolition/discrete-gap-inequalities-lean
+Base main commit: af2deea39a014d3e4f646a69dcf6106b16a0339b
+Checked at (UTC): 2026-11-20T10:34:53.484359+00:00
+Lean: Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+Mathlib: 85e3a25e006c35636f0e53b0e9296caca2685bc0
+Source SHA256 (LF): 70932f54f27ae93bdca5240e72bf324cd8142bb6a26dac715d2b65ea371e2c65
+
+The file proves 30.51405 < 2 cot(π/48) < 30.51415. At n = 24 the bar total rounds to 30.5141.
+Recompiled with the pinned toolchain: LeechLayers.lean, RingSumMinusTwelfth.lean, CheckAxioms.lean.
+The other 78 project dependencies used compiled files with matching sources, toolchain and lockfile.
+1042 declarations checked, 0 nonstandard, 0 missing
+Base declarations: 1017
+New declarations: 25 (13 theorems and 12 helper lemmas)
+Axiom checker regression tests: passed
+Full axiom transcript: docs/axioms-2026-11-20-ring-sum.txt
+
+'RingSumMinusTwelfth.two_sin_mul_sin_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.sum_two_sin_mul_sin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.bar_sum_eq_two_cot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.cos_le_quartic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.cot_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.le_cot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.cot_sub_inv_div_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.tendsto_of_sq_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.cot_sub_inv_div_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.ringLeftover_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.ringLeftover_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.ring_leftover_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.two_cot_pi_div_48_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.bar_sum_24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.staircase_hasSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.staircase_tsum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.leftover_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.staircase_poly_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.exp_quartic_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.staircaseLeftover_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.staircase_leftover_tendsto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.gap_eq_first_bar_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.mu_eq_bar_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.bar_eq_sqrt_mu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RingSumMinusTwelfth.sum_sqrt_mu_eq_two_cot' depends on axioms: [propext, Classical.choice, Quot.sound]

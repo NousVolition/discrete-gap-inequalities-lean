@@ -31,6 +31,7 @@ import TwoWaveFlipBridge
 import TwoWaveReadoutObstruction
 import Isoperimetric
 import RingDecay
+import RingSumMinusTwelfth
 import GapWaveTail
 import HarperSquash
 import Polygon
@@ -1120,6 +1121,32 @@ import LightBounceAndCapture
 #print axioms LeechLayers.neg_thirty_two_layer_iff
 #print axioms LeechLayers.card_dot_pos_thirty_two
 #print axioms LeechLayers.card_dot_neg_thirty_two
+
+#print axioms RingSumMinusTwelfth.two_sin_mul_sin_step
+#print axioms RingSumMinusTwelfth.sum_two_sin_mul_sin
+#print axioms RingSumMinusTwelfth.bar_sum_eq_two_cot
+#print axioms RingSumMinusTwelfth.cos_le_quartic
+#print axioms RingSumMinusTwelfth.cot_le
+#print axioms RingSumMinusTwelfth.le_cot
+#print axioms RingSumMinusTwelfth.cot_sub_inv_div_bounds
+#print axioms RingSumMinusTwelfth.tendsto_of_sq_bound
+#print axioms RingSumMinusTwelfth.cot_sub_inv_div_tendsto
+#print axioms RingSumMinusTwelfth.ringLeftover_eq
+#print axioms RingSumMinusTwelfth.ringLeftover_bounds
+#print axioms RingSumMinusTwelfth.ring_leftover_tendsto
+#print axioms RingSumMinusTwelfth.two_cot_pi_div_48_bounds
+#print axioms RingSumMinusTwelfth.bar_sum_24
+#print axioms RingSumMinusTwelfth.staircase_hasSum
+#print axioms RingSumMinusTwelfth.staircase_tsum
+#print axioms RingSumMinusTwelfth.leftover_alg
+#print axioms RingSumMinusTwelfth.staircase_poly_bound
+#print axioms RingSumMinusTwelfth.exp_quartic_bound
+#print axioms RingSumMinusTwelfth.staircaseLeftover_bound
+#print axioms RingSumMinusTwelfth.staircase_leftover_tendsto
+#print axioms RingSumMinusTwelfth.gap_eq_first_bar_sq
+#print axioms RingSumMinusTwelfth.mu_eq_bar_sq
+#print axioms RingSumMinusTwelfth.bar_eq_sqrt_mu
+#print axioms RingSumMinusTwelfth.sum_sqrt_mu_eq_two_cot
 #print axioms LeechLayers.card_dot_layer
 #print axioms LeechNorm48Layers.shell_card
 #print axioms LeechNorm48Layers.diff_moments
