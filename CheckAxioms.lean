@@ -13,6 +13,7 @@ import TwoWaveFlipBridge
 import TwoWaveReadoutObstruction
 import Isoperimetric
 import RingDecay
+import GapWaveTail
 import HarperSquash
 import Polygon
 import CubeCheeger
@@ -824,3 +825,30 @@ import LeechThreeE8Cosets
 #print axioms LeechThreeE8.offset_cosets_distinct
 #print axioms LeechThreeE8.leech_unique_glue
 #print axioms LeechThreeE8.glue_label_count
+
+#print axioms GapWaveTail.lap_stream
+#print axioms GapWaveTail.carry_two_waves
+#print axioms GapWaveTail.carry_parallel
+#print axioms GapWaveTail.carry_equal_length
+#print axioms GapWaveTail.carry_single
+#print axioms GapWaveTail.carry_feeds
+#print axioms GapWaveTail.feed_eq_zero_iff
+#print axioms GapWaveTail.feed_tested
+#print axioms GapWaveTail.feed_tested_eq_zero_iff
+#print axioms GapWaveTail.feed_tested_mirror
+#print axioms GapWaveTail.box_gap
+#print axioms GapWaveTail.box_gap_attained
+#print axioms GapWaveTail.ring_gap_tends_to_box_gap
+#print axioms GapWaveTail.lone_solves
+#print axioms GapWaveTail.gap_wave_fades
+#print axioms GapWaveTail.broad_zero
+#print axioms GapWaveTail.broad_solves
+#print axioms GapWaveTail.broad_no_feed
+#print axioms GapWaveTail.broad_mirror
+#print axioms GapWaveTail.peakTime_pos
+#print axioms GapWaveTail.broad_peak
+#print axioms GapWaveTail.broad_tail
+#print axioms GapWaveTail.forecast_straight
+#print axioms GapWaveTail.forecast_mirror
+#print axioms GapWaveTail.forecast_peak
+#print axioms GapWaveTail.forecast_tail
