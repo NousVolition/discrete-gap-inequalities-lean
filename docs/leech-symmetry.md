@@ -31,6 +31,14 @@ A symmetry preserving the standard frame is uniquely determined by a code-preser
 
 To reproduce the frame check, run `lake build LeechCoordinateFrames CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [frame verification record](leech-symmetry-verification-2026-11-20-coordinate-frames.json) and [full audit](axioms-2026-11-20-coordinate-frames.txt) cover 952 declarations.
 
+## Vectors of squared length 64
+
+Every lattice vector of squared length 64 belongs to one coordinate frame. Move the vector to the first standard axis. Any frame containing that axis consists of the 48 norm-64 vectors in its congruence class modulo twice the lattice, so it must be the standard frame. Moving it back gives the unique frame containing the original vector. [Unique frame](../LeechCoordinateFrames.lean#L140).
+
+A frame with one of its members marked now specifies a vector, and each vector gives one such pair. There are 8,292,375 choices of frame and 48 choices of member. Lean therefore counts **398,034,000 vectors** of squared length 64 in the integer coordinates (squared length 8 in the usual normalization). Opposite vectors count separately. [Count theorem](../LeechCoordinateFrames.lean#L151).
+
+The reproduction commands above check both the uniqueness and count theorems. The [verification record](leech-symmetry-verification-2026-11-20-norm64-shell.json) and [full audit](axioms-2026-11-20-norm64-shell.txt) cover 954 declarations.
+
 ## Verification
 
 The [proof-branch audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813) checked 900 declarations. The [PR build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364) and [merged-main build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913) checked 949, including later additions to main. Each reported zero nonstandard axioms and zero missing reports. [Full axiom output](axioms-2026-11-20-co0-release.txt) · [Saved verification](leech-symmetry-verification-2026-11-20-co0-release.json) · [Reproduction commands](leech-symmetry-order.md#reproduce-the-check).

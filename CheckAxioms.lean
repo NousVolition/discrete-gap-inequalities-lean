@@ -1039,3 +1039,5 @@ import MathieuBase
 #print axioms LeechCoordinateFrames.frame_transitive
 #print axioms LeechCoordinateFrames.card_frame_stabilizer
 #print axioms LeechCoordinateFrames.card_coordinate_frames
+#print axioms LeechCoordinateFrames.existsUnique_frame_of_norm64
+#print axioms LeechCoordinateFrames.card_norm64_vectors

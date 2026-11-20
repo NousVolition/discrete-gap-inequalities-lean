@@ -136,4 +136,40 @@ theorem card_coordinate_frames :
   change Nat.card Frame = 8292375
   exact Nat.eq_of_mul_eq_mul_right (by decide : 0 < 244823040 * 4096) h
 
+/-- Every lattice vector of squared length 64 belongs to a unique coordinate frame. -/
+theorem existsUnique_frame_of_norm64 (x : Lattice) (hx : normSq x.val = 64) :
+    ∃! f : Frame, x ∈ f.val := by
+  obtain ⟨g, _, hg⟩ := ConwayMoves.norm64_transitive x hx
+  refine ⟨g • standard, Finset.mem_map.mpr ⟨latticeAxis 0, axis_in_standard 0, hg⟩, ?_⟩
+  intro f hf
+  have haxis : latticeAxis 0 ∈ (g⁻¹ • f).val :=
+    Finset.mem_map.mpr ⟨x, hf, g.val.symm_apply_eq.mpr hg.symm⟩
+  have hstandard := shared_member haxis (axis_in_standard 0)
+  rw [← hstandard, smul_inv_smul]
+
+/-- Counting the 48 members of every frame gives the size of the squared-length-64 shell. -/
+theorem card_norm64_vectors :
+    Nat.card {x : Lattice // normSq x.val = 64} = 398034000 := by
+  let forget : (Σ f : Frame, ↥f.val) → {x : Lattice // normSq x.val = 64} :=
+    fun ⟨f, x⟩ => ⟨x.val, f.property.2.1 x.val x.property⟩
+  have bij : Function.Bijective forget := by
+    constructor
+    · rintro ⟨f, x⟩ ⟨g, y⟩ h
+      have hxy : x.val = y.val := congrArg Subtype.val h
+      have hu := existsUnique_frame_of_norm64 x.val (f.property.2.1 x.val x.property)
+      have hfg : f = g := hu.unique x.property (hxy ▸ y.property)
+      subst g
+      exact congrArg (Sigma.mk f) (Subtype.ext hxy)
+    · intro x
+      obtain ⟨f, hf, _⟩ := existsUnique_frame_of_norm64 x.val x.property
+      exact ⟨⟨f, x.val, hf⟩, Subtype.ext rfl⟩
+  let positions : (Σ f : Frame, ↥f.val) ≃ Frame × Fin 48 :=
+    Equiv.sigmaEquivProdOfEquiv fun f : Frame => Finset.equivFinOfCardEq f.property.1
+  calc
+    Nat.card {x : Lattice // normSq x.val = 64} =
+        Nat.card (Frame × Fin 48) :=
+      Nat.card_congr ((Equiv.ofBijective forget bij).symm.trans positions)
+    _ = 8292375 * 48 := by rw [Nat.card_prod, card_coordinate_frames, Nat.card_fin]
+    _ = 398034000 := by decide
+
 end LeechCoordinateFrames
