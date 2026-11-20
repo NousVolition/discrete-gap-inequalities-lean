@@ -217,3 +217,15 @@ name = "LeechOppositePairs"
 
 [[lean_lib]]
 name = "LeechShellPairs"
+
+[[lean_lib]]
+name = "LeechShellCoordinates"
+
+[[lean_lib]]
+name = "LeechNorm80Count"
+
+[[lean_lib]]
+name = "LeechNorm80"
+
+[[lean_lib]]
+name = "LeechLayers"

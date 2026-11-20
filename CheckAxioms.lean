@@ -1,3 +1,5 @@
+import LeechNorm80
+import LeechLayers
 import LeechNorm48
 import LeechNorm48Pairs
 import LeechShellPairs
@@ -1060,3 +1062,16 @@ import MathieuBase
 #print axioms LeechOppositePairs.card_opposite_pairs
 #print axioms LeechOppositePairs.card_norm32_opposite_pairs
 #print axioms LeechOppositePairs.card_norm64_opposite_pairs
+
+#print axioms LeechNorm48Count.tally_eval
+#print axioms LeechNorm48Count.odd_tally
+#print axioms LeechShellCoordinates.card_vectors_from_choices
+#print axioms LeechNorm80Count.odd_choices
+#print axioms LeechNorm80Count.even_choices
+#print axioms LeechNorm80.coordinate_bounds
+#print axioms LeechNorm80.card_weight_sixteen
+#print axioms LeechNorm80.card_norm80_vectors
+#print axioms LeechNorm80.card_norm80_opposite_pairs
+
+#print axioms LeechLayers.card_perpendicular
+#print axioms LeechLayers.no_dot_twenty_four
