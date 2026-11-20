@@ -100,7 +100,7 @@ private theorem step_nonneg (p b) {f : Table} (hf : NoNegative f) : NoNegative (
   exact hf _ _ (by have := cost_nonneg p b a; omega)
 
 /-- Evaluate a row of coordinate choices, dropping a branch once its budget is negative. -/
-private def evaluate (p : Bool) : List Bool → Table
+def evaluate (p : Bool) : List Bool → Table
   | [] => emptyTable
   | b :: bs => fun e r =>
     if e < 0 then 0 else
@@ -127,14 +127,14 @@ private theorem eval_replicate (p b bs n) :
   | zero => simp
   | succ n ih => rw [List.replicate_succ, List.cons_append, eval_cons, ih, Function.iterate_succ_apply']
 
-private theorem tally_eval (p z o) :
+theorem tally_eval (p z o) :
     tally p z o = evaluate p (List.replicate z false ++ List.replicate o true) := by
   rw [eval_replicate, ← List.append_nil (List.replicate o true), eval_replicate]
   rfl
 
 private theorem odd_step : step true true = step true false := rfl
 
-private theorem odd_tally (z o) : tally true z o = tally true (z+o) 0 := by
+theorem odd_tally (z o) : tally true z o = tally true (z+o) 0 := by
   simp [tally, odd_step, Function.iterate_add_apply]
 
 set_option maxRecDepth 8192 in

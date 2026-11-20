@@ -33,7 +33,7 @@ To reproduce the frame check, run `lake build LeechCoordinateFrames CheckAxioms`
 
 ## Vectors of squared length 48
 
-The Leech lattice has **16,773,120 vectors of squared length 48** in the project's integer coordinates. This is squared length 6 in the usual normalization. The theorem counts all lattice vectors at that length, including both signs. [Count theorem](../LeechNorm48.lean#L171).
+The Leech lattice has **16,773,120 vectors of squared length 48** in the project's integer coordinates. This is squared length 6 in the usual normalization. The theorem counts all lattice vectors at that length, including both signs. [Count theorem](../LeechNorm48.lean#L24).
 
 Each coordinate lies between −6 and 6. All 24 coordinates have the same parity. In an even vector, the positions congruent to 2 modulo 4 form a Golay codeword. In an odd vector, the positions congruent to 3 do. Its weight is the number of those positions.
 
@@ -73,10 +73,34 @@ Pair each vector with its negative. They have the same squared length, and only 
 | Squared length in the integer coordinates | Vectors | Opposite pairs |
 | ---: | ---: | ---: |
 | 32 | [196,560](../LeechKissing.lean#L67) | [98,280](../LeechShellPairs.lean#L11) |
-| 48 | [16,773,120](../LeechNorm48.lean#L171) | [8,386,560](../LeechNorm48Pairs.lean#L25) |
+| 48 | [16,773,120](../LeechNorm48.lean#L24) | [8,386,560](../LeechNorm48Pairs.lean#L25) |
 | 64 | [398,034,000](../LeechCoordinateFrames.lean#L151) | [199,017,000](../LeechShellPairs.lean#L19) |
 
 To check all three counts, run `lake build LeechShellPairs LeechNorm48Pairs CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [verification record](leech-symmetry-verification-2026-11-20-shell-pairs.json) and [full axiom output](axioms-2026-11-20-shell-pairs.txt) cover 967 declarations.
+
+## Vectors of squared length 80
+
+The Leech lattice has **4,629,381,120 vectors** at squared length 80 in these integer coordinates, or squared length 10 in the usual normalization. Counting a vector and its negative together gives **2,314,690,560 opposite pairs**. [Vector proof](../LeechNorm80.lean#L88) · [Pair proof](../LeechNorm80.lean#L109) · [Shared pairing rule](../LeechOppositePairs.lean#L42).
+
+An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L151).
+
+| Coordinates | Golay word | Words | Vectors per word | Vectors |
+| --- | --- | ---: | ---: | ---: |
+| Even | Weight 8 | 759 | 606,208 | 460,111,872 |
+| Even | Weight 12 | 2,576 | 565,248 | 1,456,078,848 |
+| Even | Weight 16 | 759 | 524,288 | 397,934,592 |
+| Odd | Any weight | 4,096 | 565,248 | 2,315,255,808 |
+| **Total** | | | | **4,629,381,120** |
+
+For even coordinates, words of weight 0 or 24 give no vectors at this length. Flipping all 24 bits pairs the words of weight 16 with those of weight 8. Lean checks each entry of the counting tables against the rule for adding one coordinate. [Even choices](../LeechNorm80Count.lean#L121) · [Odd choices](../LeechNorm80Count.lean#L117) · [Weight-16 words](../LeechNorm80.lean#L72).
+
+## Layers along a shortest vector
+
+For any shortest vector in the playground coordinates, 93,150 of the 196,560 shortest vectors are perpendicular to it. The coordinate permutation preserves the dot product, so the central layer follows from the partner count. A dot product of +24 would give a difference of squared length 16. A dot product of −24 would give a sum of squared length 16. Both would be nonzero lattice vectors below the minimum of 32. [Partner count](../ConwayOrder.lean#L15) · [Central layer in playground coordinates](../LeechLayers.lean#L18) · [Empty slots](../LeechLayers.lean#L27) · [Minimum length](../PlaygroundLeech.lean#L57).
+
+The playground counts the vectors in each layer from its generated coordinates. The counts at ±8 and ±16 and the picture are browser results.
+
+Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-norm80-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm80-layers.json) cover 978 declarations.
 
 ## Verification
 
