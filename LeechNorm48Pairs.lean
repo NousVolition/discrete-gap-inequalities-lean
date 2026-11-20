@@ -1,12 +1,12 @@
 import LeechNorm48
 
-/-! # Opposite pairs of squared-length-48 Leech vectors -/
+/-! # Opposite pairs at squared length 48 in the Leech lattice -/
 
 namespace LeechNorm48
 
 open LeechMinimal LeechSymmetry
 
-/-- An unordered pair consisting of a squared-length-48 lattice vector and its negative. -/
+/-- A lattice vector `v` of squared length 48 and its negative form the unordered pair `{v, -v}`. -/
 def IsOppositePair (s : Finset Lattice) : Prop :=
   ∃ v : Lattice, normSq v.val = 48 ∧ s = {v, -v}
 
@@ -25,7 +25,7 @@ theorem existsUnique_opposite_pair (x : Lattice) (hx : normSq x.val = 48) :
   intro s hs
   exact (pair_of_member hs.1 hs.2).2
 
-/-- The two members are distinct because a vector equal to its negative has length zero. -/
+/-- Each pair has two vectors. Only zero is its own negative. -/
 theorem card_members_of_opposite_pair {s : Finset Lattice} (hs : IsOppositePair s) :
     s.card = 2 := by
   obtain ⟨v, hv, rfl⟩ := hs

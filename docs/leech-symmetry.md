@@ -54,9 +54,9 @@ To reproduce, run `lake build LeechNorm48 CheckAxioms`, then `lake env lean Chec
 
 ### Opposite pairs at squared length 48
 
-Each vector v of squared length 48 belongs to one unordered pair {v, −v}. Negation preserves squared length, and the only integer vector equal to its own negative is zero. Each pair therefore has two distinct members. Choosing a pair and marking one member recovers one vector. The 16,773,120 vectors give **8,386,560 opposite pairs**. [Pair membership](../LeechNorm48Pairs.lean#L22) · [Two distinct members](../LeechNorm48Pairs.lean#L29) · [Count theorem](../LeechNorm48Pairs.lean#L41).
+A vector and its negative have the same squared length. Starting with either one gives the same pair {v, −v}. Only zero is its own negative, so at squared length 48 each pair contributes two vectors. Dividing 16,773,120 by two gives **8,386,560 pairs**. [One pair per vector](../LeechNorm48Pairs.lean#L22) · [Two vectors per pair](../LeechNorm48Pairs.lean#L29) · [Pair count](../LeechNorm48Pairs.lean#L41).
 
-To reproduce the pair count, run `lake build LeechNorm48Pairs CheckAxioms` and the axiom-check commands above. The [verification record](leech-symmetry-verification-2026-11-20-norm48-pairs.json) and [full transcript](axioms-2026-11-20-norm48-pairs.txt) cover 962 declarations.
+To reproduce the pair count, run `lake build LeechNorm48Pairs CheckAxioms` and the axiom-check commands above. The [verification record](leech-symmetry-verification-2026-11-20-pair-wording.json) and [full transcript](axioms-2026-11-20-norm48-pairs.txt) cover 962 declarations.
 
 ## Vectors of squared length 64
 
