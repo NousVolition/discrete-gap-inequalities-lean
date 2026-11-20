@@ -1118,3 +1118,6 @@ import LightBounceAndCapture
 #print axioms LeechLayers.card_dot_pos_thirty_two
 #print axioms LeechLayers.card_dot_neg_thirty_two
 #print axioms LeechLayers.card_dot_layer
+#print axioms LeechNorm48Layers.shell_card
+#print axioms LeechNorm48Layers.diff_moments
+#print axioms LeechLayers.card_norm48_dot_layer

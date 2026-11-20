@@ -122,6 +122,26 @@ The Layers view also counts the generated vectors for the current selection and 
 
 Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-layer-table.txt) and [verification record](leech-symmetry-verification-2026-11-20-layer-table.json) cover 1018 declarations.
 
+## Layers for squared length 48
+
+Choose any shortest vector *s* as the axis. Let *v* run over all lattice vectors of squared length 48 in the playground’s integer coordinates. [Lean proof of the layer table](../LeechLayers.lean#L446).
+
+| Dot product *s · v* | Number of vectors |
+|---|---:|
+| 0 | 6,476,800 |
+| −8 or +8 | 4,147,200 each |
+| −16 or +16 | 953,856 each |
+| −24 or +24 | 47,104 each |
+| Every other integer | 0 |
+
+The seven counts add up to 16,773,120. Lattice dot products are multiples of 8. The vectors *s − v* and *s + v* are both nonzero, so their squared lengths are at least 32. This puts *s · v* between −24 and +24. [Allowed dot products](../LeechLayers.lean#L334).
+
+At +24, subtract *v* from *s*. The result is a shortest vector in the +8 layer. Subtract it from *s* again to recover *v*. This pairs the two layers and gives 47,104 vectors in each. Negation gives the same count at −24. [Bijection](../LeechLayers.lean#L372).
+
+The proof first uses the axis (4, −4, 0, …). Write *d = v₀ − v₁*, so the dot product is *4d*. Coordinate permutations, sign changes and the four-coordinate lattice move give two sums over the whole shell. The sum of *d²* is 67,092,480, and the sum of *d⁴* is 743,178,240. Together with the total and the two outer counts, these determine the counts at 0, ±8 and ±16. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Second and fourth powers](../LeechNorm48Moments.lean#L160) · [Layer counts](../LeechLayers.lean#L412) · [Change of axis](../LeechLayers.lean#L429).
+
+Run `lake build LeechNorm48Moments LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm48-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm48-layers.json) cover 1021 declarations.
+
 ## Verification
 
 The [proof-branch audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813) checked 900 declarations. The [PR build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364) and [merged-main build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913) checked 949, including later additions to main. Each reported zero nonstandard axioms and zero missing reports. [Full axiom output](axioms-2026-11-20-co0-release.txt) · [Saved verification](leech-symmetry-verification-2026-11-20-co0-release.json) · [Reproduction commands](leech-symmetry-order.md#reproduce-the-check).

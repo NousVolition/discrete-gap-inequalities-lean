@@ -1,6 +1,6 @@
 import ConwayOrder
 import PlaygroundLeech
-
+import LeechNorm48Moments
 /-! # Layers perpendicular to a shortest vector in playground coordinates -/
 namespace LeechLayers
 
@@ -327,5 +327,146 @@ theorem card_dot_layer (s : PlayShortestVectors) (k : ℤ) :
     rw [v.property] at hm
     simp only [mem_insert, mem_singleton] at hm
     tauto
+
+open LeechNorm48Layers (Shell onShell)
+local notation "diff48" => LeechNorm48Layers.diff
+
+private theorem levels48 (x : Shell) :
+    diff48 x ∈ ({0, 2, -2, 4, -4, 6, -6} : Finset ℤ) := by
+  let r := (root true).val
+  have nr : normSq r = 32 := (root true).property.2
+  have nx : normSq x.val.val = 48 := x.property
+  have dr : dot r x.val.val = 4 * diff48 x := root_dot _
+  have nzsub : r - x.val.val ≠ 0 := by
+    intro h
+    rw [sub_eq_zero.mp h] at nr
+    omega
+  have nzadd : r + x.val.val ≠ 0 := by
+    intro h
+    rw [add_eq_zero_iff_eq_neg.mp h, normSq_neg] at nr
+    omega
+  have lo := leech_norm_ge_32 _ (leechLattice.add_mem (root true).property.1 x.val.property) nzadd
+  have hi := leech_norm_ge_32 _ (leechLattice.sub_mem (root true).property.1 x.val.property) nzsub
+  change 32 ≤ normSq (r + x.val.val) at lo
+  change 32 ≤ normSq (r - x.val.val) at hi
+  rw [normSq_add, nr, nx, dr] at lo
+  rw [normSq_sub, nr, nx, dr] at hi
+  have hd : 8 ∣ dot r x.val.val :=
+    LeechBasis.leech_inner_dvd_eight _ _ (root true).property.1 x.val.property
+  rw [dr] at hd
+  obtain ⟨q, hq⟩ := hd
+  simp only [mem_insert, mem_singleton]
+  omega
+
+private noncomputable def count48 (d : ℤ) : ℤ := Nat.card {x : Shell // diff48 x = d}
+
+private theorem opposite48 (d : ℤ) : count48 (-d) = count48 d := by
+  let e : {x : Shell // diff48 x = -d} ≃ {x : Shell // diff48 x = d} :=
+    Equiv.subtypeEquiv (onShell centralNegation) fun x => by
+      change x.val.val 0 - x.val.val 1 = -d ↔ -x.val.val 0 - (-x.val.val 1) = d
+      omega
+  exact congrArg (fun n : ℕ => (n : ℤ)) (Nat.card_congr e)
+
+-- Subtracting a vector from the reference axis exchanges the +24 layer at squared length 48
+-- with the +8 layer of shortest vectors.
+private def outer48 : {x : Shell // diff48 x = 6} ≃ {v : MinimalVectors // diff v = 2} where
+  toFun := fun ⟨x, hx⟩ => by
+    have hd : dot (root true).val x.val.val = 24 := by
+      rw [root_dot]; change 4 * diff48 x = 24; omega
+    refine ⟨⟨(root true).val - x.val.val, leechLattice.sub_mem (root true).property.1 x.val.property,
+      by rw [normSq_sub, (root true).property.2, x.property, hd]; decide⟩, ?_⟩
+    change (4 - x.val.val 0) - (-4 - x.val.val 1) = 2
+    change x.val.val 0 - x.val.val 1 = 6 at hx
+    omega
+  invFun := fun ⟨v, hv⟩ => by
+    have hd : dot (root true).val v.val = 8 := by
+      rw [root_dot]; change 4 * diff v = 8; omega
+    refine ⟨⟨asL (root true) - asL v, ?_⟩, ?_⟩
+    · change normSq ((root true).val - v.val) = 48
+      rw [normSq_sub, (root true).property.2, v.property.2, hd]; decide
+    · change (4 - v.val 0) - (-4 - v.val 1) = 6
+      change v.val 0 - v.val 1 = 2 at hv
+      omega
+  left_inv x := by
+    apply Subtype.ext; apply Subtype.ext; apply Subtype.ext
+    change (root true).val - ((root true).val - x.val.val.val) = x.val.val.val
+    abel
+  right_inv v := by
+    apply Subtype.ext; apply Subtype.ext
+    change (root true).val - ((root true).val - v.val.val) = v.val.val
+    abel
+
+private theorem at_six48 : count48 6 = 47104 := by
+  change (Nat.card {x : Shell // diff48 x = 6} : ℤ) = _
+  rw [Nat.card_congr outer48, ← count_card]
+  exact counts.1
+
+private theorem sum_by_layer48 (f : ℤ → ℤ) :
+    (∑ x : Shell, f (diff48 x)) =
+      ∑ d ∈ ({0, 2, -2, 4, -4, 6, -6} : Finset ℤ), count48 d * f d := by
+  classical
+  have h := (sum_fiberwise_of_maps_to' (s := (univ : Finset Shell))
+    (g := diff48) (fun x _ => levels48 x) f).symm
+  simpa only [sum_const, nsmul_eq_mul, count48, Nat.card_eq_fintype_card, Fintype.card_subtype] using h
+
+private theorem counts48 : count48 0 = 6476800 ∧ count48 2 = 4147200 ∧ count48 4 = 953856 := by
+  have total := sum_by_layer48 (fun _ => 1)
+  have second := sum_by_layer48 (fun d => d ^ 2)
+  have fourth := sum_by_layer48 (fun d => d ^ 4)
+  norm_num [sum_insert, LeechNorm48Layers.shell_card, LeechNorm48Layers.diff_moments.1,
+    LeechNorm48Layers.diff_moments.2, opposite48, at_six48] at total second fourth
+  omega
+
+/-- Vectors of squared length 48 in the playground's integer coordinates. -/
+abbrev PlayNorm48Vectors := {v : Vec // InPlayLeech v ∧ normSq v = 48}
+
+private def toShell48 : PlayNorm48Vectors ≃ Shell :=
+  (Equiv.subtypeEquiv vectorEquiv (fun x => by
+    change (InPlayLeech x ∧ normSq x = 48) ↔ (InLeech (toLean x) ∧ normSq (toLean x) = 48)
+    rw [lattice_correspondence, norm_toLean])).trans
+    (Equiv.subtypeSubtypeEquivSubtypeInter InLeech (fun x => normSq x = 48)).symm
+
+private def layerEquiv48 (s : PlayShortestVectors) (k : ℤ) (g : Aut)
+    (hg : onShortest g (root true) = toMinimal s) :
+    {x : Shell // 4 * diff48 x = k} ≃ {v : PlayNorm48Vectors // dot s.val v.val = k} :=
+  let e := (onShell g).trans toShell48.symm
+  Equiv.subtypeEquiv e fun x => by
+    have hd := dot_toLean s.val (e x).val
+    change dot (toMinimal s).val (toShell48 (e x)).val.val = _ at hd
+    have he : toShell48 (e x) = onShell g x := toShell48.apply_symm_apply _
+    rw [← hd, he, ← hg]
+    change 4 * diff48 x = k ↔ dot (g (asL (root true))).val (g x.val).val = k
+    rw [map_dot]
+    change 4 * diff48 x = k ↔ dot (root true).val x.val.val = k
+    rw [root_dot]
+    rfl
+
+/-- Count squared-length-48 vectors by their dot product with any shortest vector.
+Every other integer dot product has count zero. -/
+theorem card_norm48_dot_layer (s : PlayShortestVectors) (k : ℤ) :
+    Nat.card {v : PlayNorm48Vectors // dot s.val v.val = k} =
+      if k = 0 then 6476800
+      else if k = 8 ∨ k = -8 then 4147200
+      else if k = 16 ∨ k = -16 then 953856
+      else if k = 24 ∨ k = -24 then 47104
+      else 0 := by
+  classical
+  obtain ⟨g, hg⟩ := shortest_transitive (toMinimal s)
+  rw [← Nat.card_congr (layerEquiv48 s k g hg)]
+  have sum := sum_by_layer48 (fun d => if 4 * d = k then 1 else 0)
+  simp only [sum_boole] at sum
+  have card : (Nat.card {x : Shell // 4 * diff48 x = k} : ℤ) =
+      ((univ.filter (fun x : Shell => 4 * diff48 x = k)).card : ℤ) := by
+    rw [Nat.card_eq_fintype_card, Fintype.card_subtype]
+  norm_num [sum_insert, opposite48, counts48.1, counts48.2.1, counts48.2.2, at_six48] at sum
+  apply Int.ofNat_inj.mp
+  rw [card, sum]
+  by_cases hk : k ∈ ({0, 8, -8, 16, -16, 24, -24} : Finset ℤ)
+  · simp only [mem_insert, mem_singleton] at hk
+    rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
+  · simp only [mem_insert, mem_singleton, not_or] at hk
+    obtain ⟨h0,h8,hn8,h16,hn16,h24,hn24⟩ := hk
+    simp [h0, h8, hn8, h16, hn16, h24, hn24, Ne.symm h0, Ne.symm h8, Ne.symm hn8,
+      Ne.symm h16, Ne.symm hn16, Ne.symm h24, Ne.symm hn24]
 
 end LeechLayers
