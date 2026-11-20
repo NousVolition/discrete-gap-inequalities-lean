@@ -74,7 +74,8 @@ classification of even unimodular lattices.
 | [LeechThreeE8Cosets.lean](../LeechThreeE8Cosets.lean), `leech_unique_glue`, `glue_label_count` | Unique binary glue labels for all lattice vectors, with 4,096 labels. |
 
 The 32 new public theorems are included in [CheckAxioms.lean](../CheckAxioms.lean).
-The complete inventory now has 743 declarations. Only `propext`,
+That verification audited 743 declarations. The later [symmetry work](leech-symmetry.md)
+extends the inventory to 795. Only `propext`,
 `Classical.choice` and `Quot.sound` are permitted. There are no `sorry` proofs,
 `native_decide` proofs or additional assumptions about the construction data.
 

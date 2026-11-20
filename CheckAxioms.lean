@@ -31,6 +31,7 @@ import LeechKissing
 import PlaygroundLeech
 import LeechBasis
 import LeechThreeE8Cosets
+import LeechFrameStabilizer
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -802,3 +803,57 @@ import LeechThreeE8Cosets
 #print axioms LeechThreeE8.offset_cosets_distinct
 #print axioms LeechThreeE8.leech_unique_glue
 #print axioms LeechThreeE8.glue_label_count
+
+-- Symmetry foundations, Golay sign changes and the standard frame stabilizer
+#print axioms LeechSymmetry.normSq_add
+#print axioms LeechSymmetry.normSq_neg
+#print axioms LeechSymmetry.normSq_sub
+#print axioms LeechSymmetry.normSq_two_smul
+#print axioms LeechSymmetry.map_norm
+#print axioms LeechSymmetry.map_dot
+#print axioms LeechSymmetry.basis_norm32
+#print axioms LeechSymmetry.shortest_span
+#print axioms LeechSymmetry.axis_mem
+#print axioms LeechSymmetry.axis_norm
+#print axioms LeechSymmetry.dot_axis
+#print axioms LeechSymmetry.axes_sameModTwo
+#print axioms LeechSymmetry.norm64_sameModTwo_orthogonal
+#print axioms LeechSymmetry.sameModTwo_trans
+#print axioms LeechSymmetry.standard_class
+#print axioms LeechSymmetry.map_sameModTwo
+#print axioms LeechSymmetry.fixes_axis_preserves_frame
+#print axioms LeechSymmetry.shortestAction_injective
+#print axioms LeechSymmetry.aut_finite
+#print axioms LeechSymmetry.dot_add_left
+#print axioms LeechSymmetry.mem_autGroup_iff
+#print axioms LeechSymmetry.centralNegation_sq
+#print axioms LeechSymmetry.centralNegation_commutes
+#print axioms LeechSymmetry.centralNegation_ne_one
+#print axioms LeechSymmetry.axis_neg_sameModTwo
+#print axioms LeechSymmetry.standard_class_iff
+#print axioms LeechSymmetry.frameVector_injective
+#print axioms LeechSymmetry.frameVector_surjective
+#print axioms LeechSymmetry.card_standardFrame
+#print axioms LeechSymmetry.twiceWord_mem
+#print axioms LeechSymmetry.signFlip_involutive
+#print axioms LeechSymmetry.signFlip_norm
+#print axioms LeechSymmetry.signFlip_add
+#print axioms LeechSymmetry.selected_sum_dvd_four
+#print axioms LeechSymmetry.signFlip_sum_mod_eight
+#print axioms LeechSymmetry.signFlip_mem
+#print axioms LeechSymmetry.signAut_injective
+#print axioms LeechSymmetry.signAut_sq
+#print axioms LeechSymmetry.signAut_xor
+#print axioms LeechSymmetry.card_signSubgroup
+#print axioms LeechSymmetry.permute_sum
+#print axioms LeechSymmetry.permute_norm
+#print axioms LeechSymmetry.permute_mem
+#print axioms LeechSymmetry.codePermutation_symm
+#print axioms LeechSymmetry.frame_signed_coordinates
+#print axioms LeechSymmetry.residue_isCode
+#print axioms LeechSymmetry.signed_coordinates_code
+#print axioms LeechSymmetry.signed_coordinates_signs
+#print axioms LeechSymmetry.frame_symmetry_factors
+#print axioms LeechSymmetry.signedPermutation_preserves_frame
+#print axioms LeechSymmetry.frame_stabilizer_iff
+#print axioms LeechSymmetry.eq_top_of_norm64_transitive
