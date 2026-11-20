@@ -192,4 +192,28 @@ theorem card_norm64_dot_layer (s : PlayShortestVectors) (k : ℤ) :
     simp [empty, h0, h8, hn8, h16, hn16, h24, hn24, h32, hn32] at frame ⊢
     omega
 
+private theorem column_zero_at_axis : column64 0 (axis64 0) = 65780 := by
+  have h : 48 * column64 0 (axis64 0) = 3157440 :=
+    (frame_columns64 0).symm.trans ((frame_rows64 0).trans (by decide))
+  exact (show ∀ n : ℕ, 48 * n = 3157440 → n = 65780 by omega) _ h
+
+private theorem count_zero_entries {α : Type} [Fintype α] (a : α → ℤ) :
+    Nat.card {s : α // a s = 0} = ∑ s : α, (if 8 * a s = 0 then 1 else 0 : ℕ) := by
+  rw [Nat.card_eq_fintype_card, Fintype.card_subtype]
+  simp only [mul_eq_zero, OfNat.ofNat_ne_zero, false_or, sum_boole, Nat.cast_id]
+
+private theorem zero_coordinate_column (i : Point) :
+    Nat.card {s : MinimalVectors // s.val i = 0} = column64 0 (axis64 i) := by
+  apply (count_zero_entries (fun s : MinimalVectors => s.val i)).trans
+  unfold column64
+  apply sum_congr rfl
+  intro s _
+  change (if 8 * s.val i = 0 then 1 else 0) = (if dot s.val (axis i) = 0 then 1 else 0)
+  rw [dot_axis]
+
+/-- At any given coordinate, 65,780 shortest vectors have value zero. -/
+theorem card_shortest_zero_coordinate (i : Point) :
+    Nat.card {s : MinimalVectors // s.val i = 0} = 65780 :=
+  (zero_coordinate_column i).trans ((same_column64 0 (axis64 i)).trans column_zero_at_axis)
+
 end LeechLayers

@@ -12,18 +12,18 @@ namespace LeechLayers
 open PlaygroundGolay PlaygroundLeech LeechLattice LeechMinimal LeechSymmetry ConwayPairs Finset
 open LeechShellMoments (Shell onShell diff)
 
-private abbrev PlayShell (m : ℤ) := {v : Vec // InPlayLeech v ∧ normSq v = m}
-private abbrev PlayLayer (s : PlayShortestVectors) (m k : ℤ) :=
+abbrev PlayShell (m : ℤ) := {v : Vec // InPlayLeech v ∧ normSq v = m}
+abbrev PlayLayer (s : PlayShortestVectors) (m k : ℤ) :=
   {v : PlayShell m // dot s.val v.val = k}
 
 /-- Vectors of squared length 80 in playground coordinates. -/
 abbrev PlayNorm80Vectors := {v : Vec // InPlayLeech v ∧ normSq v = 80}
 
-private noncomputable def count80 (s : PlayShortestVectors) (k : ℤ) : ℤ :=
-  Nat.card (PlayLayer s 80 k)
+noncomputable def layerCount (s : PlayShortestVectors) (m k : ℤ) : ℤ :=
+  Nat.card (PlayLayer s m k)
 
 -- Subtract twice from the same axis to recover the starting vector.
-private def subtractAxis (s : PlayShortestVectors) (m k n j : ℤ)
+def subtractAxis (s : PlayShortestVectors) (m k n j : ℤ)
     (hn : 32 + m - 2*k = n) (hj : 32-k = j) : PlayLayer s m k ≃ PlayLayer s n j := by
   obtain ⟨hs, ns⟩ := (play_shortest_iff_norm32 _).mp s.property
   have self : dot s.val s.val = 32 := by simpa [dot, normSq, pow_two] using ns
@@ -41,7 +41,7 @@ private def subtractAxis (s : PlayShortestVectors) (m k n j : ℤ)
     change s.val - (s.val - x.val.val) = x.val.val <;> abel
 
 private theorem outer_counts80 (s : PlayShortestVectors) :
-    count80 s 24 = 95385600 ∧ count80 s 32 = 6476800 ∧ count80 s 40 = 47104 := by
+    layerCount s 80 24 = 95385600 ∧ layerCount s 80 32 = 6476800 ∧ layerCount s 80 40 = 47104 := by
   have a : Nat.card (PlayLayer s 80 24) = 95385600 := by
     rw [Nat.card_congr (subtractAxis s 80 24 64 8 (by decide) (by decide))]
     simpa using card_norm64_dot_layer s 8
@@ -67,15 +67,16 @@ private noncomputable instance : Fintype (Shell 80) := by
 private theorem shell_card80 : Fintype.card (Shell 80) = 4629381120 :=
   Nat.card_eq_fintype_card.symm.trans LeechNorm80.card_norm80_vectors
 
-private def toShell80 : PlayNorm80Vectors ≃ Shell 80 :=
+def toLatticeShell (m : ℤ) : PlayShell m ≃ Shell m :=
   (Equiv.subtypeEquiv vectorEquiv (fun x => by
-    change (InPlayLeech x ∧ normSq x = 80) ↔ (InLeech (toLean x) ∧ normSq (toLean x) = 80)
+    change (InPlayLeech x ∧ normSq x = m) ↔ (InLeech (toLean x) ∧ normSq (toLean x) = m)
     rw [lattice_correspondence, norm_toLean])).trans
-    (Equiv.subtypeSubtypeEquivSubtypeInter InLeech (fun x => normSq x = 80)).symm
+    (Equiv.subtypeSubtypeEquivSubtypeInter InLeech (fun x => normSq x = m)).symm
 
 private def products80 : Finset ℤ := {0, 8, -8, 16, -16, 24, -24, 32, -32, 40, -40}
 
-private theorem allowed80 (x : Shell 80) : 4 * diff x ∈ products80 := by
+theorem reference_dot_bounds {m : ℤ} (hm : m ≠ 32) (x : Shell m) :
+    (8 ∣ 4 * diff x) ∧ -m ≤ 2 * (4 * diff x) ∧ 2 * (4 * diff x) ≤ m := by
   let r := (root true).val
   have nr : normSq r = 32 := (root true).property.2
   have nx := x.property
@@ -97,23 +98,27 @@ private theorem allowed80 (x : Shell 80) : 4 * diff x ∈ products80 := by
   obtain ⟨q,hq⟩ := LeechBasis.leech_inner_dvd_eight _ _ (root true).property.1 x.val.property
   change dot r x.val.val = 8*q at hq
   rw [dr] at hq
+  exact ⟨⟨q, hq⟩, by omega, by omega⟩
+
+private theorem allowed80 (x : Shell 80) : 4 * diff x ∈ products80 := by
+  obtain ⟨⟨q,hq⟩,lo,hi⟩ := reference_dot_bounds (by decide : (80 : ℤ) ≠ 32) x
   simp only [products80, mem_insert, mem_singleton]
   omega
 
 -- A symmetry takes the reference shortest vector to the selected playground axis.
-private theorem fiber_count80 (s : PlayShortestVectors) (k : ℤ) :
-    (((univ : Finset (Shell 80)).filter fun x => 4 * diff x = k).card : ℤ) = count80 s k := by
+theorem reference_layer_card (m : ℤ) [Fintype (Shell m)] (s : PlayShortestVectors) (k : ℤ) :
+    (((univ : Finset (Shell m)).filter fun x => 4 * diff x = k).card : ℤ) = layerCount s m k := by
   let a := LeechMinimal.shortestEquiv (PlaygroundLeech.shortestEquiv s)
   obtain ⟨g, hg⟩ := shortest_transitive a
-  let e := (onShell (m := 80) g).trans toShell80.symm
-  let layer : {x : Shell 80 // 4 * diff x = k} ≃ PlayLayer s 80 k :=
+  let e := (onShell (m := m) g).trans (toLatticeShell m).symm
+  let layer : {x : Shell m // 4 * diff x = k} ≃ PlayLayer s m k :=
     Equiv.subtypeEquiv e fun x => by
       have hd : dot (toLean s.val) (toLean (e x).val) = dot s.val (e x).val := by
         apply Fintype.sum_equiv coordinateEquiv.symm
         intro i
         rfl
-      change dot a.val (toShell80 (e x)).val.val = _ at hd
-      have he : toShell80 (e x) = onShell g x := toShell80.apply_symm_apply _
+      change dot a.val ((toLatticeShell m) (e x)).val.val = _ at hd
+      have he : (toLatticeShell m) (e x) = onShell g x := (toLatticeShell m).apply_symm_apply _
       rw [← hd, he, ← hg]
       change 4 * diff x = k ↔ dot (g (asL (root true))).val (g x.val).val = k
       rw [map_dot]
@@ -121,39 +126,40 @@ private theorem fiber_count80 (s : PlayShortestVectors) (k : ℤ) :
       rw [root_dot]
       rfl
   have h := Nat.card_congr layer
-  rw [Nat.card_eq_fintype_card (α := {x : Shell 80 // 4 * diff x = k}), Fintype.card_subtype] at h
+  rw [Nat.card_eq_fintype_card (α := {x : Shell m // 4 * diff x = k}), Fintype.card_subtype] at h
   exact congrArg (fun n : ℕ => (n : ℤ)) h
 
-private theorem opposite80 (s : PlayShortestVectors) (k : ℤ) : count80 s (-k) = count80 s k := by
-  let neg (x : PlayNorm80Vectors) : PlayNorm80Vectors :=
+theorem opposite_layer_count (m : ℤ) (s : PlayShortestVectors) (k : ℤ) : layerCount s m (-k) = layerCount s m k := by
+  let neg (x : PlayShell m) : PlayShell m :=
     ⟨-x.val, (lattice_correspondence _).mpr (leechLattice.neg_mem ((lattice_correspondence _).mp x.property.1)),
       (normSq_neg x.val).trans x.property.2⟩
-  let e : PlayNorm80Vectors ≃ PlayNorm80Vectors := ⟨neg, neg,
+  let e : PlayShell m ≃ PlayShell m := ⟨neg, neg,
     fun x => Subtype.ext (neg_neg x.val), fun x => Subtype.ext (neg_neg x.val)⟩
-  let layer : PlayLayer s 80 (-k) ≃ PlayLayer s 80 k := Equiv.subtypeEquiv e fun x => by
+  let layer : PlayLayer s m (-k) ≃ PlayLayer s m k := Equiv.subtypeEquiv e fun x => by
     change dot s.val x.val = -k ↔ dot s.val (-x.val) = k
     simp [dot, sum_neg_distrib]
     omega
   exact congrArg (fun n : ℕ => (n : ℤ)) (Nat.card_congr layer)
 
-private theorem sum_by_dot80 (s : PlayShortestVectors) (f : ℤ → ℤ) :
-    (∑ x : Shell 80, f (4 * diff x)) = ∑ k ∈ products80, count80 s k * f k := by
+theorem sum_by_layers (m : ℤ) [Fintype (Shell m)] (products : Finset ℤ)
+    (covers : ∀ x : Shell m, 4 * diff x ∈ products) (s : PlayShortestVectors) (f : ℤ → ℤ) :
+    (∑ x : Shell m, f (4 * diff x)) = ∑ k ∈ products, layerCount s m k * f k := by
   classical
-  have h := (sum_fiberwise_of_maps_to' (s := (univ : Finset (Shell 80)))
-    (g := fun x => 4 * diff x) (fun x _ => allowed80 x) f).symm
-  simpa only [sum_const, nsmul_eq_mul, fiber_count80 s] using h
+  have h := (sum_fiberwise_of_maps_to' (s := (univ : Finset (Shell m)))
+    (g := fun x => 4 * diff x) (fun x _ => covers x) f).symm
+  simpa only [sum_const, nsmul_eq_mul, reference_layer_card m s] using h
 
 private theorem inner_counts80 (s : PlayShortestVectors) :
-    count80 s 0 = 1384998912 ∧ count80 s 8 = 1062195200 ∧ count80 s 16 = 458086400 := by
+    layerCount s 80 0 = 1384998912 ∧ layerCount s 80 8 = 1062195200 ∧ layerCount s 80 16 = 458086400 := by
   obtain ⟨h24, h32, h40⟩ := outer_counts80 s
   obtain ⟨h2, h4⟩ := LeechShellMoments.diff_moments 80
   rw [shell_card80] at h2 h4
-  have total := sum_by_dot80 s (fun _ => 1)
-  have second := sum_by_dot80 s (fun k => (k / 4) ^ 2)
-  have fourth := sum_by_dot80 s (fun k => (k / 4) ^ 4)
+  have total := sum_by_layers 80 products80 allowed80 s (fun _ => 1)
+  have second := sum_by_layers 80 products80 allowed80 s (fun k => (k / 4) ^ 2)
+  have fourth := sum_by_layers 80 products80 allowed80 s (fun k => (k / 4) ^ 4)
   have cancel (d : ℤ) : 4*d/4 = d := by omega
   simp only [cancel] at second fourth
-  norm_num [products80, sum_insert, opposite80, h24, h32, h40, shell_card80] at total second fourth
+  norm_num [products80, sum_insert, opposite_layer_count, h24, h32, h40, shell_card80] at total second fourth
   omega
 
 /-- Count the vectors of squared length 80 at every integer dot product with any shortest vector. -/
@@ -168,18 +174,18 @@ theorem card_norm80_dot_layer (s : PlayShortestVectors) (k : ℤ) :
       else 0 := by
   classical
   apply Int.ofNat_inj.mp
-  change count80 s k = _
+  change layerCount s 80 k = _
   by_cases hk : k ∈ products80
   · obtain ⟨h0, h8, h16⟩ := inner_counts80 s
     obtain ⟨h24, h32, h40⟩ := outer_counts80 s
     simp only [products80, mem_insert, mem_singleton] at hk
     rcases hk with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
-      norm_num [opposite80, h0, h8, h16, h24, h32, h40]
+      norm_num [opposite_layer_count, h0, h8, h16, h24, h32, h40]
   · have noHits : (univ : Finset (Shell 80)).filter (fun x => 4 * diff x = k) = ∅ := by
       apply filter_eq_empty_iff.mpr
       intro x _ hx
       exact hk (hx ▸ allowed80 x)
-    rw [← fiber_count80, noHits]
+    rw [← reference_layer_card, noHits]
     simp only [products80, mem_insert, mem_singleton, not_or] at hk
     obtain ⟨h0,h8,hn8,h16,hn16,h24,hn24,h32,hn32,h40,hn40⟩ := hk
     simp [h0, h8, hn8, h16, hn16, h24, hn24, h32, hn32, h40, hn40]

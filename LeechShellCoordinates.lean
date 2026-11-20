@@ -40,7 +40,7 @@ private theorem value_inj (p b : Bool) : Function.Injective (value p b) := by
   intro a c h
   cases p <;> cases b <;> fin_cases a <;> fin_cases c <;> (first | rfl | contradiction)
 
-private theorem value_covers (p : Bool) (x : ℤ) (hp : x % 2 = parity p) (hlo : -7 ≤ x) (hhi : x ≤ 7) :
+private theorem value_covers (p : Bool) (x : ℤ) (hp : x % 2 = parity p) (hlo : -8 ≤ x) (hhi : x ≤ 7) :
     ∃ a : Label, value p (decide (x % 4 = special p % 4)) a = x := by
   cases p <;> interval_cases x <;> norm_num [parity] at hp <;> decide
 
@@ -130,10 +130,8 @@ private theorem pack_injective (u : ℤ) : Function.Injective (pack u) := by
   have ha : a = b := Subtype.ext (funext (fun i => value_inj p (w.val i) (congrFun hx i)))
   subst b; rfl
 
-private theorem pack_surjective (u : ℤ)
-    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -7 ≤ x.val i ∧ x.val i ≤ 7) :
-    Function.Surjective (pack u) := by
-  intro x
+private theorem pack_covers (u : ℤ) (x : Shell u)
+    (bound : ∀ i, -8 ≤ x.val.val i ∧ x.val.val i ≤ 7) : ∃ a, pack u a = x := by
   obtain ⟨p, hp, hs, hw⟩ : ∃ p : Bool, (∀ i, x.val.val i % 2 = parity p) ∧
       (∑ i, x.val.val i) % 8 = total p ∧ IsGolayWord (residueSet x.val.val (special p)) := by
     rcases (inLeech_iff x.val.val).1 x.val.property with he | ho
@@ -141,21 +139,17 @@ private theorem pack_surjective (u : ℤ)
     · exact ⟨true, ho⟩
   let w : Codeword := ⟨residueSet x.val.val (special p), hw⟩
   have hh (i : Fin 24) : ∃ a : Label, value p (w.val i) a = x.val.val i := by
-    exact value_covers p _ (hp i) (bound x.val x.property i).1 (bound x.val x.property i).2
+    exact value_covers p _ (hp i) (bound i).1 (bound i).2
   choose a ha using hh
   have he : coords p w.val a = x.val.val := funext ha
   have hcond := (constraints u p w a).1 (by rw [he]; exact ⟨x.property,hs⟩)
   exact ⟨⟨p,w,a,hcond⟩, Subtype.ext (Subtype.ext he)⟩
 
-/-- Count a shell by its Golay words when all coordinates in the shell lie between −7 and 7. -/
-theorem card_vectors_from_choices (u : ℤ)
-    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -7 ≤ x.val i ∧ x.val i ≤ 7) :
-    Nat.card {x : Lattice // normSq x.val = 8 * u} =
+private theorem card_params (u : ℤ) : Nat.card (Params u) =
       ∑ p : Bool, ∑ w : Codeword, tally p (24 - weight w.val) (weight w.val)
         (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
   classical
-  let equiv := Equiv.ofBijective (pack u) ⟨pack_injective u, pack_surjective u bound⟩
-  rw [← Nat.card_congr equiv, Nat.card_eq_fintype_card, Fintype.card_sigma]
+  rw [Nat.card_eq_fintype_card, Fintype.card_sigma]
   simp_rw [Fintype.card_sigma, card_picks]
   apply sum_congr rfl
   intro p _
@@ -165,5 +159,38 @@ theorem card_vectors_from_choices (u : ℤ)
   rw [bits_weight] at h ⊢
   rw [show bits w.val false = 24 - weight w.val by omega]
   rfl
+
+/-- Count a shell by its Golay words when all coordinates in the shell lie between −7 and 7. -/
+theorem card_vectors_from_choices (u : ℤ)
+    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -7 ≤ x.val i ∧ x.val i ≤ 7) :
+    Nat.card {x : Lattice // normSq x.val = 8 * u} =
+      ∑ p : Bool, ∑ w : Codeword, tally p (24 - weight w.val) (weight w.val)
+        (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
+  have onto : Function.Surjective (pack u) := fun x => pack_covers u x fun i => by
+    have h := bound x.val x.property i
+    omega
+  exact (Nat.card_congr (Equiv.ofBijective (pack u) ⟨pack_injective u, onto⟩)).symm.trans (card_params u)
+
+/-- Count the part of a shell whose coordinates all lie from −8 to 7. -/
+theorem card_box_from_choices (u : ℤ) :
+    Nat.card {x : {v : Lattice // normSq v.val = 8 * u} //
+      ∀ i, -8 ≤ x.val.val i ∧ x.val.val i ≤ 7} =
+      ∑ p : Bool, ∑ w : Codeword, tally p (24 - weight w.val) (weight w.val)
+        (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
+  let box := {x : Shell u // ∀ i, -8 ≤ x.val.val i ∧ x.val.val i ≤ 7}
+  let f : Params u → box := fun a => ⟨pack u a, fun i => by
+    obtain ⟨p,w,v⟩ := a
+    change -8 ≤ value p (w.val i) (v.val i) ∧ value p (w.val i) (v.val i) ≤ 7
+    generalize w.val i = b
+    generalize v.val i = j
+    cases p <;> cases b <;> fin_cases j <;> decide⟩
+  have bij : Function.Bijective f := by
+    constructor
+    · intro a b h
+      exact pack_injective u (congrArg Subtype.val h)
+    · intro x
+      obtain ⟨a,ha⟩ := pack_covers u x.val x.property
+      exact ⟨a, Subtype.ext ha⟩
+  exact (Nat.card_congr (Equiv.ofBijective f bij)).symm.trans (card_params u)
 
 end LeechShellCoordinates
