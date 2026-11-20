@@ -199,3 +199,12 @@ name = "ConwayOrder"
 
 [[lean_lib]]
 name = "LeechCoordinateFrames"
+
+[[lean_lib]]
+name = "LeechDodecadCount"
+
+[[lean_lib]]
+name = "LeechNorm48Count"
+
+[[lean_lib]]
+name = "LeechNorm48"
