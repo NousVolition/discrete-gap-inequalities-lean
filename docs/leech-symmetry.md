@@ -142,6 +142,27 @@ The proof first uses the axis (4, −4, 0, …). Write *d = v₀ − v₁*, so t
 
 Run `lake build LeechNorm48Moments LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm48-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm48-layers.json) cover 1021 declarations.
 
+## Layers for squared length 64
+
+Choose any shortest vector *s*. The table counts vectors *v* of squared length 64 in the playground’s integer coordinates. [Lean proof](../LeechNorm64Layers.lean#L159).
+
+| Dot product *s · v* | Number of vectors |
+|---|---:|
+| 0 | 133,204,500 |
+| −8 or +8 | 95,385,600 each |
+| −16 or +16 | 32,788,800 each |
+| −24 or +24 | 4,147,200 each |
+| −32 or +32 | 93,150 each |
+| Every other integer | 0 |
+
+The nine layers add up to 398,034,000. To count them, first fix a length-64 vector and count the shortest vectors that meet it at each dot product. A symmetry can take that length-64 vector to (8, 0, …), where the dot product is eight times the first coordinate. All 48 signed coordinate axes give the same count. [Signed axes](../LeechNorm64Layers.lean#L78).
+
+The three shortest-vector shapes give the counts across those axes. A vector with two entries of magnitude 4 hits zero 44 times and each of ±32 twice. A vector with eight entries of magnitude 2 hits zero 32 times and each of ±16 eight times. An odd vector hits each of ±8 on 23 axes and each of ±24 on one. There are 1,104, 97,152 and 98,304 shortest vectors of these shapes, respectively. No other dot product occurs. [Count by shape](../LeechNorm64Layers.lean#L128).
+
+Now fix the shortest vector instead. Count all pairs (*s*, *v*) at the chosen dot product, once for each choice of *s* and once for each choice of *v*. Symmetry makes each count independent of which vector is fixed. There are 398,034,000 choices for *v* and 196,560 for *s*, so the count for a fixed *s* is 2,025 times the count for a fixed *v*. [Counting pairs](../LeechNorm64Layers.lean#L59).
+
+Run `lake build LeechNorm64Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm64-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm64-layers.json) cover 1022 declarations.
+
 ## Verification
 
 The [proof-branch audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813) checked 900 declarations. The [PR build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364) and [merged-main build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913) checked 949, including later additions to main. Each reported zero nonstandard axioms and zero missing reports. [Full axiom output](axioms-2026-11-20-co0-release.txt) · [Saved verification](leech-symmetry-verification-2026-11-20-co0-release.json) · [Reproduction commands](leech-symmetry-order.md#reproduce-the-check).
