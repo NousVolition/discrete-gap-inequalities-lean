@@ -196,3 +196,6 @@ name = "ConwayStabilizer"
 
 [[lean_lib]]
 name = "ConwayOrder"
+
+[[lean_lib]]
+name = "LeechCoordinateFrames"

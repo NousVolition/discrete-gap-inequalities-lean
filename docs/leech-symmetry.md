@@ -21,7 +21,15 @@ For the third milestone, split the coordinates into six tetrads. In each tetrad 
 - Golay sign changes form a subgroup of order 4,096. The sum congruence follows from integrality of the existing lattice. [LeechMonomial.lean](../LeechMonomial.lean).
 - A symmetry preserves the frame iff it is a code permutation composed with a Golay sign change. The norm-64 orbit proof supplies the transitivity hypothesis in the frame argument. [Frame stabilizer](../LeechFrameStabilizer.lean) · [Transitivity](../ConwayTransitivity.lean#L108) · [Explicit generators](../ConwayGenerators.lean#L21).
 
-The group-order proof counts ordered perpendicular pairs of shortest vectors. The separate count of 8,292,375 frames remains outside this proof. [Order argument](leech-symmetry-order.md).
+## Coordinate frames
+
+A coordinate frame is an unordered set of 48 lattice vectors. Each has squared length 64 in the integer coordinates used here, and the difference of any two is twice a lattice vector. Lean counts **8,292,375** such sets. [Definition](../LeechCoordinateFrames.lean#L16) · [Count of all frames](../LeechCoordinateFrames.lean#L129).
+
+Pick any member of a frame and carry it to the first standard axis using norm-64 transitivity. All 48 members then lie in the standard congruence class. That class contains 48 vectors of squared length 64, so the transported frame contains every one of them. This proves that every frame is an image of the standard frame. [Transitivity on frames](../LeechCoordinateFrames.lean#L86).
+
+A symmetry preserving the standard frame is uniquely determined by a code-preserving permutation and a Golay sign change. There are 244,823,040 choices of permutation and 4,096 choices of sign change. Orbit–stabilizer gives 8,315,553,613,086,720,000 / (244,823,040 × 4,096) = 8,292,375. [Frame stabilizer](../LeechCoordinateFrames.lean#L124) · [Group order](../ConwayOrder.lean#L29).
+
+To reproduce the frame check, run `lake build LeechCoordinateFrames CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [frame verification record](leech-symmetry-verification-2026-11-20-coordinate-frames.json) and [full audit](axioms-2026-11-20-coordinate-frames.txt) cover 952 declarations.
 
 ## Verification
 
