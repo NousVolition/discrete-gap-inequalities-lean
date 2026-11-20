@@ -72,4 +72,4 @@ At commit `93bd83600728124ec12becfd3cdc4e23778da1d1`, `python3 scripts/check_pla
 
 The volume result is now proved in [LeechBasis.lean](../LeechBasis.lean): the basis spans the lattice and has determinant `8^12`, and the Gram matrix divided by 8 has determinant 1. Together with the proved divisibility of every squared length by 16, this gives unimodularity and evenness after the standard `1/√8` rescaling. These statements use the existing Lean coordinates; this correspondence file does not add a separate volume-transfer theorem in the playground's coordinates.
 
-The Co₀ result is partial. Lean now proves the group of code-preserving coordinate reorderings has 244,823,040 elements and exhibits a symmetry moving the standard frame. Reaching every vector of squared length 64 and deriving the full group order are open. [Proofs and milestone status](leech-symmetry.md).
+For the Leech lattice with the origin fixed, the full symmetry group has order 8,315,553,613,086,720,000, with explicit generators, proved in Lean. Its code-preserving coordinate permutations form a subgroup of order 244,823,040. [Five symmetry milestones](leech-symmetry.md).

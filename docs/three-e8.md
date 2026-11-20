@@ -74,8 +74,7 @@ classification of even unimodular lattices.
 | [LeechThreeE8Cosets.lean](../LeechThreeE8Cosets.lean), `leech_unique_glue`, `glue_label_count` | Unique binary glue labels for all lattice vectors, with 4,096 labels. |
 
 The 32 new public theorems are included in [CheckAxioms.lean](../CheckAxioms.lean).
-That verification audited 743 declarations. The later [symmetry work](leech-symmetry.md)
-brings the inventory to 830. Only `propext`,
+That verification audited 743 declarations. The later symmetry milestones bring the inventory to 949. [Symmetry proofs and audit](leech-symmetry.md). Only `propext`,
 `Classical.choice` and `Quot.sound` are permitted. There are no `sorry` proofs,
 `native_decide` proofs or additional assumptions about the construction data.
 
@@ -108,7 +107,6 @@ The replay also records the number of shortest vectors in each glue coset and
 the component squared-length patterns. Those particular distributions are
 measured outputs; the Lean results above do not claim to prove them.
 
-The browser projection, glow, interaction and full lattice symmetry group are
-outside these proofs. The 240-point E₈ pictures are reference root projections;
+The browser projection, glow and interaction are checked separately. For the full lattice symmetry group, see the [order and generator proofs](leech-symmetry-order.md). The 240-point E₈ pictures are reference root projections;
 a highlighted component can lie in a shifted copy. The screen does not show
 24-dimensional distances faithfully.

@@ -1,14 +1,16 @@
 # The Leech symmetry group
 
-**Co₀ status is partial.** A symmetry here is a distance-preserving bijection of the Leech lattice fixing the origin. Coordinates use the existing √8 scale. Squared length 64 in these files is squared length 8 in the usual normalization.
+For the Leech lattice with the origin fixed, the full symmetry group has order 8,315,553,613,086,720,000, with explicit generators, proved in Lean. The generators are the Golay sign changes, 129 code-preserving coordinate permutations and the sextet involution. [Group order](../ConwayOrder.lean#L29) · [Generating set](../ConwayGenerators.lean#L21).
 
-| Milestone | Lean theorem | What it proves | What remains conditional in this release |
-| --- | --- | --- | --- |
-| 1. Explicit code reorderings | [GolayMathieu.rep_code](../MathieuGroup.lean#L52) | Each of 129 listed permutations of the 24 coordinates preserves the extended binary Golay code. | This theorem has no pending proof hypothesis. It does not establish reachability of the norm-64 lattice vectors. |
-| 2. Size of the reordering group | [GolayMathieu.card_mathieu](../MathieuGroup.lean#L147) | The group of **all** code-preserving coordinate permutations has 244,823,040 elements. The same file proves that the displayed list generates it. | This is the reordering-group size. The full lattice-group size still needs the remaining orbit argument. |
-| 3. A symmetry moving the standard axes | [LeechSextet.moves_frame](../LeechSextet.lean#L135) | An explicit lattice involution takes `8e₀` outside the 48 standard axis vectors. | Reaching every norm-64 lattice vector and deriving the full group size are outside this release. |
-| 4. Reaching every vector of squared length 64 | Not included | The published conditional theorem needs this reachability hypothesis. | No proof of that hypothesis is included here. |
-| 5. Size of the full symmetry group | Not included | The target is 8,315,553,613,086,720,000. | No theorem stating that full group size is included here. |
+A symmetry is a distance-preserving bijection fixing zero. In the integer coordinates used here, squared length 64 corresponds to squared length 8 in the usual normalization.
+
+| Milestone | Lean theorem | What it establishes |
+| --- | --- | --- |
+| 1. Coordinate reorderings | [`GolayMathieu.rep_code`](../MathieuGroup.lean#L52) | Each of the 129 listed permutations preserves the Golay code. |
+| 2. Reordering group | [`GolayMathieu.card_mathieu`](../MathieuGroup.lean#L147) | There are 244,823,040 code-preserving permutations. The list generates them all. |
+| 3. Moving an axis | [`LeechSextet.moves_frame`](../LeechSextet.lean#L135) | The involution takes the first axis vector outside the standard frame. |
+| 4. Reaching every vector of squared length 64 | [`ConwayMoves.norm64_transitive`](../ConwayTransitivity.lean#L108) | Every lattice vector of this squared length is an image of `8e₀` under the generators. Squared length 64 uses the project's integer coordinates. |
+| 5. Full group order | [`ConwayOrder.card_aut`](../ConwayOrder.lean#L29) | Orbit–stabilizer gives the order of the full origin-fixing group. |
 
 For the second milestone, mark coordinates 0, 1, 2, 3, 4, 13 and 5 in that order. After fixing the earlier marks, the next one has 24, 23, 22, 21, 20, 3 and 16 possible images, respectively. Lean checks a permutation for each choice. Fixing all seven marks fixes seventeen particular octads, whose membership patterns distinguish all 24 coordinates. Multiplying the seven orbit lengths gives the group order. [Seven-point proof](../MathieuBase.lean) · [Reproducible permutation data](../scripts/build_mathieu_data.py).
 
@@ -19,24 +21,24 @@ For the third milestone, split the coordinates into six tetrads. In each tetrad 
 - `mem_autGroup_iff` identifies the additive norm-preserving bijections with the distance-preserving bijections fixing zero. The 196,560 shortest vectors span the lattice, and the action on them is faithful. Negation is a central involution. [LeechSymmetry.lean](../LeechSymmetry.lean).
 - The squared-length-64 vectors congruent to `8e₀` modulo twice the lattice are the 48 vectors `±8eᵢ`. Fixing one axis preserves this standard frame. [Standard frame proof](../LeechSymmetry.lean).
 - Golay sign changes form a subgroup of order 4,096. The sum congruence follows from integrality of the existing lattice. [LeechMonomial.lean](../LeechMonomial.lean).
-- A symmetry preserves the frame iff it is a code permutation composed with a Golay sign change. The remaining group-generation statement is conditional on reaching every squared-length-64 lattice vector. [Frame stabilizer and conditional theorem](../LeechFrameStabilizer.lean).
+- A symmetry preserves the frame iff it is a code permutation composed with a Golay sign change. Milestone 4 proves that the generators reach every squared-length-64 vector, supplying the orbit hypothesis used to prove generation. [Frame stabilizer](../LeechFrameStabilizer.lean) · [Orbit theorem](../ConwayTransitivity.lean#L108) · [Generation theorem](../ConwayGenerators.lean#L21).
 
-The literature gives 8,292,375 frames and the target Co₀ order above. Neither count is proved in this release. [Wilson, §§5.2–5.3](https://webspace.maths.qmul.ac.uk/r.a.wilson/simplegroups_files/notes5.pdf).
+The Lean order proof counts ordered pairs of perpendicular shortest vectors and their stabilizer. Wilson gives a frame count of 8,292,375 for comparison. [Counting argument](leech-symmetry-order.md). [Wilson, §§5.2–5.3](https://webspace.maths.qmul.ac.uk/r.a.wilson/simplegroups_files/notes5.pdf).
 
 ## Publication checks
 
-GitHub's [PR build and full axiom audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44662521061) and [push build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44662515163) passed for proof commit `37cb4d3d3142728864d6bcc0c8b279a7e051bba5` before this status update. Both logs report **830 declarations checked, 0 nonstandard, 0 missing**. The [CI receipt](leech-milestones-ci.json) records those checks.
+GitHub built the proof and ran the full axiom audit before and after merging PR #9. Both runs reported **949 declarations checked, 0 nonstandard, 0 missing**. Milestones 4–5 add 44 declarations to the previous 905. [Pull request build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364/job/136083513003) · [Merged build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913/job/136084952916) · [Full axiom output](axioms-2026-11-20-order-949.txt).
 
-The finished new proof modules are `MathieuData`, `MathieuBase`, `MathieuGroup` and `LeechSextet`, with their existing proved dependencies and axiom inventory. No unfinished Conway proof module is part of this release. The symmetry status remains **partial**.
+The earlier 830-declaration audit for milestones 1–3 is recorded in the [historical CI receipt](leech-milestones-ci.json).
 
 ## Reproduce the proofs
 
 ```sh
 python3 scripts/build_mathieu_data.py --check
-lake build MathieuGroup LeechSextet CheckAxioms
+lake build ConwayGenerators ConwayOrder CheckAxioms
 lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 python3 scripts/check_leech_symmetry_evidence.py
 ```
 
-The full audit covers **905 declarations**, including the 35 theorems for milestones 1–3. The 12 plumbing-help theorems extend the [893-declaration audit](leech-symmetry-verification-2026-11-20-products-current-main.json). Lean’s kernel checks the permutation tables and the doubled matrix; the saved-evidence command above compares recorded hashes and axiom reports with the checkout. [Current verification](leech-symmetry-verification-2026-11-20-plumbing-help.json) · [Earlier 856-declaration verification](leech-symmetry-verification-2026-11-20-gap-wave-merge.json) · [Earlier publication verification](leech-symmetry-verification-2026-11-20-publication.json) · [Proof-stage verification](leech-symmetry-verification-2026-11-20-m123.json).
+The inventory includes 52 symmetry foundations, 35 results for milestones 1–3 and 44 for milestones 4–5. The evidence checker compares source hashes, theorem names and all 949 axiom reports. [Current verification](leech-symmetry-verification-2026-11-20-order-publication.json) · [Previous 905-declaration verification](leech-symmetry-verification-2026-11-20-plumbing-help.json).
