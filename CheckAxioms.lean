@@ -1075,3 +1075,7 @@ import MathieuBase
 
 #print axioms LeechLayers.card_perpendicular
 #print axioms LeechLayers.no_dot_twenty_four
+#print axioms LeechLayers.card_dot_pos_eight
+#print axioms LeechLayers.card_dot_neg_eight
+#print axioms LeechLayers.card_dot_pos_sixteen
+#print axioms LeechLayers.card_dot_neg_sixteen
