@@ -1,0 +1,16 @@
+{
+  "scope": "Nine new declarations compiled and axiom-audited locally; full combined build is run by GitHub CI.",
+  "local_decl_count": 9,
+  "expected_combined_audit_count": 1058,
+  "lean": "4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "dependencies_reused": "Previously compiled RingDecay/Wirtinger and Mathlib libraries; RingSumMinusTwelfth was recompiled from its pinned source.",
+  "quote_attribution": "Michele used the exact words in this conversation: the shortcut works because of the space.",
+  "source_sha256_lf": "959bdfa4e22ad483ae4efbded3dda390a8388cd60fea2895de26851a3f1d5da8",
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "limitations": "This is an exponential finite-part identity and its value at zeta(-1). No theorem about nontrivial zeros is claimed."
+}
