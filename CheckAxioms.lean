@@ -1108,3 +1108,8 @@ import LightBounceAndCapture
 #print axioms LightBounceAndCapture.tab16_captured_stays
 #print axioms LightBounceAndCapture.tab27_captured_stays
 #print axioms LightBounceAndCapture.tab28_captured_stays
+
+#print axioms LeechLayers.card_dot_pos_eight
+#print axioms LeechLayers.card_dot_neg_eight
+#print axioms LeechLayers.card_dot_pos_sixteen
+#print axioms LeechLayers.card_dot_neg_sixteen

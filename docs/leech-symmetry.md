@@ -98,9 +98,15 @@ For even coordinates, words of weight 0 or 24 give no vectors at this length. Fl
 
 For any shortest vector in the playground coordinates, 93,150 of the 196,560 shortest vectors are perpendicular to it. The coordinate permutation preserves the dot product, so the central layer follows from the partner count. A dot product of +24 would give a difference of squared length 16. A dot product of −24 would give a sum of squared length 16. Both would be nonzero lattice vectors below the minimum of 32. [Partner count](../ConwayOrder.lean#L15) · [Central layer in playground coordinates](../LeechLayers.lean#L18) · [Empty slots](../LeechLayers.lean#L27) · [Minimum length](../PlaygroundLeech.lean#L57).
 
-The playground counts the vectors in each layer from its generated coordinates. The counts at ±8 and ±16 and the picture are browser results.
+For every shortest vector *s*, the [−8](../LeechLayers.lean#L211) and [+8](../LeechLayers.lean#L206) layers each have **47,104** vectors. The [−16](../LeechLayers.lean#L221) and [+16](../LeechLayers.lean#L216) layers each have **4,600**. The signs refer to the dot product *s · v* in the playground’s integer coordinates.
 
-Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-norm80-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm80-layers.json) cover 978 declarations.
+In the proof’s coordinates, take the shortest vector (4, −4, 0, …). Its dot product with *v* is four times the difference of the first two coordinates. Summing the square of that difference over all shortest vectors gives 524,160. Each coordinate contributes the same sum of squares, and the cross terms cancel because a lattice symmetry can flip the second coordinate while fixing the first. [Sum of squares](../LeechLayers.lean#L106).
+
+Let *A* and *B* count the +8 and +16 layers. Negating *v* gives the same counts on the negative side. Removing the 93,150 perpendicular vectors and the one vector at each end gives *A + B = 51,704*. The sum of squares gives *A + 4B = 65,504*. Subtracting gives *B = 4,600*, then *A = 47,104*. Every shortest vector is the image of the reference vector under a symmetry that preserves dot products. [Counting argument](../LeechLayers.lean#L180) · [Transfer to any shortest vector](../LeechLayers.lean#L186).
+
+The Layers view also counts the generated vectors for the current selection and draws the projection in the browser.
+
+Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-signed-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-signed-layers.json) cover 1013 declarations.
 
 ## Verification
 
