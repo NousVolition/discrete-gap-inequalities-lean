@@ -53,6 +53,7 @@ import LeechFrameStabilizer
 import LeechSextet
 import MathieuGroup
 import MathieuBase
+import LightBounceAndCapture
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -1075,6 +1076,39 @@ import MathieuBase
 
 #print axioms LeechLayers.card_perpendicular
 #print axioms LeechLayers.no_dot_twenty_four
+
+#print axioms LightBounceAndCapture.AllowedShare.lt_one
+#print axioms LightBounceAndCapture.reflected_le
+#print axioms LightBounceAndCapture.reflected_le_cap
+#print axioms LightBounceAndCapture.absorbed_ge
+#print axioms LightBounceAndCapture.incoming_eq_absorbed_add_reflected
+#print axioms LightBounceAndCapture.remainder_eq
+#print axioms LightBounceAndCapture.remainder_le
+#print axioms LightBounceAndCapture.remainder_tendsto_zero
+#print axioms LightBounceAndCapture.absorbed_sum_add_remainder
+#print axioms LightBounceAndCapture.absorbed_sum_tendsto
+#print axioms LightBounceAndCapture.bounce_le
+#print axioms LightBounceAndCapture.bounce_tendsto_zero
+#print axioms LightBounceAndCapture.superBlackChannel_le
+#print axioms LightBounceAndCapture.neighbor_share_bounds
+#print axioms LightBounceAndCapture.once_in_never_out
+#print axioms LightBounceAndCapture.once_in_never_out_frames
+#print axioms LightBounceAndCapture.GrainMove.kind_eq
+#print axioms LightBounceAndCapture.GrainMove.y_le
+#print axioms LightBounceAndCapture.superBlackRegion_mapsTo
+#print axioms LightBounceAndCapture.super_black_grain_stays_at_or_below
+#print axioms LightBounceAndCapture.super_black_grain_stays_at_or_below_frames
+#print axioms LightBounceAndCapture.rayStep_of_not_alive
+#print axioms LightBounceAndCapture.captured_mapsTo
+#print axioms LightBounceAndCapture.captured_stays_captured
+#print axioms LightBounceAndCapture.captured_frozen
+#print axioms LightBounceAndCapture.lands_inside_captured_forever
+#print axioms LightBounceAndCapture.captured_mapsTo_checkFirst
+#print axioms LightBounceAndCapture.captured_stays_captured_checkFirst
+#print axioms LightBounceAndCapture.tab16_captured_stays
+#print axioms LightBounceAndCapture.tab27_captured_stays
+#print axioms LightBounceAndCapture.tab28_captured_stays
+
 #print axioms LeechLayers.card_dot_pos_eight
 #print axioms LeechLayers.card_dot_neg_eight
 #print axioms LeechLayers.card_dot_pos_sixteen

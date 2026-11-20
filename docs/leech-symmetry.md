@@ -106,7 +106,7 @@ Let *A* and *B* count the +8 and +16 layers. Negating *v* gives the same counts 
 
 The Layers view also counts the generated vectors for the current selection and draws the projection in the browser.
 
-Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-signed-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-signed-layers.json) cover 982 declarations.
+Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-signed-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-signed-layers.json) cover 1013 declarations.
 
 ## Verification
 
