@@ -104,9 +104,11 @@ In the proof’s coordinates, take the shortest vector (4, −4, 0, …). Its do
 
 Let *A* and *B* count the +8 and +16 layers. Negating *v* gives the same counts on the negative side. Removing the 93,150 perpendicular vectors and the one vector at each end gives *A + B = 51,704*. The sum of squares gives *A + 4B = 65,504*. Subtracting gives *B = 4,600*, then *A = 47,104*. Every shortest vector is the image of the reference vector under a symmetry that preserves dot products. [Counting argument](../LeechLayers.lean#L180) · [Transfer to any shortest vector](../LeechLayers.lean#L186).
 
+The [+32 layer](../LeechLayers.lean#L233) contains only *s*. When *s · v = 32*, the difference *s − v* has squared length zero, so *v = s*. The [−32 layer](../LeechLayers.lean#L246) contains only *−s*. When *s · v = −32*, the sum *s + v* has squared length zero, so *v = −s*. Negating *s* preserves its length and keeps it in the lattice. This gives [one vector at +32](../LeechLayers.lean#L272) and [one at −32](../LeechLayers.lean#L277).
+
 The Layers view also counts the generated vectors for the current selection and draws the projection in the browser.
 
-Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-signed-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-signed-layers.json) cover 1013 declarations.
+Run `lake build LeechNorm80 LeechLayers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [full axiom output](axioms-2026-11-20-end-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-end-layers.json) cover 1017 declarations.
 
 ## Verification
 
