@@ -30,6 +30,7 @@ import LeechLattice
 import LeechKissing
 import PlaygroundLeech
 import LeechBasis
+import LeechThreeE8Cosets
 
 /-! Each line must list only `propext`, `Classical.choice` and `Quot.sound` (some list fewer). Any `sorryAx` or any other axiom means the check fails. -/
 
@@ -767,3 +768,37 @@ import LeechBasis
 #print axioms LeechBasis.leech_unimodular
 #print axioms LeechBasis.leech_inner_dvd_eight
 #print axioms LeechBasis.leech_norm_dvd_sixteen
+
+-- Three E8 blocks and their 4096 distinct glue cosets
+#print axioms LeechThreeE8.coordinate_bijective
+#print axioms LeechThreeE8.block_norm
+#print axioms LeechThreeE8.base_blocks
+#print axioms LeechThreeE8.e8_gram
+#print axioms LeechThreeE8.base_gram
+#print axioms LeechThreeE8.combination_mem
+#print axioms LeechThreeE8.base_in_leech_check
+#print axioms LeechThreeE8.glue_in_leech_check
+#print axioms LeechThreeE8.leech_in_glued_check
+#print axioms LeechThreeE8.twice_glue_check
+#print axioms LeechThreeE8.base_mem
+#print axioms LeechThreeE8.glue_mem
+#print axioms LeechThreeE8.glued_eq_leech
+#print axioms LeechThreeE8.twice_glue_mem
+#print axioms LeechThreeE8.glued_norm_ge_32
+#print axioms LeechThreeE8.playground_correspondence
+#print axioms LeechThreeE8.glued_basis_and_volume
+#print axioms LeechThreeE8.glued_kissing_number
+#print axioms LeechThreeE8.glued_even
+#print axioms LeechThreeE8.readout_base_check
+#print axioms LeechThreeE8.readout_glue_check
+#print axioms LeechThreeE8.readout_base_zero
+#print axioms LeechThreeE8.readout_offset
+#print axioms LeechThreeE8.offset_zero
+#print axioms LeechThreeE8.offset_mem_glued
+#print axioms LeechThreeE8.twice_offset_mem
+#print axioms LeechThreeE8.offset_add_carry
+#print axioms LeechThreeE8.base_le_glued
+#print axioms LeechThreeE8.coset_eq_glued
+#print axioms LeechThreeE8.offset_cosets_distinct
+#print axioms LeechThreeE8.leech_unique_glue
+#print axioms LeechThreeE8.glue_label_count
