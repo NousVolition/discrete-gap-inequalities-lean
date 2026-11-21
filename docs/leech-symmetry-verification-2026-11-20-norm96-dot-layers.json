@@ -1,19 +1,19 @@
 {
   "status": "PASS",
-  "verified_at_utc": "2026-11-20T23:58:49.315977+00:00",
-  "base_commit": "f59b86b915af55ccf55223761f21d2116883a0a7",
+  "verified_at_utc": "2026-11-21T00:01:08.330600+00:00",
+  "base_commit": "4a1e2f0798c5186e8cbb118a7d57b6a84f5c2f8d",
   "verification": "Compiled the modules listed below with the pinned Lean toolchain and checked the full axiom transcript.",
-  "checked_declarations": 1059,
-  "axiom_audit_summary": "1059 declarations checked, 0 nonstandard, 0 missing",
+  "checked_declarations": 1068,
+  "axiom_audit_summary": "1068 declarations checked, 0 nonstandard, 0 missing",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
     "Quot.sound"
   ],
   "axiom_output_file": "docs/axioms-2026-11-20-norm96-dot-layers.txt",
-  "axiom_output_sha256": "0384887944a2e2619fd0474cbd88fa3c68977e4741e0dfb895ce0b5adb6bc2ef",
+  "axiom_output_sha256": "03ad38271c644619a1703a38f437223de57e42119f20037fa7cbcf38a8f02c10",
   "source_hash_convention": "SHA256 after CRLF-to-LF normalization",
-  "compiled_module_count": 13,
+  "compiled_module_count": 14,
   "modules": {
     "LeechShellCoordinates": {
       "status": "PASS",
@@ -63,9 +63,13 @@
       "status": "PASS",
       "sha256": "70932f54f27ae93bdca5240e72bf324cd8142bb6a26dac715d2b65ea371e2c65"
     },
+    "RamanujanGap": {
+      "status": "PASS",
+      "sha256": "959bdfa4e22ad483ae4efbded3dda390a8388cd60fea2895de26851a3f1d5da8"
+    },
     "CheckAxioms": {
       "status": "PASS",
-      "sha256": "e7467a9ab6e4c42f85c81fd0718d5c4a2958fe586fbff86ef3d6ad38f2a4dfac"
+      "sha256": "1788d41858bc3e8df87062c6d788421b11c7107033090ee8bbebb4e3b06fd2b9"
     }
   },
   "reused_project_source_count": 69,
@@ -267,7 +271,7 @@
     ".github/test_check_axioms.py": "fdd5e29f892b22a90f0255b2ed73b148962ec39053400024dd707d9c0fbc058b",
     ".github/workflows/lean.yml": "f81040806693ffa3e64a0aa7e40e323f33fcb5e923df153bdb01c4a67ee9c0e5",
     "Bridges.lean": "31a26384177d7e0b3d20585041ac1163365d70bb755450af8718063b34b2e1a3",
-    "CheckAxioms.lean": "e7467a9ab6e4c42f85c81fd0718d5c4a2958fe586fbff86ef3d6ad38f2a4dfac",
+    "CheckAxioms.lean": "1788d41858bc3e8df87062c6d788421b11c7107033090ee8bbebb4e3b06fd2b9",
     "ConwayCoordinates.lean": "f9d0c1088ea9a4728ea43d7ec18a00b4a39db2b74c2500396f2b1d5dfdd5896c",
     "ConwayGenerators.lean": "8b80892fc559ea58f2a2e5b3ae81d63130ddfe0df94a0a5c66c67918d5e68e65",
     "ConwayMoves.lean": "1683c85522bea38be42b068dc195cdb3d9f95b74a2fdfc4624a56be1c604634a",
@@ -342,7 +346,8 @@
     "PlumbingStick.lean": "3e536d3efe60a941e5cbb82463a0ab132664a3ee1605d7c0f00d35695917a29e",
     "Poincare.lean": "e4a76d125f57885221ac70ed59749b9ea12143bcbca3a71c56e74ee6c05b4fd0",
     "Polygon.lean": "b2c3a70e2dd3999339cc1cac743db74552203d010c4b39dc0a7642065cb3f265",
-    "README.md": "beb86e6f9104e00ad045c43a69aa4ffbf292eaa1d6a433e3ad1530dae131b09a",
+    "README.md": "127172e35edaa14525404bd5570e225f5ee2a3d83619dddb7a3cb264fd5e8100",
+    "RamanujanGap.lean": "959bdfa4e22ad483ae4efbded3dda390a8388cd60fea2895de26851a3f1d5da8",
     "RingDecay.lean": "e7f594faaff2a20978f1fab5c5ecfc48f39ee6bbdf6cff2a84aa9673f3f6c1be",
     "RingGapBridge.lean": "cb056050898d9e561d0dbaa5f7ecc95c9e706ab3fa6540dd851cf33f4c5404da",
     "RingSumMinusTwelfth.lean": "70932f54f27ae93bdca5240e72bf324cd8142bb6a26dac715d2b65ea371e2c65",
@@ -357,11 +362,11 @@
     "docs/leech-co0-release-ci.json": "59b95113e730e7b128d3885abe331d6e4d7eb1deb210d21072dfec71a5b8e8b1",
     "docs/leech-milestones-ci.json": "ae47068bb2fe8d5ff25a36645c5d0721ba055af383ee508a0e199a7855c7f276",
     "docs/leech-symmetry-order.md": "d2177bd080d88645b294675cbaaa79b7f5513e3b5910c3dfec2bc73b841fd352",
-    "docs/leech-symmetry.md": "d0c5c4e2e41cf18812f2f6ed107a5a2fdd4a29fa60e000ba28c69aa18b8b8362",
+    "docs/leech-symmetry.md": "2438aeb9bb2aea2612606a948f175274addb8d3fccd5c4de4dbd517f92602df3",
     "docs/playground-golay.md": "3fe6388f75662a6b793406fc6ef12bd481d5863bb26a76b68703ba43d10b1ab5",
     "docs/three-e8.md": "3b0dc9dfe47fb9b3d6a06d816613f510fa7c51229ecb5f029da5bc564d66fa23",
     "lake-manifest.json": "b3dded0821cb21fdc1078fabd04a774594192a41c122e80c249573163129734c",
-    "lakefile.toml": "0e4dfb63398575d8d8f5c7ecf494f7629d29660c2f4cf5b7e53c290a00cff87d",
+    "lakefile.toml": "76aa95913b1dbc120925ddf90e862d936b34f37e0a17ce23f0c8d448013fc7d6",
     "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
     "scripts/build_mathieu_data.py": "ba5c72ccf6b81725c1cbedcfaeb5b59e4b0be98e338a7ef1fe6b9933ad8620d9",
     "scripts/check_leech_symmetry_evidence.py": "948e89188133e50aaa0f1da2dcdd88b994038cbb1dd3854d70ef8087070a5582"
@@ -423,7 +428,7 @@
     "LeechCoordinateFrames"
   ],
   "full_group_order": "8315553613086720000",
-  "base_declarations": 1049,
+  "base_declarations": 1058,
   "added_declarations": 10,
   "preservation_scope": "The 47 historical proof sources in the main-branch preservation record are unchanged. The Torus source includes the Cartesian-product results from PR #7 and matches the main-branch source hash.",
   "coordinate_frame_count": 8292375,

@@ -32,6 +32,7 @@ import TwoWaveReadoutObstruction
 import Isoperimetric
 import RingDecay
 import RingSumMinusTwelfth
+import RamanujanGap
 import GapWaveTail
 import HarperSquash
 import Polygon
@@ -1156,6 +1157,16 @@ import LightBounceAndCapture
 
 #print axioms LeechShellMoments.diff_moments
 #print axioms LeechLayers.card_norm80_dot_layer
+
+#print axioms RamanujanGap.smooth_area
+#print axioms RamanujanGap.bars_minus_area_eq_leftover
+#print axioms RamanujanGap.smooth_area_cancels
+#print axioms RamanujanGap.leftover_dyadic_identity
+#print axioms RamanujanGap.alternating_hasSum
+#print axioms RamanujanGap.alternating_limit
+#print axioms RamanujanGap.finite_leftover_limit_forced
+#print axioms RamanujanGap.zeta_neg_one
+#print axioms RamanujanGap.leftover_limit_eq_zeta
 
 #print axioms LeechShellCoordinates.card_box_from_choices
 #print axioms LeechNorm80Count.choices96
