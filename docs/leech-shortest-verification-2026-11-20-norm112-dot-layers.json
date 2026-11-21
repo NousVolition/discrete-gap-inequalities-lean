@@ -1,27 +1,29 @@
 {
   "status": "PASS",
-  "verified_at_utc": "2026-11-21T00:50:07.822286+00:00",
-  "base_commit": "394543d34125c52b41813ee2917158f2058808ae",
+  "verified_at_utc": "2026-11-21T01:06:11.010184+00:00",
+  "base_commit": "26630ea06862404edd1204ddc612613f3d8fedab",
   "verification": "Compiled the modules listed below with the pinned Lean toolchain and checked the full axiom transcript.",
   "lean_version": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
   "lean_binary_sha256": "37dfe799f69b990251f3b6bcff8a1c10c1afe2adcdecc5c580cc6726ffb63433",
   "mathlib_revision": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
-  "checked_declarations": 1083,
-  "axiom_audit_summary": "1083 declarations checked, 0 nonstandard, 0 missing",
+  "checked_declarations": 1099,
+  "axiom_audit_summary": "1099 declarations checked, 0 nonstandard, 0 missing",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
     "Quot.sound"
   ],
   "axiom_output_file": "docs/axioms-2026-11-20-norm112-dot-layers.txt",
-  "axiom_output_sha256": "7d65774ed0fe8dad4b591511b242a312d2d825983ee98c73bdcf5ab4683dce89",
+  "axiom_output_sha256": "18f5ef7587e74cc7ea7aceaed5c22c689b1d2e0e721858a0d68d2315d36ec47a",
   "source_hash_convention": "SHA256 after CRLF-to-LF normalization",
   "normalized_source_sha256": {
     ".github/check_axioms.py": "ebf4ddc536f7b76da1a607dbadbdb8e9b91a3cb4488d0ad8a9d6dce94b2c55ea",
     ".github/test_check_axioms.py": "fdd5e29f892b22a90f0255b2ed73b148962ec39053400024dd707d9c0fbc058b",
-    ".github/workflows/lean.yml": "f81040806693ffa3e64a0aa7e40e323f33fcb5e923df153bdb01c4a67ee9c0e5",
+    ".github/workflows/lean.yml": "28d9223c9eab25a72424885164b78bebfa34ef0c5ecd3ac599613902344c10bd",
     "Bridges.lean": "31a26384177d7e0b3d20585041ac1163365d70bb755450af8718063b34b2e1a3",
-    "CheckAxioms.lean": "ebc8e83686262632e4f264abae72f7c108272fac46639d03b76e1fbfbc0eb6d3",
+    "CheckAxioms.lean": "21a12b67713a6f36b3ba95d942e86121799a27d761b60cf010ae974aab4ca186",
+    "ContinuousWirtinger.lean": "f16806d4775d6fe530fa9508587d1ca1b45192c359f853a8a3b95b254d1a3169",
+    "ContinuousWirtingerComplex.lean": "377361e9900ed43b713c249ae86e9fc78983c54a86d04a35b37eddb92bda978f",
     "ConwayCoordinates.lean": "f9d0c1088ea9a4728ea43d7ec18a00b4a39db2b74c2500396f2b1d5dfdd5896c",
     "ConwayGenerators.lean": "8b80892fc559ea58f2a2e5b3ae81d63130ddfe0df94a0a5c66c67918d5e68e65",
     "ConwayMoves.lean": "1683c85522bea38be42b068dc195cdb3d9f95b74a2fdfc4624a56be1c604634a",
@@ -100,8 +102,10 @@
     "PlumbingStick.lean": "3e536d3efe60a941e5cbb82463a0ab132664a3ee1605d7c0f00d35695917a29e",
     "Poincare.lean": "e4a76d125f57885221ac70ed59749b9ea12143bcbca3a71c56e74ee6c05b4fd0",
     "Polygon.lean": "b2c3a70e2dd3999339cc1cac743db74552203d010c4b39dc0a7642065cb3f265",
-    "README.md": "19297b460bfff41616fb8f6ade042cfd18961564897efd0b1fb989f2aeb06599",
+    "README.md": "4294826634913c6f2d50a8ccbd461c8a94328b3da9feaf86575d96c684138c3c",
     "RamanujanGap.lean": "959bdfa4e22ad483ae4efbded3dda390a8388cd60fea2895de26851a3f1d5da8",
+    "RiemannHypothesisRoute.lean": "4397303168d14c2d03775dce5f0eab9059348a7e7eabcbf33c6086ac5a4e3889",
+    "RiemannZeroGaps.lean": "a3ef2980930240fdbc4651fea1179013d46bfd004f670c2f45d42d71a9155afc",
     "RingDecay.lean": "e7f594faaff2a20978f1fab5c5ecfc48f39ee6bbdf6cff2a84aa9673f3f6c1be",
     "RingGapBridge.lean": "cb056050898d9e561d0dbaa5f7ecc95c9e706ab3fa6540dd851cf33f4c5404da",
     "RingSumMinusTwelfth.lean": "70932f54f27ae93bdca5240e72bf324cd8142bb6a26dac715d2b65ea371e2c65",
@@ -116,12 +120,12 @@
     "docs/leech-co0-release-ci.json": "59b95113e730e7b128d3885abe331d6e4d7eb1deb210d21072dfec71a5b8e8b1",
     "docs/leech-milestones-ci.json": "ae47068bb2fe8d5ff25a36645c5d0721ba055af383ee508a0e199a7855c7f276",
     "docs/leech-symmetry-order.md": "d2177bd080d88645b294675cbaaa79b7f5513e3b5910c3dfec2bc73b841fd352",
-    "docs/leech-symmetry.md": "182ca5942b2178a4e312ed7cac677bfaf325b268df0e1597be27c96fe5b98e1d",
+    "docs/leech-symmetry.md": "5692aee3415af785aed3ae654daa1728f28c590d09dc8429d324e0c44988be57",
     "docs/playground-golay.md": "3fe6388f75662a6b793406fc6ef12bd481d5863bb26a76b68703ba43d10b1ab5",
     "docs/three-e8-construction.json": "d6ad745b3c9b2c556101d017b5905a93eeeb64b5246739e6829e919195019150",
     "docs/three-e8.md": "3b0dc9dfe47fb9b3d6a06d816613f510fa7c51229ecb5f029da5bc564d66fa23",
     "lake-manifest.json": "b3dded0821cb21fdc1078fabd04a774594192a41c122e80c249573163129734c",
-    "lakefile.toml": "5a52fbbf036a4f3969cb2a5581581fb9a86f0fb1ccb96252e83bd4f8181b8443",
+    "lakefile.toml": "9edb469b61ed46d1d3b856ddf64dfddb4dadd0232039a82ac5936e60ab9a96cc",
     "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
     "scripts/build_mathieu_data.py": "ba5c72ccf6b81725c1cbedcfaeb5b59e4b0be98e338a7ef1fe6b9933ad8620d9",
     "scripts/build_three_e8_data.py": "89f70ddb92a4a8de8c04c0c6875d9ecad8abfe11b14766793967356b982c1f27",
@@ -130,6 +134,22 @@
     "scripts/check_three_e8.cjs": "48c303ade053961ed07b9f7b92e11d7386be5db878938a9df8c0a78f485d2774"
   },
   "modules": {
+    "ContinuousWirtinger": {
+      "status": "PASS",
+      "sha256": "f16806d4775d6fe530fa9508587d1ca1b45192c359f853a8a3b95b254d1a3169"
+    },
+    "ContinuousWirtingerComplex": {
+      "status": "PASS",
+      "sha256": "377361e9900ed43b713c249ae86e9fc78983c54a86d04a35b37eddb92bda978f"
+    },
+    "RiemannZeroGaps": {
+      "status": "PASS",
+      "sha256": "a3ef2980930240fdbc4651fea1179013d46bfd004f670c2f45d42d71a9155afc"
+    },
+    "RiemannHypothesisRoute": {
+      "status": "PASS",
+      "sha256": "4397303168d14c2d03775dce5f0eab9059348a7e7eabcbf33c6086ac5a4e3889"
+    },
     "GapCrossing": {
       "status": "PASS",
       "sha256": "998a1908b1335ee61e5aeabd3f7e434816a8fde8f6448e87a55a7c1baacb672a"
@@ -192,10 +212,10 @@
     },
     "CheckAxioms": {
       "status": "PASS",
-      "sha256": "ebc8e83686262632e4f264abae72f7c108272fac46639d03b76e1fbfbc0eb6d3"
+      "sha256": "21a12b67713a6f36b3ba95d942e86121799a27d761b60cf010ae974aab4ca186"
     }
   },
-  "compiled_module_count": 16,
+  "compiled_module_count": 20,
   "reuse_scope": "Reused compiled dependencies after matching their project sources and the pinned dependency lockfile. The earlier declarations also match the preceding full audit transcript.",
   "new_public_theorems": [
     "LeechMinimal.sum_of_signed_support",
@@ -298,7 +318,7 @@
     "LeechLayers.card_norm112_dot_layer"
   ],
   "full_group_order": "8315553613086720000",
-  "base_declarations": 1074,
+  "base_declarations": 1090,
   "added_declarations": 9,
   "scope": "Classification and cardinality of the shortest nonzero integer-coordinate vectors satisfying LeechLattice.InLeech; no determinant, symmetry group, browser correspondence, or trajectory theorem. This dated record re-checks the same 50 shortest-vector theorems against the current project. The full audit now also covers PlaygroundGolay, PlaygroundLeech and LeechBasis (basis, determinant and unimodularity).",
   "coordinate_frame_count": 8292375,

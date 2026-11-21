@@ -1,0 +1,8 @@
+{
+  "module": "RiemannZeroGaps",
+  "source_file": "RiemannZeroGaps.lean",
+  "source_sha256": "a3ef2980930240fdbc4651fea1179013d46bfd004f670c2f45d42d71a9155afc",
+  "exit_code": 0,
+  "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "elapsed_seconds": 13.516
+}

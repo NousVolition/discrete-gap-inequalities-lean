@@ -1,0 +1,8 @@
+{
+  "module": "CheckAxioms",
+  "source_file": "CheckAxioms.lean",
+  "source_sha256": "02e4e5ae11252584b42e02746f64abc42d8a9595c43bfa510cc105488266710c",
+  "exit_code": 0,
+  "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "elapsed_seconds": 12.328
+}

@@ -1,6 +1,6 @@
 name = "DiscreteGapInequalities"
 version = "0.1.0"
-defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "RingSumMinusTwelfth", "RamanujanGap", "GapCrossing", "GapWaveTail", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "PlumbingStick", "PlumbingHelp", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "LeechThreeE8Cosets", "LeechFrameStabilizer", "LightBounceAndCapture", "CheckAxioms"]
+defaultTargets = ["Poincare", "PathSix", "Wirtinger", "Gap", "GapMirror", "GapMirrorCalculus", "GapMirrorBridge", "RingGapBridge", "FourDotGapBridge", "TwoWaveGapBridge", "TwoWaveDiscreteGapBridge", "TwoWaveFlipBridge", "TwoWaveReadoutObstruction", "Isoperimetric", "RingDecay", "RingSumMinusTwelfth", "RamanujanGap", "GapCrossing", "GapWaveTail", "HarperSquash", "Polygon", "CubeCheeger", "Bridges", "Torus", "WallPush", "Harper", "Unify", "GolayMatrixDistance", "EdgeOptimal", "E8PlumbingBridge", "PlumbingStick", "PlumbingHelp", "E8CostMirror", "GolayLeechBridge", "LeechLattice", "LeechKissing", "PlaygroundLeech", "LeechBasis", "LeechThreeE8Cosets", "LeechFrameStabilizer", "LightBounceAndCapture", "ContinuousWirtinger", "ContinuousWirtingerComplex", "RiemannZeroGaps", "RiemannHypothesisRoute", "CheckAxioms"]
 
 [[require]]
 name = "mathlib"
@@ -259,6 +259,18 @@ name = "LeechNorm96Layers"
 
 [[lean_lib]]
 name = "GapCrossing"
+
+[[lean_lib]]
+name = "ContinuousWirtinger"
+
+[[lean_lib]]
+name = "ContinuousWirtingerComplex"
+
+[[lean_lib]]
+name = "RiemannZeroGaps"
+
+[[lean_lib]]
+name = "RiemannHypothesisRoute"
 
 [[lean_lib]]
 name = "LeechCoordinateTally"

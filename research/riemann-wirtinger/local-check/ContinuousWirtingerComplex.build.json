@@ -1,0 +1,8 @@
+{
+  "module": "ContinuousWirtingerComplex",
+  "source_file": "ContinuousWirtingerComplex.lean",
+  "source_sha256": "377361e9900ed43b713c249ae86e9fc78983c54a86d04a35b37eddb92bda978f",
+  "exit_code": 0,
+  "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "elapsed_seconds": 13.75
+}
