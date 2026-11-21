@@ -1,5 +1,6 @@
 import Tab29Hamming
 import LeechNorm272Layers
+import LeechNorm288Layers
 import LeechNorm256Layers
 import LeechNorm240Layers
 import LeechNorm224Layers
@@ -1350,3 +1351,8 @@ import LightBounceAndCapture
 #print axioms LeechNorm80Count.choices272
 #print axioms LeechNorm272.card_norm272_vectors
 #print axioms LeechLayers.card_norm272_dot_layer
+
+-- Squared length 288
+#print axioms LeechNorm80Count.choices288
+#print axioms LeechNorm288.card_norm288_vectors
+#print axioms LeechLayers.card_norm288_dot_layer
