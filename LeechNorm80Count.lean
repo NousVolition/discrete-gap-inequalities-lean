@@ -1,17 +1,17 @@
 import LeechCoordinateAlphabet
 import Mathlib.Tactic.Eval
 
-/-! # Coordinate choices at squared lengths 80, 96, 112, 128, 144, 160, 176, 192, 208, 224 and 240
+/-! # Golay coordinate counts for squared lengths 80 through 256 in multiples of 16
 
 The rows count the choices left after fixing a Golay residue word. Each column
-records a squared-length budget from zero to thirty, in units of eight. Its two
+records a squared-length budget from zero to thirty-two, in units of eight. Its two
 entries count the choices for each parity of the coordinate sum. -/
 namespace LeechNorm80Count
 
 open LeechNorm48Count
 open LeechCoordinateAlphabet (Width Labels charge labelFlag)
 
-private abbrev maxBudget : ℕ := 30
+private abbrev maxBudget : ℕ := 32
 
 private abbrev Row := List (ℕ × ℕ)
 
@@ -111,6 +111,7 @@ private noncomputable def fourRows : List (List Row) := eval% buildCases .four
 private noncomputable def fiveRows : List (List Row) := eval% buildCases .five
 private noncomputable def sixRows : List (List Row) := eval% buildCases .six
 private noncomputable def eightRows : List (List Row) := eval% buildCases .eight
+private noncomputable def nineRows : List (List Row) := eval% buildCases .nine
 
 private noncomputable def rowsFor (width : Width) (i : Fin 6) :=
   let rows := match width with
@@ -118,6 +119,7 @@ private noncomputable def rowsFor (width : Width) (i : Fin 6) :=
     | .five => fiveRows
     | .six => sixRows
     | .eight => eightRows
+    | .nine => nineRows
   rows[i.val]?.getD []
 
 set_option maxRecDepth 8192 in
@@ -341,5 +343,25 @@ theorem choices240 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k =
     · exact (from_row .eight 3 24 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .eight 4 22 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .eight 5 18 0 (by decide)).trans (by decide +kernel)
+
+/-- The number of coordinate choices for one Golay word at squared length 256. -/
+theorem choices256 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
+    LeechCoordinateAlphabet.tally .nine p (24 - k) k
+      (if p then 32 - 3 else 32 - (k : ℤ) / 2) (if p then 1 else 0) =
+      if p then 203672186880 else if k = 0 then 407488018512 else if k = 8 then 203656855552
+      else if k = 12 then 203670159360 else if k = 16 then 203694276608
+      else if k = 24 then 407485022208 else 0 := by
+  cases p with
+  | true =>
+    have le : k ≤ 24 := by omega
+    rw [LeechCoordinateAlphabet.odd_tally, Nat.sub_add_cancel le]
+    exact (from_row .nine 0 29 1 (by decide)).trans (by change _ = 203672186880; decide +kernel)
+  | false =>
+    rcases hk with rfl | rfl | rfl | rfl | rfl
+    · exact (from_row .nine 1 32 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 2 28 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 3 26 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 4 24 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 5 20 0 (by decide)).trans (by decide +kernel)
 
 end LeechNorm80Count

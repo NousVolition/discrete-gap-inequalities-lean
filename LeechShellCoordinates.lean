@@ -20,18 +20,22 @@ private def value (width : Width) (odd bit : Bool) : Labels width → ℤ :=
             else (if bit then ![-6,-2,2,6,10,-10] else ![-8,-4,0,4,8,12])
   | .eight => if odd then (if bit then ![15,11,7,3,-1,-5,-9,-13] else ![-15,-11,-7,-3,1,5,9,13])
               else (if bit then ![-14,-10,-6,-2,2,6,10,14] else ![-16,-12,-8,-4,0,4,8,12])
+  | .nine => if odd then (if bit then ![15,11,7,3,-1,-5,-9,-13,-17] else ![-15,-11,-7,-3,1,5,9,13,17])
+             else (if bit then ![-14,-10,-6,-2,2,6,10,14,18] else ![-16,-12,-8,-4,0,4,8,12,16])
 
 private def lower : Width → ℤ
   | .four => -8
   | .five => -9
   | .six => -11
   | .eight => -16
+  | .nine => -17
 
 private def upper : Width → ℤ
   | .four => 7
   | .five => 9
   | .six => 12
   | .eight => 15
+  | .nine => 18
 
 private def parity (p : Bool) : ℤ := if p then 1 else 0
 private def special (p : Bool) : ℤ := if p then 3 else 2
@@ -257,5 +261,16 @@ theorem card_vectors_eight_choices (u : ℤ)
     pack_covers .eight u x (bound x.val x.property)
   exact (Nat.card_congr (Equiv.ofBijective (pack .eight u) ⟨pack_injective .eight u, onto⟩)).symm.trans
     (card_params .eight u)
+
+/-- Count a shell with nine choices per residue when each coordinate lies from −17 to 18. -/
+theorem card_vectors_nine_choices (u : ℤ)
+    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -17 ≤ x.val i ∧ x.val i ≤ 18) :
+    Nat.card {x : Lattice // normSq x.val = 8 * u} =
+      ∑ p : Bool, ∑ w : Codeword, LeechCoordinateAlphabet.tally .nine p (24 - weight w.val) (weight w.val)
+        (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
+  have onto : Function.Surjective (pack .nine u) := fun x =>
+    pack_covers .nine u x (bound x.val x.property)
+  exact (Nat.card_congr (Equiv.ofBijective (pack .nine u) ⟨pack_injective .nine u, onto⟩)).symm.trans
+    (card_params .nine u)
 
 end LeechShellCoordinates

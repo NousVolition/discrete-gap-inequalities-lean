@@ -82,7 +82,7 @@ To check all three counts, run `lake build LeechShellPairs LeechNorm48Pairs Chec
 
 The Leech lattice has **4,629,381,120 vectors** at squared length 80 in these integer coordinates, or squared length 10 in the usual normalization. Counting a vector and its negative together gives **2,314,690,560 opposite pairs**. [Vector proof](../LeechNorm80.lean#L88) · [Pair proof](../LeechNorm80.lean#L109) · [Shared pairing rule](../LeechOppositePairs.lean#L42).
 
-An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L184).
+An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L188).
 
 | Coordinates | Golay word | Words | Vectors per word | Vectors |
 | --- | --- | ---: | ---: | ---: |
@@ -92,7 +92,7 @@ An entry of magnitude 8 would leave a nonzero lattice vector of squared length 1
 | Odd | Any weight | 4,096 | 565,248 | 2,315,255,808 |
 | **Total** | | | | **4,629,381,120** |
 
-For even coordinates, words of weight 0 or 24 give no vectors at this length. Flipping all 24 bits pairs the words of weight 16 with those of weight 8. Lean checks each entry of the counting tables against the rule for adding one coordinate. [Even choices](../LeechNorm80Count.lean#L144) · [Odd choices](../LeechNorm80Count.lean#L140) · [Weight-16 words](../LeechNorm80.lean#L72).
+For even coordinates, words of weight 0 or 24 give no vectors at this length. Flipping all 24 bits pairs the words of weight 16 with those of weight 8. Lean checks each entry of the counting tables against the rule for adding one coordinate. [Even choices](../LeechNorm80Count.lean#L146) · [Odd choices](../LeechNorm80Count.lean#L142) · [Weight-16 words](../LeechNorm80.lean#L72).
 
 ## Layers along a shortest vector
 
@@ -230,9 +230,9 @@ For any shortest vector *s*, the table counts the vectors *v* of squared length 
 | Every other integer | 0 |
 | **All layers** | **187,489,935,360** |
 
-**Counting the shell.** Subtracting a signed coordinate axis leaves a nonzero lattice vector with squared length at least 32. This bounds each coordinate between −9 and 9. The Golay word fixes a residue modulo four at each position. Five choices per residue cover the range, and Lean checks their squared lengths and their sum modulo eight. [Coordinate bound](../LeechNorm112.lean#L23) · [How the choices count vectors](../LeechShellCoordinates.lean#L218).
+**Counting the shell.** Subtracting a signed coordinate axis leaves a nonzero lattice vector with squared length at least 32. This bounds each coordinate between −9 and 9. The Golay word fixes a residue modulo four at each position. Five choices per residue cover the range, and Lean checks their squared lengths and their sum modulo eight. [Coordinate bound](../LeechNorm112.lean#L23) · [How the choices count vectors](../LeechShellCoordinates.lean#L222).
 
-For odd coordinates, each of the 4,096 words gives 22,892,544 vectors. For even coordinates, a word of weight 8 gives 22,716,416 vectors, a word of weight 12 gives 22,892,544, and a word of weight 16 gives 23,068,672. The other word weights give zero. There are 759, 2,576 and 759 words at those three weights. [Counts per word](../LeechNorm80Count.lean#L173) · [Shell total](../LeechNorm112.lean#L52).
+For odd coordinates, each of the 4,096 words gives 22,892,544 vectors. For even coordinates, a word of weight 8 gives 22,716,416 vectors, a word of weight 12 gives 22,892,544, and a word of weight 16 gives 23,068,672. The other word weights give zero. There are 759, 2,576 and 759 words at those three weights. [Counts per word](../LeechNorm80Count.lean#L175) · [Shell total](../LeechNorm112.lean#L52).
 
 **Why the outer layers stop at 48.** All dot products are multiples of eight. The minimum squared length applied to *s + v* and *s − v* puts the dot product between −56 and +56. At +56, *s − v* would have squared length 32 and its dot product with *s* would be −24. The shortest-vector table gives zero there. Negating *v* rules out −56 as well. [Bounds](../LeechNorm112Layers.lean#L26) · [Outer layers](../LeechNorm112Layers.lean#L31).
 
@@ -262,9 +262,9 @@ Choose any shortest vector *s*. For each dot product *s · v*, the table counts 
 | Every other integer | 0 |
 | **All layers** | **814,879,774,800** |
 
-**Counting all the vectors.** Subtracting a signed coordinate axis leaves a nonzero lattice vector of squared length at least 32. This puts every coordinate between −10 and 10. The residue 2 modulo 4 now has six possibilities, −10, −6, −2, 2, 6 and 10. Lean checks the choices against both the squared length and the coordinate sum modulo eight. [Coordinate bound](../LeechNorm128.lean#L23) · [How the choices count vectors](../LeechShellCoordinates.lean#L240).
+**Counting all the vectors.** Subtracting a signed coordinate axis leaves a nonzero lattice vector of squared length at least 32. This puts every coordinate between −10 and 10. The residue 2 modulo 4 now has six possibilities, −10, −6, −2, 2, 6 and 10. Lean checks the choices against both the squared length and the coordinate sum modulo eight. [Coordinate bound](../LeechNorm128.lean#L23) · [How the choices count vectors](../LeechShellCoordinates.lean#L244).
 
-With odd coordinates, each of the 4,096 Golay words gives 99,448,320 vectors. With even coordinates the count depends on the word’s weight. [Counts per word](../LeechNorm80Count.lean#L192) · [Shell total](../LeechNorm128.lean#L55).
+With odd coordinates, each of the 4,096 Golay words gives 99,448,320 vectors. With even coordinates the count depends on the word’s weight. [Counts per word](../LeechNorm80Count.lean#L194) · [Shell total](../LeechNorm128.lean#L55).
 
 | Word weight | Number of words | Even-coordinate vectors per word |
 | ---: | ---: | ---: |
@@ -301,7 +301,7 @@ Choose any shortest vector *s*. The table counts vectors *v* of squared length 1
 
 **Why the layers stop at 56.** The vector *2s* has squared length 128, so both *v − 2s* and *v + 2s* are nonzero. Each has squared length at least 32. Writing *k = s · v*, their squared lengths are *272 − 4k* and *272 + 4k*. This puts *k* between −60 and 60. Lattice dot products are multiples of eight, so the last possible layers are −56 and +56. [Dot-product bounds](../LeechNorm144Layers.lean#L58).
 
-**Counting the vectors.** Subtracting a signed coordinate axis bounds every coordinate between −11 and 11. For each Golay word, Lean counts the coordinate choices that give squared length 144 and satisfy the lattice sum modulo eight. With odd coordinates, each of the 4,096 words gives 363,315,200 vectors. With even coordinates, the word’s weight determines the count below. [Coordinate bound](../LeechNorm144.lean#L53) · [Coordinate choices](../LeechShellCoordinates.lean#L229) · [Counts per word](../LeechNorm80Count.lean#L211) · [Sum over Golay weights](../LeechNorm144.lean#L30) · [Shell total](../LeechNorm144.lean#L64).
+**Counting the vectors.** Subtracting a signed coordinate axis bounds every coordinate between −11 and 11. For each Golay word, Lean counts the coordinate choices that give squared length 144 and satisfy the lattice sum modulo eight. With odd coordinates, each of the 4,096 words gives 363,315,200 vectors. With even coordinates, the word’s weight determines the count below. [Coordinate bound](../LeechNorm144.lean#L53) · [Coordinate choices](../LeechShellCoordinates.lean#L233) · [Counts per word](../LeechNorm80Count.lean#L213) · [Sum over Golay weights](../LeechNorm144.lean#L30) · [Shell total](../LeechNorm144.lean#L64).
 
 | Word weight | Number of words | Even-coordinate vectors per word |
 | ---: | ---: | ---: |
@@ -341,9 +341,9 @@ Choose any shortest vector *s*. The table counts vectors *v* of squared length 1
 
 At +64, subtracting *2s* gives a shortest vector perpendicular to *s*. Adding *2s* takes any such perpendicular vector back to the +64 layer. This explains the count of 93,150. Negating the vectors gives the −64 layer. [Perpendicular shortest vectors](../ConwayOrder.lean#L15) · [Layer counts](../LeechNorm160Layers.lean#L32).
 
-**Counting the vectors.** Each coordinate has square at most 160. Since 13² = 169, every coordinate lies between −12 and 12. The table of coordinate choices includes both −12 and 12 in the residue class zero modulo four. For each Golay word, Lean counts the choices with the required squared length and coordinate sum modulo eight. [Coordinate bound](../LeechNorm160.lean#L12) · [Counting rule](../LeechShellCoordinates.lean#L251).
+**Counting the vectors.** Each coordinate has square at most 160. Since 13² = 169, every coordinate lies between −12 and 12. The table of coordinate choices includes both −12 and 12 in the residue class zero modulo four. For each Golay word, Lean counts the choices with the required squared length and coordinate sum modulo eight. [Coordinate bound](../LeechNorm160.lean#L12) · [Counting rule](../LeechShellCoordinates.lean#L255).
 
-With odd coordinates, each of the 4,096 Golay words gives 1,157,743,824 vectors. With even coordinates, the count depends on the number of ones in the word. [Counts per word](../LeechNorm80Count.lean#L230) · [Sum over weights](../LeechNorm144.lean#L30) · [Shell total](../LeechNorm160.lean#L21).
+With odd coordinates, each of the 4,096 Golay words gives 1,157,743,824 vectors. With even coordinates, the count depends on the number of ones in the word. [Counts per word](../LeechNorm80Count.lean#L232) · [Sum over weights](../LeechNorm144.lean#L30) · [Shell total](../LeechNorm160.lean#L21).
 
 | Word weight | Number of words | Even-coordinate vectors per word |
 | ---: | ---: | ---: |
@@ -383,7 +383,7 @@ Choose any shortest vector *s*. The table counts vectors *v* of squared length 1
 
 At +64, subtracting *2s* gives a vector of squared length 48 perpendicular to *s*. Adding *2s* takes it back. This explains the 6,476,800 vectors at +64. Negating the vectors gives the same count at −64. [Length-48 table](../LeechLayers.lean#L446) · [Outer layer counts](../LeechNorm176Layers.lean#L32).
 
-**Counting the shell.** Each coordinate has square at most 176, which is less than 14². The coordinate count covers all integers from −13 through 13. For each Golay word, Lean counts the choices with squared length 176 and the required coordinate sum modulo eight. With odd coordinates, every word gives 3,303,168,000 vectors. With even coordinates, the count depends on the number of ones in the word. [Coordinate bound](../LeechNorm176.lean#L12) · [Counting rule](../LeechShellCoordinates.lean#L251) · [Counts per word](../LeechNorm80Count.lean#L249) · [Shell total](../LeechNorm176.lean#L21).
+**Counting the shell.** Each coordinate has square at most 176, which is less than 14². The coordinate count covers all integers from −13 through 13. For each Golay word, Lean counts the choices with squared length 176 and the required coordinate sum modulo eight. With odd coordinates, every word gives 3,303,168,000 vectors. With even coordinates, the count depends on the number of ones in the word. [Coordinate bound](../LeechNorm176.lean#L12) · [Counting rule](../LeechShellCoordinates.lean#L255) · [Counts per word](../LeechNorm80Count.lean#L251) · [Shell total](../LeechNorm176.lean#L21).
 
 | Word weight | Number of words | Even-coordinate vectors per word |
 | ---: | ---: | ---: |
@@ -419,7 +419,7 @@ Choose any shortest vector *s*. There are **70,486,236,999,360** vectors *v* of 
 | ±72 | 47,104 |
 | Any other integer | 0 |
 
-Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The known theta series gives the same total at index 12. [Golay counts](../LeechNorm80Count.lean#L268) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
+Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The known theta series gives the same total at index 12. [Golay counts](../LeechNorm80Count.lean#L270) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
 
 For dot products 24 through 72 in steps of eight, *v ↦ s − v* gives a layer already counted at a smaller squared length. Applying the map again recovers *v*. The shell total and the second and fourth moments determine the three inner counts. Negating *v* exchanges the signs. The shortest-vector bound limits the possible dot products to the multiples of eight from −72 to 72, and lattice symmetries carry the table to any shortest axis. [Outer layers](../LeechNorm192Layers.lean#L34) · [Moment formulas](../LeechShellMoments.lean#L154) · [Allowed dot products](../LeechNorm192Layers.lean#L28) · [Change of axis](../LeechNorm80Layers.lean#L109).
 
@@ -454,7 +454,7 @@ Choose any shortest vector *s*. There are **169,931,095,326,720** vectors *v* of
 | ±80 | 0 |
 | Any other integer | 0 |
 
-Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 13. [Golay counts](../LeechNorm80Count.lean#L288) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
+Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 13. [Golay counts](../LeechNorm80Count.lean#L290) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
 
 For dot products 24 through 72 in steps of eight, *v ↦ s − v* gives a layer already counted at a smaller squared length. Applying the map again recovers *v*. The shell total and the second and fourth moments determine the three inner counts. Negating *v* exchanges the signs. The shortest-vector bound limits the possible dot products to the multiples of eight from −72 to 72. At either sign of 80, one of the vectors *v − 2s* and *v + 2s* would have squared length 16, below the lattice minimum of 32. Lattice symmetries carry the table to any shortest axis. [Outer layers](../LeechNorm208Layers.lean#L34) · [Moment formulas](../LeechShellMoments.lean#L154) · [Allowed dot products](../LeechNorm208Layers.lean#L28) · [Change of axis](../LeechNorm80Layers.lean#L109).
 
@@ -490,7 +490,7 @@ Choose any shortest vector *s*. There are **384,163,586,352,000** vectors *v* of
 | ±88 | 0 |
 | Any other integer | 0 |
 
-Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 14. [Golay counts](../LeechNorm80Count.lean#L307) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
+Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 14. [Golay counts](../LeechNorm80Count.lean#L309) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
 
 For dot products 24 through 80 in multiples of eight, the map *v ↦ s − v* gives a layer in a smaller shell. At +80 it gives the −48 layer of squared length 96, which has 4,600 vectors. The shell total and the second and fourth moments determine the three inner rows. Negating *v* exchanges the two signs. The minimum squared length applied to *v − 2s* and *v + 2s* bounds the dot product between −80 and 80. Lattice symmetries carry the table to any shortest axis. [Outer layers](../LeechNorm224Layers.lean#L34) · [Moment formulas](../LeechShellMoments.lean#L154) · [Allowed dot products](../LeechNorm224Layers.lean#L28) · [Change of axis](../LeechNorm80Layers.lean#L109).
 
@@ -526,7 +526,7 @@ Choose any shortest vector *s*. There are **820,166,620,815,360** vectors *v* of
 | ±88 | 0 |
 | Any other integer | 0 |
 
-Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 15. [Golay counts](../LeechNorm80Count.lean#L327) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
+Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 15. [Golay counts](../LeechNorm80Count.lean#L329) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
 
 For dot products 24 through 80 in multiples of eight, the map *v ↦ s − v* gives a layer in a smaller shell. If *s · v = k*, its squared length is *272 − 2k* and its dot product with *s* is *32 − k*. At +80 this gives the −48 layer of squared length 112, with 953,856 vectors. The total and the second and fourth moments determine the three inner rows. Negating *v* exchanges the two signs. [Outer layers](../LeechNorm240Layers.lean#L34) · [Moment formulas](../LeechShellMoments.lean#L154).
 
@@ -540,6 +540,44 @@ To check the proofs in this checkout, run
 
 ```sh
 lake build LeechNorm240Layers CheckAxioms
+lake env lean CheckAxioms.lean > axioms.txt
+python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
+```
+
+## Layers for squared length 256
+
+Choose any shortest vector *s*. There are **1,668,890,090,322,000** vectors *v* of squared length 256 in the integer coordinates used here. This is squared length 32 in the usual Leech scale. Each ± row gives the number for each sign. [Shell proof](../LeechNorm256.lean#L21) · [Layers theorem](../LeechNorm256Layers.lean#L85).
+
+| Dot product *s · v* | Vectors at each dot product |
+|---:|---:|
+| 0 | 279,245,882,826,900 |
+| ±8 | 257,042,157,926,400 |
+| ±16 | 200,080,685,520,000 |
+| ±24 | 129,811,503,052,800 |
+| ±32 | 68,717,357,121,600 |
+| ±40 | 28,500,740,352,000 |
+| ±48 | 8,710,737,537,600 |
+| ±56 | 1,758,528,921,600 |
+| ±64 | 192,825,064,350 |
+| ±72 | 7,535,462,400 |
+| ±80 | 32,788,800 |
+| ±88 | 0 |
+| Any other integer | 0 |
+
+A coordinate can reach either −16 or +16 at this squared length. Lean includes both when it counts the coordinate choices for each Golay weight (0, 8, 12, 16 and 24). Term 16 of the Leech theta series gives the same total. [Coordinate count](../LeechNorm80Count.lean#L348) · [Theta coefficients](https://oeis.org/A008408/b008408.txt).
+
+For a dot product *k*, the vector *s − v* has squared length *288 − 2k* and dot product *32 − k* with *s*. At +80 this gives the −48 layer of squared length 128, with 32,788,800 vectors. At +88 it gives the empty −56 layer of squared length 112. Negating *v* gives the same counts at −80 and −88. [Outer layers](../LeechNorm256Layers.lean#L35).
+
+All dot products are multiples of eight between −88 and 88. The shell total and the second and fourth moments determine the counts at 0, ±8 and ±16. Lattice symmetries carry the calculation to any shortest axis. [Dot product bounds](../LeechNorm256Layers.lean#L29) · [Moments](../LeechShellMoments.lean#L154) · [Change of axis](../LeechNorm80Layers.lean#L109).
+
+The local axiom audit covers 1,189 declarations. A separate coordinate calculation using all 4,096 playground Golay words gave the same 21 rows for the axis (4, −4, 0, …). [Axiom output](axioms-2026-11-21-norm256-dot-layers.txt) · [Verification record](leech-symmetry-verification-2026-11-21-norm256-dot-layers.json) · [Playground counter](https://github.com/NousVolition/sparkle-sand-playground/blob/1ccb7f90404fc57095da6dd4fb04d28c3fb5c6b9/tests/leech-shell-layers.cjs).
+
+To repeat the one-axis calculation from the proof repository, run `node scripts/check_leech_shell_axis.cjs PATH_TO_PLAYGROUND docs/leech-symmetry-verification-2026-11-21-norm256-dot-layers.json` with a checkout of the [playground revision](https://github.com/NousVolition/sparkle-sand-playground/tree/1ccb7f90404fc57095da6dd4fb04d28c3fb5c6b9).
+
+To check the proofs in this checkout, run
+
+```sh
+lake build LeechNorm256Layers CheckAxioms
 lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 ```
