@@ -1,15 +1,15 @@
-import LeechNorm48Count
+import LeechCoordinateAlphabet
 import Mathlib.Tactic.Eval
 
-/-! # Coordinate choices at squared lengths 80, 96 and 112
+/-! # Coordinate choices at squared lengths 80, 96, 112 and 128
 
 The rows count the choices left after fixing a Golay residue word. Each column
-records a squared-length budget from zero to fourteen, in units of eight. Its two
+records a squared-length budget from zero to sixteen, in units of eight. Its two
 entries count the choices for each parity of the coordinate sum. -/
 namespace LeechNorm80Count
 
 open LeechNorm48Count
-open LeechCoordinateChoices (Labels charge labelFlag)
+open LeechCoordinateAlphabet (Width Labels charge labelFlag)
 
 private abbrev Row := List (ℕ × ℕ)
 
@@ -22,31 +22,31 @@ private def start (e : ℤ) (odd : Bool) : ℕ := if e = 0 ∧ odd = false then 
 
 private def parityBit (r : ℤ) : Bool := decide (r % 2 = 1)
 
-private def addCoord (five p b : Bool) (prev : Row) (e : ℤ) (r : Bool) : ℕ :=
-  ∑ a : Labels five, readRow prev (e - charge five p b a)
-    (parityBit ((if r then 1 else 0) - labelFlag five a))
+private def addCoord (width : Width) (p b : Bool) (prev : Row) (e : ℤ) (r : Bool) : ℕ :=
+  ∑ a : Labels width, readRow prev (e - charge width p b a)
+    (parityBit ((if r then 1 else 0) - labelFlag width a))
 
 private def makeRow (f : ℤ → Bool → ℕ) : Row :=
-  (List.range 15).map fun e => (f e false, f e true)
+  (List.range 17).map fun e => (f e false, f e true)
 
-private def makeRows (five p : Bool) : List Bool → List Row
+private def makeRows (width : Width) (p : Bool) : List Bool → List Row
   | [] => [makeRow start]
   | b :: bs =>
-    let rest := makeRows five p bs
-    makeRow (addCoord five p b (rest.headD [])) :: rest
+    let rest := makeRows width p bs
+    makeRow (addCoord width p b (rest.headD [])) :: rest
 
 private def checkRow (row : Row) (f : ℤ → Bool → ℕ) : Bool :=
-  decide (∀ e : Fin 15, ∀ r : Bool, readRow row e.val r = f e.val r)
+  decide (∀ e : Fin 17, ∀ r : Bool, readRow row e.val r = f e.val r)
 
-private def checkRows (five p : Bool) : List Bool → List Row → Bool
+private def checkRows (width : Width) (p : Bool) : List Bool → List Row → Bool
   | [], [row] => checkRow row start
-  | b :: bs, row :: rest => checkRow row (addCoord five p b (rest.headD [])) && checkRows five p bs rest
+  | b :: bs, row :: rest => checkRow row (addCoord width p b (rest.headD [])) && checkRows width p bs rest
   | _, _ => false
 
 private theorem checked_at {row : Row} {f : ℤ → Bool → ℕ} (h : checkRow row f = true)
-    {e : ℤ} (lo : 0 ≤ e) (hi : e ≤ 14) (r : Bool) : readRow row e r = f e r := by
+    {e : ℤ} (lo : 0 ≤ e) (hi : e ≤ 16) (r : Bool) : readRow row e r = f e r := by
   have h' := of_decide_eq_true h
-  simpa [Int.toNat_of_nonneg lo] using h' (⟨e.toNat, by omega⟩ : Fin 15) r
+  simpa [Int.toNat_of_nonneg lo] using h' (⟨e.toNat, by omega⟩ : Fin 17) r
 
 private theorem parity_sub (r z : ℤ) :
     parityBit (r - z) = parityBit ((if parityBit r then 1 else 0) - z) := by
@@ -59,9 +59,9 @@ private theorem parity_sub (r z : ℤ) :
   unfold parityBit
   rw [show (r - z) % 2 = (r % 2 - z) % 2 by omega]
 
-private theorem checked_rows_count (five p : Bool) (bs : List Bool) (rows : List Row)
-    (h : checkRows five p bs rows = true) (e r : ℤ) (he : e ≤ 14) :
-    LeechCoordinateTally.fold (charge five p) (labelFlag five) bs e r =
+private theorem checked_rows_count (width : Width) (p : Bool) (bs : List Bool) (rows : List Row)
+    (h : checkRows width p bs rows = true) (e r : ℤ) (he : e ≤ 16) :
+    LeechCoordinateTally.fold (charge width p) (labelFlag width) bs e r =
       readRow (rows.headD []) e (parityBit r) := by
   induction bs generalizing rows e r with
   | nil =>
@@ -87,13 +87,13 @@ private theorem checked_rows_count (five p : Bool) (bs : List Bool) (rows : List
       obtain ⟨hc, ht⟩ := Bool.and_eq_true_iff.mp h
       change _ = readRow row e (parityBit r)
       by_cases neg : e < 0
-      · rw [LeechCoordinateTally.fold_negative _ _ (LeechCoordinateChoices.charge_nonneg five p) _ _ _ neg]
+      · rw [LeechCoordinateTally.fold_negative _ _ (LeechCoordinateAlphabet.charge_nonneg width p) _ _ _ neg]
         simp [readRow, neg]
       rw [checked_at hc (by omega) he]
       simp only [LeechCoordinateTally.fold, LeechCoordinateTally.step, addCoord]
       apply Finset.sum_congr rfl
       intro a _
-      have hn := LeechCoordinateChoices.charge_nonneg five p b a
+      have hn := LeechCoordinateAlphabet.charge_nonneg width p b a
       rw [ih rest ht _ _ (by omega), parity_sub]
 
 private def casesToCheck : Fin 6 → Bool × ℕ :=
@@ -101,24 +101,30 @@ private def casesToCheck : Fin 6 → Bool × ℕ :=
 
 private def wordBits (k : ℕ) : List Bool := List.replicate (24 - k) false ++ List.replicate k true
 
--- The evaluator supplies the rows. Lean's kernel checks the starting row and every entry thereafter.
-private def certificates : List (List (List Row)) := eval% [false, true].map fun five =>
-  List.ofFn (fun i : Fin 6 => makeRows five (casesToCheck i).1 (wordBits (casesToCheck i).2))
+private def buildCases (width : Width) : List (List Row) :=
+  List.ofFn (fun i : Fin 6 => makeRows width (casesToCheck i).1 (wordBits (casesToCheck i).2))
 
-private def rowsFor (five : Bool) (i : Fin 6) := (certificates[if five then 1 else 0]?.getD [])[i.val]?.getD []
+-- Each set of rows is stored separately. The kernel checks every entry below.
+private noncomputable def fourRows : List (List Row) := eval% buildCases .four
+private noncomputable def fiveRows : List (List Row) := eval% buildCases .five
+private noncomputable def sixRows : List (List Row) := eval% buildCases .six
+
+private noncomputable def rowsFor (width : Width) (i : Fin 6) :=
+  let rows := match width with | .four => fourRows | .five => fiveRows | .six => sixRows
+  rows[i.val]?.getD []
 
 set_option maxRecDepth 8192 in
 set_option maxHeartbeats 4000000 in
-private theorem valid_rows (five : Bool) (i : Fin 6) :
-    checkRows five (casesToCheck i).1 (wordBits (casesToCheck i).2) (rowsFor five i) = true := by
-  cases five <;> fin_cases i <;> decide +kernel
+private theorem valid_rows (width : Width) (i : Fin 6) :
+    checkRows width (casesToCheck i).1 (wordBits (casesToCheck i).2) (rowsFor width i) = true := by
+  cases width <;> fin_cases i <;> decide +kernel
 
-private theorem from_row (five : Bool) (i : Fin 6) (e r : ℤ) (he : e ≤ 14) :
-    LeechCoordinateChoices.tally five (casesToCheck i).1 (24 - (casesToCheck i).2) (casesToCheck i).2 e r =
-      readRow ((rowsFor five i).headD []) e (parityBit r) := by
-  unfold LeechCoordinateChoices.tally
+private theorem from_row (width : Width) (i : Fin 6) (e r : ℤ) (he : e ≤ 16) :
+    LeechCoordinateAlphabet.tally width (casesToCheck i).1 (24 - (casesToCheck i).2) (casesToCheck i).2 e r =
+      readRow ((rowsFor width i).headD []) e (parityBit r) := by
+  unfold LeechCoordinateAlphabet.tally
   rw [LeechCoordinateTally.tally_eq_fold]
-  exact checked_rows_count _ _ _ _ (valid_rows five i) e r he
+  exact checked_rows_count _ _ _ _ (valid_rows width i) e r he
 
 /-- Number of even-coordinate vectors for a word of weight `k`. -/
 def evenPerWord (k : ℕ) : ℕ :=
@@ -126,15 +132,15 @@ def evenPerWord (k : ℕ) : ℕ :=
 
 theorem odd_choices (k : ℕ) (hk : k ≤ 24) : tally true (24 - k) k 7 1 = 565248 := by
   rw [odd_tally, Nat.sub_add_cancel hk]
-  exact (from_row false 0 7 1 (by decide)).trans (by decide +kernel)
+  exact (from_row .four 0 7 1 (by decide)).trans (by decide +kernel)
 
 theorem even_choices {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
     tally false (24 - k) k (10 - (k : ℤ) / 2) 0 = evenPerWord k := by
   rcases hk with rfl | rfl | rfl | rfl | rfl
-  · exact (from_row false 1 10 0 (by decide)).trans (by decide +kernel)
-  · exact (from_row false 2 6 0 (by decide)).trans (by decide +kernel)
-  · exact (from_row false 3 4 0 (by decide)).trans (by decide +kernel)
-  · exact (from_row false 4 2 0 (by decide)).trans (by decide +kernel)
+  · exact (from_row .four 1 10 0 (by decide)).trans (by decide +kernel)
+  · exact (from_row .four 2 6 0 (by decide)).trans (by decide +kernel)
+  · exact (from_row .four 3 4 0 (by decide)).trans (by decide +kernel)
+  · exact (from_row .four 4 2 0 (by decide)).trans (by decide +kernel)
   · rw [tally_eval]
     rfl
 
@@ -147,14 +153,14 @@ theorem choices96 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 
   | true =>
     have le : k ≤ 24 := by omega
     rw [odd_tally, Nat.sub_add_cancel le]
-    exact (from_row false 0 9 1 (by decide)).trans (by change _ = 4200352; decide +kernel)
+    exact (from_row .four 0 9 1 (by decide)).trans (by change _ = 4200352; decide +kernel)
   | false =>
     rcases hk with rfl | rfl | rfl | rfl | rfl
-    · exact (from_row false 1 12 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row false 2 8 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row false 3 6 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row false 4 4 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row false 5 0 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .four 1 12 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .four 2 8 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .four 3 6 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .four 4 4 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .four 5 0 0 (by decide)).trans (by decide +kernel)
 
 /-- Choices for one Golay word at squared length 112. -/
 theorem choices112 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
@@ -166,13 +172,32 @@ theorem choices112 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k =
   | true =>
     have le : k ≤ 24 := by omega
     rw [LeechCoordinateChoices.odd_tally, Nat.sub_add_cancel le]
-    exact (from_row true 0 11 1 (by decide)).trans (by change _ = 22892544; decide +kernel)
+    exact (from_row .five 0 11 1 (by decide)).trans (by change _ = 22892544; decide +kernel)
   | false =>
     rcases hk with rfl | rfl | rfl | rfl | rfl
-    · exact (from_row true 1 14 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row true 2 10 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row true 3 8 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row true 4 6 0 (by decide)).trans (by decide +kernel)
-    · exact (from_row true 5 2 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .five 1 14 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .five 2 10 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .five 3 8 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .five 4 6 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .five 5 2 0 (by decide)).trans (by decide +kernel)
+
+/-- Choices for one Golay word at squared length 128. -/
+theorem choices128 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
+    LeechCoordinateAlphabet.tally .six p (24 - k) k
+      (if p then 16 - 3 else 16 - (k : ℤ) / 2) (if p then 1 else 0) =
+      if p then 99448320 else if k = 0 then 195082320 else if k = 8 then 98902016
+      else if k = 12 then 99483648 else if k = 16 then 99876864 else if k = 24 then 201326592 else 0 := by
+  cases p with
+  | true =>
+    have le : k ≤ 24 := by omega
+    rw [LeechCoordinateAlphabet.odd_tally, Nat.sub_add_cancel le]
+    exact (from_row .six 0 13 1 (by decide)).trans (by change _ = 99448320; decide +kernel)
+  | false =>
+    rcases hk with rfl | rfl | rfl | rfl | rfl
+    · exact (from_row .six 1 16 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 2 12 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 3 10 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 4 8 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 5 4 0 (by decide)).trans (by decide +kernel)
 
 end LeechNorm80Count
