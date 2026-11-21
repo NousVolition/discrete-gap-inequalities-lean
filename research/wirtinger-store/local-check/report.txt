@@ -1,0 +1,30 @@
+PASS — WirtingerStore.lean
+
+Original idea and wording, dictation and direction: NousVolition.
+Claude first connected the idea's shape and wording to a recognizable mathematical
+name, then supplied the proof plan and sharpness test.
+Lean code generated and checked by Codex.
+
+Added one file to the local discrete-gap-inequalities-lean checkout. No existing
+repository file changed. The requested main bound and sharpness statement passed.
+
+Checked in Lean:
+- The heat generator sums to zero; spreading preserves the initial total.
+- Squared size has derivative twice the dot product, equal to minus twice the cost.
+- Wirtinger bounds that derivative by minus twice the gap times squared size.
+- The integrating-factor comparison gives the requested no-input store bound.
+- For n >= 3, the cosine wave solves the heat equation, has zero mean, attains
+  equality, and violates every larger rate at every positive time.
+
+All 19 named theorems compiled. Their axiom dependencies are only propext,
+Classical.choice and Quot.sound. No new axioms or admitted proofs. No warnings
+in the new file. Seven unchanged repository dependency modules were also built.
+
+Lean: 4.34.0-rc2, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d.
+Mathlib: 85e3a25e006c35636f0e53b0e9296caca2685bc0.
+Repository base: 878f487402521c083dbd9552045f7a99b01ea749.
+
+The existing Lake configuration and CheckAxioms.lean are unchanged. This was an
+explicit local compilation and axiom audit, not a GitHub workflow run.
+See verification.json and build/WirtingerStore.log for the receipt and audit.
+

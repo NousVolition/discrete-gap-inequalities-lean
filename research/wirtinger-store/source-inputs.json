@@ -1,0 +1,55 @@
+{
+  "conversion": "Repository bytes matched exactly; any Windows CRLF-to-LF conversion is recorded per file.",
+  "publication_base": "eadb0ef627b4f3efc3c3fec12101fb7175e0b5d6",
+  "local_receipt_sha256": "90118db923aba42c155db3e860cb0a104319c728ebe141e2a9a3ff53c6348603",
+  "sources": {
+    "Gap.lean": {
+      "compiled_local_sha256": "75e29205d71703820f074cd90c17b163304043ba4411856260d6a95e7eac06f1",
+      "published_sha256": "80ca5f81dc72ea71bebea5c73e3e814fbe3e7ae211e10a342c776be1a17f9cae",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "b0f763e0b7c3aac65494f4c5c64759f3d9771afc"
+    },
+    "GapMirror.lean": {
+      "compiled_local_sha256": "7f78da288c7de42f178ebdf74507a523e068152e865caa5e69dd02e1ddff1a2d",
+      "published_sha256": "40d1a7ba5bb0e247dedd19b25b1b0b26282c1cd614238d70df83d67f1462965c",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "4aa04718c77b9a07e36f23b0d3bca21d7347a7c4"
+    },
+    "GapMirrorCalculus.lean": {
+      "compiled_local_sha256": "f1723aff21e4697e0305b956c22e4702d6e17117b31bae23cc6d43cfc46a5ae3",
+      "published_sha256": "f1723aff21e4697e0305b956c22e4702d6e17117b31bae23cc6d43cfc46a5ae3",
+      "line_ending_conversion": "none",
+      "repository_git_blob": "d16bb504b97a7ce1fa4d3b71ddfb10e9b92ea877"
+    },
+    "GapMirrorBridge.lean": {
+      "compiled_local_sha256": "0c2c3bc5ebc1fbd62e149a025ef3b76de196dfc83cc47f18d03811f8169fef35",
+      "published_sha256": "7f2d606231cffa125ea59e21d1cfbbaa59f73215089eeb42c066a75a1f718bfd",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "e7a8801d76d4258c08f6ab8d3f7a6d1c9e191bdc"
+    },
+    "RingGapBridge.lean": {
+      "compiled_local_sha256": "f720f83cf106b4686de6d5e6321ae135bca96fbed7ec772b53f9b3cff0588101",
+      "published_sha256": "cb056050898d9e561d0dbaa5f7ecc95c9e706ab3fa6540dd851cf33f4c5404da",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "bee3961eec49ccdcde2f2e0e3569a442fc313be9"
+    },
+    "TwoWaveGapBridge.lean": {
+      "compiled_local_sha256": "2eacdd566ee00c15937376da7acdaf8bac7e2c0811b78114a40fbf8c8b7faa0f",
+      "published_sha256": "36b99581da644ecb8e91a1da53ac42f90aa12d062134c993a8e2d706f5330c41",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "44d705b0744925a2b8d1b9216f8e05fa72f9f6e4"
+    },
+    "Wirtinger.lean": {
+      "compiled_local_sha256": "99d70ccac63868942ab304630e6c48f7db84ca889479ca5f8a0971fd3ae9774f",
+      "published_sha256": "e5e18956e8d4477ca3101a9c5e839981c4880530e5b7523d682a14c17d3e5093",
+      "line_ending_conversion": "CRLF to LF",
+      "repository_git_blob": "a4e1ee8c47f2eaed524d44d6d37cf6f53aea7861"
+    },
+    "WirtingerStore.lean": {
+      "compiled_local_sha256": "477361fb1e7004d3ac6e2280dc4081098479442f0d6c317e58d007aaf6a71e48",
+      "published_sha256": "477361fb1e7004d3ac6e2280dc4081098479442f0d6c317e58d007aaf6a71e48",
+      "line_ending_conversion": "none",
+      "repository_git_blob": "99c20c072d78e294dc549a24e76be03473a7f06c"
+    }
+  }
+}

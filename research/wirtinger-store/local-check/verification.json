@@ -1,0 +1,224 @@
+{
+  "status": "PASS",
+  "verified_at_utc": "2026-11-21T03:39:17.605497+00:00",
+  "location": "local isolated repository checkout; not published",
+  "repository": "NousVolition/discrete-gap-inequalities-lean",
+  "base_commit": "878f487402521c083dbd9552045f7a99b01ea749",
+  "added_files": [
+    "WirtingerStore.lean"
+  ],
+  "modified_existing_files": [],
+  "source_sha256": "477361fb1e7004d3ac6e2280dc4081098479442f0d6c317e58d007aaf6a71e48",
+  "source_git_blob": "99c20c072d78e294dc549a24e76be03473a7f06c",
+  "main_theorem": "WirtingerStore.ring_spreading_le_store",
+  "main_scope": "For a nonempty finite ring, any global coordinatewise heat path with zero initial sum satisfies the requested no-input breathe bound for every t >= 0. The rate is 2*(2-2*cos(2*pi/n)).",
+  "sharpness_theorem": "WirtingerStore.sharp_counterexample",
+  "sharpness_scope": "For n >= 3, the explicit cosine wave is a mean-zero heat solution, attains equality, and exceeds every larger-rate store bound at every t > 0.",
+  "named_theorems": 19,
+  "targets": [
+    "WirtingerStore.lets_go_at_least_as_fast",
+    "WirtingerStore.sum_heatGenerator",
+    "WirtingerStore.sum_hasDerivAt_zero",
+    "WirtingerStore.sum_preserved",
+    "WirtingerStore.mean_zero_preserved",
+    "WirtingerStore.size_hasDerivAt_dot",
+    "WirtingerStore.size_hasDerivAt_cost",
+    "WirtingerStore.size_rate_le",
+    "WirtingerStore.ring_spreading_le_store",
+    "WirtingerStore.slowWave_mean_and_cost",
+    "WirtingerStore.slowWave_size_pos",
+    "WirtingerStore.slowWave_eigen",
+    "WirtingerStore.heat_scale",
+    "WirtingerStore.slowPath_zero",
+    "WirtingerStore.slowPath_spreads",
+    "WirtingerStore.slowPath_mean_zero",
+    "WirtingerStore.slowPath_attains_bound",
+    "WirtingerStore.faster_rate_fails",
+    "WirtingerStore.sharp_counterexample"
+  ],
+  "axioms": {
+    "WirtingerStore.lets_go_at_least_as_fast": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_heatGenerator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_hasDerivAt_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.mean_zero_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_hasDerivAt_dot": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_hasDerivAt_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_rate_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.ring_spreading_le_store": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_mean_and_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_size_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_eigen": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.heat_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_spreads": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_mean_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_attains_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.faster_rate_fails": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sharp_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "new_axioms": false,
+  "admitted_proofs": false,
+  "new_file_warnings": 0,
+  "lean_version": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "mathlib_commit": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "builds": [
+    {
+      "module": "Gap",
+      "source_sha256": "75e29205d71703820f074cd90c17b163304043ba4411856260d6a95e7eac06f1",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 112.5,
+      "artifact_sha256": "1c5a04b7767a8812183fa8bb17fbd59d2a5f66f26a74d742ef733a36ede1c2c2",
+      "log_sha256": "bf842f1a8c0041bcbdd1df134e7ac6118fb62774ee091351184537b2d80577cf"
+    },
+    {
+      "module": "GapMirror",
+      "source_sha256": "7f78da288c7de42f178ebdf74507a523e068152e865caa5e69dd02e1ddff1a2d",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 1.922,
+      "artifact_sha256": "173fd2d5cc34e02d956f4d4e180bfaf0ddd4e7a1a6615808f7909e40043f34d5",
+      "log_sha256": "1357bfe6d892541ab3e4e48f5d7ee651042671b6ead8a5bf1ce3718918dac7c5"
+    },
+    {
+      "module": "GapMirrorCalculus",
+      "source_sha256": "f1723aff21e4697e0305b956c22e4702d6e17117b31bae23cc6d43cfc46a5ae3",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 10.157,
+      "artifact_sha256": "c891cff6a7ddc2886c0eca2675aaabd7205d08da12874d98792574f93b8ce220",
+      "log_sha256": "96d8bbecbbc5d4d73730707effd742e337bf8ec610a7245ad4079407db2cfe9e"
+    },
+    {
+      "module": "GapMirrorBridge",
+      "source_sha256": "0c2c3bc5ebc1fbd62e149a025ef3b76de196dfc83cc47f18d03811f8169fef35",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 9.875,
+      "artifact_sha256": "29fed53bf8752fde4e8935aac74d3de80b1f2d25351f68fed3d40dd84f07fb78",
+      "log_sha256": "9280f2e567646c96ce54846eea7afcff4485d380b3f908e712931e8fb5293a1b"
+    },
+    {
+      "module": "RingGapBridge",
+      "source_sha256": "f720f83cf106b4686de6d5e6321ae135bca96fbed7ec772b53f9b3cff0588101",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 10.421,
+      "artifact_sha256": "fca6b0c10a3c7b977f758104729614ed691e7e37f892f89bcb380cc2e63763f9",
+      "log_sha256": "c1ac4a449fd79b04e30a890f92c583bffb3bcdd4c2ed6b3c59ed318ec8b7ce72"
+    },
+    {
+      "module": "TwoWaveGapBridge",
+      "source_sha256": "2eacdd566ee00c15937376da7acdaf8bac7e2c0811b78114a40fbf8c8b7faa0f",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 10.859,
+      "artifact_sha256": "821d344167815530d2d99dcc8bd5ccbae123fb24319641ef5acfa854aa64cd6c",
+      "log_sha256": "f5a75ed7d185b82fb27a4d31ea9e0c2bc26f096a37bac9b65cfbe4075d21dfc9"
+    },
+    {
+      "module": "Wirtinger",
+      "source_sha256": "99d70ccac63868942ab304630e6c48f7db84ca889479ca5f8a0971fd3ae9774f",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 23.157,
+      "artifact_sha256": "8a726dfa04463521100cec3069134a41d5fbd03837d8f7adc4fa9dfa74610e9c",
+      "log_sha256": "a42d62b84de66836890d9ed78a216f394ad22c3d4e904b156b7dd34f2088699e"
+    },
+    {
+      "module": "WirtingerStore",
+      "source_sha256": "477361fb1e7004d3ac6e2280dc4081098479442f0d6c317e58d007aaf6a71e48",
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "exit_code": 0,
+      "elapsed_seconds": 24.422,
+      "artifact_sha256": "396f1e6950cb43bb7357aaf66bff058ac104fcf5fb0812c0d620efd90a50828f",
+      "log_sha256": "5d63f21bb85b7c319ee9ce0ce630052f18dfbae1646c9a0cbdf742c2c1b8eeec"
+    }
+  ],
+  "build_scope": "Compiled the seven required unchanged repository modules and the new file with the pinned Mathlib cache. The embedded print-axioms commands audited all 19 new theorems.",
+  "default_build_registration": "Existing lakefile.toml and CheckAxioms.lean were left unchanged as requested. This new file was compiled explicitly; it has not been added to defaultTargets.",
+  "credit": {
+    "original_idea_and_wording": "NousVolition",
+    "first_connection_of_idea_shape_and_wording_to_a_mathematical_name": "Claude",
+    "proof_plan_and_sharpness_test": "Claude",
+    "lean_code_generation_and_checks": "Codex",
+    "dictation_and_direction": "NousVolition"
+  }
+}
