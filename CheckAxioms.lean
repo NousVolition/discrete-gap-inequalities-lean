@@ -54,6 +54,7 @@ import Unify
 import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
+import E8Tab30Bridge
 import HammingCode
 import PlumbingStick
 import PlumbingHelp
@@ -656,6 +657,12 @@ import LightBounceAndCapture
 #print axioms E8PlumbingBridge.card_spinor_roots
 #print axioms E8PlumbingBridge.card_integer_roots
 #print axioms E8PlumbingBridge.total_E8_roots
+
+#print axioms E8Tab30Bridge.simpleRoots_sq_length
+#print axioms E8Tab30Bridge.gram_entry
+#print axioms E8Tab30Bridge.gram_matrix
+#print axioms E8Tab30Bridge.E8Q_det
+#print axioms E8Tab30Bridge.det_G
 
 -- Extended Hamming [8,4,4] code of playground tab 30
 #print axioms HammingCode.encode_injective
