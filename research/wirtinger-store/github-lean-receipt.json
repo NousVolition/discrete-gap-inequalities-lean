@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "target_count": 19,
+  "targets": {
+    "WirtingerStore.lets_go_at_least_as_fast": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_heatGenerator": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_hasDerivAt_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sum_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.mean_zero_preserved": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_hasDerivAt_dot": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_hasDerivAt_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.size_rate_le": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.ring_spreading_le_store": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_mean_and_cost": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_size_pos": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowWave_eigen": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.heat_scale": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_spreads": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_mean_zero": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.slowPath_attains_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.faster_rate_fails": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "WirtingerStore.sharp_counterexample": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "source_commit": "7f84756d6c174ee2083e4249d70aed6c83f97f70",
+  "run_id": "44863572925",
+  "run_attempt": "1",
+  "run_url": "https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44863572925",
+  "lean_version": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "mathlib_commit": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "proof_input_sha256": {
+    ".github/check_axioms.py": "ebf4ddc536f7b76da1a607dbadbdb8e9b91a3cb4488d0ad8a9d6dce94b2c55ea",
+    ".github/record_wirtinger_store_check.py": "24c310503ab3cdafae64829ec92e79075ecbba374855c3c06425b6a65c9477de",
+    ".github/workflows/wirtinger-store.yml": "b43a0ed69bdb599e34581f33e67b98c407386a1bee70282d46afed678914bf08",
+    "Gap.lean": "80ca5f81dc72ea71bebea5c73e3e814fbe3e7ae211e10a342c776be1a17f9cae",
+    "GapMirror.lean": "40d1a7ba5bb0e247dedd19b25b1b0b26282c1cd614238d70df83d67f1462965c",
+    "GapMirrorBridge.lean": "7f2d606231cffa125ea59e21d1cfbbaa59f73215089eeb42c066a75a1f718bfd",
+    "GapMirrorCalculus.lean": "f1723aff21e4697e0305b956c22e4702d6e17117b31bae23cc6d43cfc46a5ae3",
+    "RingGapBridge.lean": "cb056050898d9e561d0dbaa5f7ecc95c9e706ab3fa6540dd851cf33f4c5404da",
+    "TwoWaveGapBridge.lean": "36b99581da644ecb8e91a1da53ac42f90aa12d062134c993a8e2d706f5330c41",
+    "Wirtinger.lean": "e5e18956e8d4477ca3101a9c5e839981c4880530e5b7523d682a14c17d3e5093",
+    "WirtingerStore.lean": "477361fb1e7004d3ac6e2280dc4081098479442f0d6c317e58d007aaf6a71e48",
+    "lake-manifest.json": "b3dded0821cb21fdc1078fabd04a774594192a41c122e80c249573163129734c",
+    "lakefile.toml": "cb101ad32d59d62027082d796fc806d150941a9070459911f796e0dc01040fd6",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "research/wirtinger-store/source-inputs.json": "d95e75bc71162390e817f30b09ee2540947b8a5c1339fb17d232a0692b7aa82b"
+  },
+  "proof_input_fingerprint": "45158c41023374639ffc4c81866fd1e6d6781b7635b117f1569cb90b5e0f2ab8",
+  "axiom_log_sha256": "9bf870783430cb8464767a222baa5cf293239e9b9e5066a3aba48b9742ed64be",
+  "local_receipt_sha256": "90118db923aba42c155db3e860cb0a104319c728ebe141e2a9a3ff53c6348603",
+  "credit": {
+    "original_idea_and_wording": "NousVolition",
+    "first_connection_of_idea_shape_and_wording_to_a_mathematical_name": "Claude",
+    "proof_plan_and_sharpness_test": "Claude",
+    "lean_code_generation_and_checks": "Codex",
+    "dictation_and_direction": "NousVolition"
+  },
+  "scope": "19 general Lean statements about continuous heat on a finite ring, the no-input store bound and its sharp rate. No numerical gap or fluid simulation is checked by this job."
+}

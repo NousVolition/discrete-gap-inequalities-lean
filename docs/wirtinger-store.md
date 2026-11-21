@@ -46,6 +46,8 @@ The [source input record](../research/wirtinger-store/source-inputs.json) links 
 
 The separate [Wirtinger store workflow](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/workflows/wirtinger-store.yml) recompiles the file and audits all 19 statements. Its `wirtinger-store-lean-evidence` artifact contains the compiler output and a receipt recording the exact commit, run, target list and hashes of the proof inputs. Existing `lakefile.toml`, `CheckAxioms.lean` and the earlier receipts are unchanged; this file is compiled explicitly by the new workflow.
 
+**GitHub verification passed:** [all 19 statements and their axiom audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44863572925). The [saved GitHub receipt](../research/wirtinger-store/github-lean-receipt.json) and [compiler output](../research/wirtinger-store/github-axioms.log) identify the checked revision and inputs. The receipt was added after that run; its proof-input fingerprint matches this publication.
+
 Reproduce the focused check with:
 
 ```sh
