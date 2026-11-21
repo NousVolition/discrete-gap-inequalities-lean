@@ -1,6 +1,6 @@
 {
   "conversion": "Repository bytes matched exactly; any Windows CRLF-to-LF conversion is recorded per file.",
-  "publication_base": "fc841b0622b2f85645f55b74835d3712e7e0e32d",
+  "publication_base": "eadb0ef627b4f3efc3c3fec12101fb7175e0b5d6",
   "local_receipt_sha256": "90118db923aba42c155db3e860cb0a104319c728ebe141e2a9a3ff53c6348603",
   "sources": {
     "Gap.lean": {

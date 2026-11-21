@@ -22,12 +22,12 @@ private def value (width : Width) (odd bit : Bool) : Labels width → ℤ :=
 private def lower : Width → ℤ
   | .four => -8
   | .five => -9
-  | .six => -10
+  | .six => -11
 
 private def upper : Width → ℤ
   | .four => 7
   | .five => 9
-  | .six => 10
+  | .six => 12
 
 private def parity (p : Bool) : ℤ := if p then 1 else 0
 private def special (p : Bool) : ℤ := if p then 3 else 2
@@ -221,9 +221,9 @@ theorem card_vectors_five_choices (u : ℤ)
   exact (Nat.card_congr (Equiv.ofBijective (pack .five u) ⟨pack_injective .five u, onto⟩)).symm.trans
     (card_params .five u)
 
-/-- Count a shell with six choices per residue when each coordinate lies from −10 to 10. -/
-theorem card_vectors_six_choices (u : ℤ)
-    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -10 ≤ x.val i ∧ x.val i ≤ 10) :
+/-- Count a shell with six choices per residue over the full coordinate range from −11 to 12. -/
+theorem card_vectors_in_six_choice_range (u : ℤ)
+    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -11 ≤ x.val i ∧ x.val i ≤ 12) :
     Nat.card {x : Lattice // normSq x.val = 8 * u} =
       ∑ p : Bool, ∑ w : Codeword, LeechCoordinateAlphabet.tally .six p (24 - weight w.val) (weight w.val)
         (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
@@ -231,5 +231,16 @@ theorem card_vectors_six_choices (u : ℤ)
     pack_covers .six u x (bound x.val x.property)
   exact (Nat.card_congr (Equiv.ofBijective (pack .six u) ⟨pack_injective .six u, onto⟩)).symm.trans
     (card_params .six u)
+
+/-- Count a shell with six choices per residue when each coordinate lies from −10 to 10. -/
+theorem card_vectors_six_choices (u : ℤ)
+    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -10 ≤ x.val i ∧ x.val i ≤ 10) :
+    Nat.card {x : Lattice // normSq x.val = 8 * u} =
+      ∑ p : Bool, ∑ w : Codeword, LeechCoordinateAlphabet.tally .six p (24 - weight w.val) (weight w.val)
+        (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
+  apply card_vectors_in_six_choice_range
+  intro x hx i
+  have := bound x hx i
+  omega
 
 end LeechShellCoordinates
