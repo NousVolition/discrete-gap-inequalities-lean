@@ -1,3 +1,4 @@
+import LeechNorm176Layers
 import LeechNorm160Layers
 import LeechNorm144Layers
 import LeechNorm128Layers
@@ -1259,3 +1260,7 @@ import LightBounceAndCapture
 #print axioms LeechLayers.reference_double_dot_bounds
 #print axioms LeechNorm160.card_norm160_vectors
 #print axioms LeechLayers.card_norm160_dot_layer
+
+#print axioms LeechNorm80Count.choices176
+#print axioms LeechNorm176.card_norm176_vectors
+#print axioms LeechLayers.card_norm176_dot_layer

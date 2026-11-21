@@ -361,6 +361,46 @@ Run `lake build LeechNorm160Layers CheckAxioms`, then `lake env lean CheckAxioms
 
 For a separate check, run `node tests/leech-three-e8.cjs` in the playground repository. It counts coordinate choices along (4, −4, 0, …) using the playground’s Golay words and compares each row with the displayed table. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
 
+## Layers for squared length 176
+
+Choose any shortest vector *s*. The table counts vectors *v* of squared length 176 by their dot product with *s*. In the usual Leech scale their squared length is 22. [Lean theorem](../LeechNorm176Layers.lean#L75).
+
+| Dot product *s · v* | Number of vectors |
+| --- | ---: |
+| 0 | 5,456,580,940,800 |
+| −8 or +8 | 4,841,939,097,600 each |
+| −16 or +16 | 3,348,006,886,400 each |
+| −24 or +24 | 1,758,528,921,600 each |
+| −32 or +32 | 663,509,299,200 each |
+| −40 or +40 | 163,357,849,600 each |
+| −48 or +48 | 21,771,763,200 each |
+| −56 or +56 | 1,062,195,200 each |
+| −64 or +64 | 6,476,800 each |
+| Every other integer | 0 |
+| **All layers** | **27,052,945,920,000** |
+
+**Where the layers stop.** Write *k = s · v*. The vectors *v − 2s* and *v + 2s* have squared lengths *304 − 4k* and *304 + 4k*. Both are nonzero since *2s* has squared length 128. The minimum of 32 gives *−68 ≤ k ≤ 68*. Lattice dot products are multiples of eight, so the last occupied layers are at −64 and +64. [Dot-product bounds](../LeechNorm144Layers.lean#L27) · [Allowed layers](../LeechNorm176Layers.lean#L26).
+
+At +64, subtracting *2s* gives a vector of squared length 48 perpendicular to *s*. Adding *2s* takes it back. This explains the 6,476,800 vectors at +64. Negating the vectors gives the same count at −64. [Length-48 table](../LeechLayers.lean#L446) · [Outer layer counts](../LeechNorm176Layers.lean#L32).
+
+**Counting the shell.** Each coordinate has square at most 176, which is less than 14². The coordinate count covers all integers from −13 through 13. For each Golay word, Lean counts the choices with squared length 176 and the required coordinate sum modulo eight. With odd coordinates, every word gives 3,303,168,000 vectors. With even coordinates, the count depends on the number of ones in the word. [Coordinate bound](../LeechNorm176.lean#L12) · [Counting rule](../LeechShellCoordinates.lean#L251) · [Counts per word](../LeechNorm80Count.lean#L249) · [Shell total](../LeechNorm176.lean#L21).
+
+| Word weight | Number of words | Even-coordinate vectors per word |
+| ---: | ---: | ---: |
+| 0 | 1 | 0 |
+| 8 | 759 | 3,305,418,752 |
+| 12 | 2,576 | 3,303,168,000 |
+| 16 | 759 | 3,300,917,248 |
+| 24 | 1 | 0 |
+
+**Counting each layer.** For dot products +24, +32, +40, +48, +56 and +64, the map *v ↦ s − v* gives a layer at squared length 160, 144, 128, 112, 96 or 80, respectively. Applying the map twice gives back *v*. This supplies six counts from earlier tables. [Outer layer counts](../LeechNorm176Layers.lean#L32).
+
+For the axis (4, −4, 0, …), write *d = v₀ − v₁*. Then *s · v = 4d*. The shell total and the sums of *d²* and *d⁴* determine the counts at 0, ±8 and ±16. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner layer counts](../LeechNorm176Layers.lean#L61) · [Change of axis](../LeechNorm80Layers.lean#L109).
+
+Run `lake build LeechNorm176Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm176-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm176-dot-layers.json) cover 1136 declarations.
+
+For a separate check, run `node tests/leech-three-e8.cjs` in the playground repository. It counts coordinate choices along (4, −4, 0, …) using all 4,096 playground Golay words and compares each row with the displayed table. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
+
 ## Verification
 
 The [proof-branch audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813) checked 900 declarations. The [PR build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364) and [merged-main build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913) checked 949, including later additions to main. Each reported zero nonstandard axioms and zero missing reports. [Full axiom output](axioms-2026-11-20-co0-release.txt) · [Saved verification](leech-symmetry-verification-2026-11-20-co0-release.json) · [Reproduction commands](leech-symmetry-order.md#reproduce-the-check).

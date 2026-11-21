@@ -304,3 +304,9 @@ name = "LeechNorm160"
 
 [[lean_lib]]
 name = "LeechNorm160Layers"
+
+[[lean_lib]]
+name = "LeechNorm176"
+
+[[lean_lib]]
+name = "LeechNorm176Layers"
