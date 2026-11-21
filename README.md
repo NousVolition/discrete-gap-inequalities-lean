@@ -27,6 +27,7 @@ Every item below has checked Lean proofs. **Proved** refers to the formal statem
 | [The extended binary Golay code](GolayMatrixDistance.lean) | **Proved — finite checks inside Lean's kernel** | 5 | [Leech](https://nousvolition.github.io/sparkle-sand-playground/#leech): the modulo-23 generator now has a [proved coordinate correspondence](docs/playground-golay.md). |
 | [Edge-optimal sets of the hypercube](EdgeOptimal.lean) | **Proved** | 25 | [Trilogy](https://nousvolition.github.io/sparkle-sand-playground/#trilogy): exact cube maximum and optimality labels, with the logarithmic upper bound shown separately. |
 | [The E₈ plumbing matrix](E8PlumbingBridge.lean) | **Proved** | 8 | — |
+| [The extended Hamming code of tab 30](HammingCode.lean) | **Proved — finite checks inside Lean's kernel** | 16 | [E₈ Inspector](https://nousvolition.github.io/sparkle-sand-playground/#e8insp): the four-row generator, the 16 codewords, and the 128 half-integer vectors the tab builds from them. |
 | [Stick placement and plumbing cost](PlumbingStick.lean) | **Proved** | 15 | The determinant by attachment site, the cost floor for one E₈ plumbing, and a negative-cost assignment for every single joint between two copies. |
 | [Shares and cost for a row with one stick](PlumbingHelp.lean) | **Proved** | 12 | The general determinant, the three-arm criterion, and the seven-piece positivity classification. The Hug reading is a comparison. |
 | [The E₈ cost mirror](E8CostMirror.lean) | **Proved** | 1 | — |
@@ -634,6 +635,33 @@ After dividing the coordinates by `√8`, `leech_unimodular` says the lattice is
 | `total_E8_roots` | those two counts add to 240 |
 
 **File.** `E8PlumbingBridge.lean` (namespace `E8PlumbingBridge`). 8 results.
+
+## The extended Hamming code of playground tab 30
+
+`HammingCode.lean` checks the [8, 4, 4] generator used by the E₈ Inspector panel of the playground (tab 30). The four rows are `10000111`, `01001011`, `00101101` and `00011110`. Encoding a 4-bit message by right-multiplying by this matrix gives 16 distinct codewords. Their weights are 1 of weight 0, 14 of weight 4, and 1 of weight 8; every weight is divisible by 4, and the smallest nonzero weight is 4. The generator times its transpose is zero, and the code equals its dual.
+
+For each codeword the tab builds eight half-integer vectors: a 1 becomes −1/2 and a 0 becomes +1/2, and the other seven vectors come from flipping the signs in coordinates 0 and k. These 16 × 8 = 128 vectors are distinct, each has squared length 2, and they are exactly the points of `{±1/2}⁸` with an even number of minus signs — the same 128 even-parity vertices counted in `E8PlumbingBridge.card_spinor_roots`. This file does not prove that those vectors are roots of the lattice attached to the plumbing matrix.
+
+| Result | Statement |
+|---|---|
+| `encode_injective` | distinct 4-bit messages give distinct codewords |
+| `card_code` | there are exactly 16 codewords |
+| `mem_code_iff` | a word is a codeword exactly when it lies in the listed image of `encode` |
+| `weight_distribution` | the 16 weights are 1 of weight 0, 14 of weight 4, and 1 of weight 8 |
+| `doubly_even` | every codeword has weight divisible by 4 |
+| `min_distance` | every nonzero codeword has weight at least 4 |
+| `min_distance_sharp` | the first generator row has weight 4, so the smallest distance is 4 |
+| `G_mul_transpose` | the generator times its transpose is the zero matrix |
+| `self_orthogonal` | every two codewords have even overlap |
+| `code_eq_dual` | a word is a codeword exactly when it is orthogonal to every codeword |
+| `tabSpinor_sqLength` | each of the tab's 128 half-integer vectors has squared length 2 |
+| `tabSpinor_injective` | different pairs (message, flip index) give different vectors |
+| `card_allTabSpinors` | the tab's rule produces 128 distinct vectors |
+| `tabSpinor_evenParity` | each of those vectors has an even number of minus signs |
+| `allTabSpinors_eq_evenSpinors` | those 128 vectors are exactly the points of `{±1/2}⁸` with an even number of minus signs |
+| `card_allTabSpinors_eq_spinor_roots` | that count agrees with `E8PlumbingBridge.card_spinor_roots` |
+
+**File.** `HammingCode.lean` (namespace `HammingCode`). 16 results.
 
 ## The E₈ cost mirror
 

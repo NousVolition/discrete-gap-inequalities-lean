@@ -51,6 +51,7 @@ import Unify
 import GolayMatrixDistance
 import EdgeOptimal
 import E8PlumbingBridge
+import HammingCode
 import PlumbingStick
 import PlumbingHelp
 import E8CostMirror
@@ -652,6 +653,24 @@ import LightBounceAndCapture
 #print axioms E8PlumbingBridge.card_spinor_roots
 #print axioms E8PlumbingBridge.card_integer_roots
 #print axioms E8PlumbingBridge.total_E8_roots
+
+-- Extended Hamming [8,4,4] code of playground tab 30
+#print axioms HammingCode.encode_injective
+#print axioms HammingCode.card_code
+#print axioms HammingCode.mem_code_iff
+#print axioms HammingCode.weight_distribution
+#print axioms HammingCode.doubly_even
+#print axioms HammingCode.min_distance
+#print axioms HammingCode.min_distance_sharp
+#print axioms HammingCode.G_mul_transpose
+#print axioms HammingCode.self_orthogonal
+#print axioms HammingCode.code_eq_dual
+#print axioms HammingCode.tabSpinor_sqLength
+#print axioms HammingCode.tabSpinor_injective
+#print axioms HammingCode.card_allTabSpinors
+#print axioms HammingCode.tabSpinor_evenParity
+#print axioms HammingCode.allTabSpinors_eq_evenSpinors
+#print axioms HammingCode.card_allTabSpinors_eq_spinor_roots
 
 -- Stick placement and the cost of one or two plumbings
 #print axioms PlumbingStick.rowStick_seven_four
