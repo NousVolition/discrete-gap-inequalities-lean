@@ -1,0 +1,8 @@
+{
+  "module": "RiemannHypothesisRoute",
+  "source_file": "RiemannHypothesisRoute.lean",
+  "source_sha256": "4397303168d14c2d03775dce5f0eab9059348a7e7eabcbf33c6086ac5a4e3889",
+  "exit_code": 0,
+  "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "elapsed_seconds": 13.047
+}

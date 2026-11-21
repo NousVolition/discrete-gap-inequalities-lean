@@ -1,0 +1,18 @@
+import RiemannHypothesisRoute
+
+#print axioms ContinuousWirtinger.dirichlet_energy
+#print axioms ContinuousWirtinger.wirtinger
+#print axioms ContinuousWirtinger.wirtinger_complex
+#print axioms ContinuousWirtinger.zero_gap_sq_lower_bound
+#print axioms ContinuousWirtinger.sine_attains_bound
+#print axioms RiemannZeroGaps.linePoint_ne_one
+#print axioms RiemannZeroGaps.hasDerivAt_zetaLine
+#print axioms RiemannZeroGaps.continuous_zetaSlope
+#print axioms RiemannZeroGaps.vertical_zero_interval
+#print axioms RiemannZeroGaps.vertical_zero_gap
+#print axioms RiemannZeroGaps.critical_zero_interval
+#print axioms RiemannZeroGaps.zero_on_line
+#print axioms RiemannZeroGaps.rh_implies_all_zero_interval
+#print axioms RiemannZeroGaps.off_line_zero_refutes_rh
+#print axioms RiemannZeroGaps.rh_of_complete_critical_counts
+#print axioms RiemannZeroGaps.rh_iff_complete_critical_counts
