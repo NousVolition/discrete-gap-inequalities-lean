@@ -1,0 +1,214 @@
+{
+  "status": "PASS",
+  "verified_at_utc": "2026-11-21 00:41:39 UTC",
+  "location": "local",
+  "target_count": 16,
+  "verification": "Direct native Lean compilation of five modules, followed by complete named-target axiom audit.",
+  "mathlib_commit": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "mathlib_tracked_tree_clean": true,
+  "direct_imports_match_pinned_sources": [
+    {
+      "path": "Mathlib/Analysis/Calculus/FDeriv/Analytic.lean",
+      "git_blob": "8e892ed32827bd4cd53f23013c9790c987e315a1"
+    },
+    {
+      "path": "Mathlib/Analysis/Complex/RealDeriv.lean",
+      "git_blob": "dbf10e546853b9445331d48263c6e3d73f506393"
+    },
+    {
+      "path": "Mathlib/Analysis/SpecialFunctions/Integrals/Basic.lean",
+      "git_blob": "c0894b7ebd190c18befd5ab4f5360b4b9293c4f5"
+    },
+    {
+      "path": "Mathlib/Analysis/SpecialFunctions/Trigonometric/ArctanDeriv.lean",
+      "git_blob": "ddbd9a85f0b34e76ee4f9e7614a57018eedcc103"
+    },
+    {
+      "path": "Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+      "git_blob": "82d269a5e9269d791f5581f5f0da29cfc125541a"
+    },
+    {
+      "path": "Mathlib/NumberTheory/LSeries/RiemannZeta.lean",
+      "git_blob": "b382f3d6c15762c9db38ddea5e1b572455631f27"
+    },
+    {
+      "path": "Mathlib/Tactic.lean",
+      "git_blob": "dc21b5d150cd264358a2e8425a2ef0056d0ecef5"
+    }
+  ],
+  "builds": [
+    {
+      "module": "ContinuousWirtinger",
+      "source_file": "ContinuousWirtinger.lean",
+      "source_sha256": "f16806d4775d6fe530fa9508587d1ca1b45192c359f853a8a3b95b254d1a3169",
+      "exit_code": 0,
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "elapsed_seconds": 12.422,
+      "artifact_sha256": "0d3702033a3965e375f7c8c77a2f9ad14ca69792c9e16dbfb096f2b8f14f4a2a",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "ContinuousWirtingerComplex",
+      "source_file": "ContinuousWirtingerComplex.lean",
+      "source_sha256": "377361e9900ed43b713c249ae86e9fc78983c54a86d04a35b37eddb92bda978f",
+      "exit_code": 0,
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "elapsed_seconds": 13.75,
+      "artifact_sha256": "d9fe38c74171e5326c50741137526e79819755c803d963115d01c7b4e5469cf2",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RiemannZeroGaps",
+      "source_file": "RiemannZeroGaps.lean",
+      "source_sha256": "a3ef2980930240fdbc4651fea1179013d46bfd004f670c2f45d42d71a9155afc",
+      "exit_code": 0,
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "elapsed_seconds": 13.516,
+      "artifact_sha256": "bf3e0109d8957c2864626f67e8e9107e72f4ff5017f34e67d56c93eefba00b33",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "RiemannHypothesisRoute",
+      "source_file": "RiemannHypothesisRoute.lean",
+      "source_sha256": "4397303168d14c2d03775dce5f0eab9059348a7e7eabcbf33c6086ac5a4e3889",
+      "exit_code": 0,
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "elapsed_seconds": 13.047,
+      "artifact_sha256": "0f6101576850347aeeb81d2aadb399d540a58531a8e9a4f698f62cef8ae402ea",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "module": "CheckAxioms",
+      "source_file": "CheckAxioms.lean",
+      "source_sha256": "02e4e5ae11252584b42e02746f64abc42d8a9595c43bfa510cc105488266710c",
+      "exit_code": 0,
+      "lean": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+      "elapsed_seconds": 12.328,
+      "artifact_sha256": "4a265f42d03e7be8dfc9571c713e44b61fb618eff02831f3e751614a5f07d670",
+      "log_sha256": "5e4bd14a105a9796c165b79ba023e3b2e1cd159353ec8ddd8dea558e836f3e08"
+    }
+  ],
+  "axioms": {
+    "ContinuousWirtinger.dirichlet_energy": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ContinuousWirtinger.wirtinger": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ContinuousWirtinger.wirtinger_complex": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ContinuousWirtinger.zero_gap_sq_lower_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "ContinuousWirtinger.sine_attains_bound": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.linePoint_ne_one": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.hasDerivAt_zetaLine": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.continuous_zetaSlope": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.vertical_zero_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.vertical_zero_gap": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.critical_zero_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.zero_on_line": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.rh_implies_all_zero_interval": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.off_line_zero_refutes_rh": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.rh_of_complete_critical_counts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "RiemannZeroGaps.rh_iff_complete_critical_counts": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "no_new_axioms_or_proof_placeholders": true,
+  "sources_and_records": {
+    ".gitignore": "48522bd78c489303759242fde323ac9498938a8a4b7c4a59f5910c23a372444e",
+    "build.py": "76d66fff87a0d6305841103c698eddb843aa4a13a68c073648a354e0d7bb2384",
+    "CheckAxioms.build.json": "b8d5ee16ecbbc6f251e2c9252b9c3b3e1301e2fabc397edf699c62ade84f7804",
+    "CheckAxioms.lean": "02e4e5ae11252584b42e02746f64abc42d8a9595c43bfa510cc105488266710c",
+    "CheckAxioms.log": "5e4bd14a105a9796c165b79ba023e3b2e1cd159353ec8ddd8dea558e836f3e08",
+    "ContinuousWirtinger.build.json": "229be113903616156b4a40241d2cfb50467e261d02f9f06481a933ef15b92986",
+    "ContinuousWirtinger.lean": "f16806d4775d6fe530fa9508587d1ca1b45192c359f853a8a3b95b254d1a3169",
+    "ContinuousWirtinger.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ContinuousWirtingerComplex.build.json": "855b7b6b6cb69e769e99696b8f3d256efd4aabea5c732d115ae5334e77710215",
+    "ContinuousWirtingerComplex.lean": "377361e9900ed43b713c249ae86e9fc78983c54a86d04a35b37eddb92bda978f",
+    "ContinuousWirtingerComplex.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gap-study-protocol.json": "2d75878c812de152a922c96f21a46cc169bf843cb92696f873169040c00aceba",
+    "gap-study-results.csv": "4876fc41fb1b06aa82d9dfc028fbc11e5eb922596a2fae77b1ba1f08d4421998",
+    "gap-study-results.json": "daa29b74087e5c489a858e2688c89357fbe8e24774194ad5991a73a6faf597e2",
+    "lake-manifest.json": "0b70757d345573c26fdc2398f449796a65c432e8d962308aa6aa1120d564c8be",
+    "lakefile.toml": "3dfc3714b80393f8826afc778e1abd9e315e0037d6878b6a0e9cf7863bc7ccd3",
+    "lean-toolchain": "8190e75a201741065fe508b28955dd64dd72d090babe5f70ce6848879d68ae88",
+    "README.md": "6d409ef19dce114723405abe7fcfb9a3e0574df196cb89b711b7a9ef00c89344",
+    "RiemannHypothesisRoute.build.json": "f13326736ce4ed5adc3455e4abd56a4f5eaf2c154e187c3d2e96f9f57448a5a2",
+    "RiemannHypothesisRoute.lean": "4397303168d14c2d03775dce5f0eab9059348a7e7eabcbf33c6086ac5a4e3889",
+    "RiemannHypothesisRoute.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "RiemannZeroGaps.build.json": "bc8cbd6ae19b9167ed1beb1499cd61791ea97c712fe0ee2336e26a05f4796d5b",
+    "RiemannZeroGaps.lean": "a3ef2980930240fdbc4651fea1179013d46bfd004f670c2f45d42d71a9155afc",
+    "RiemannZeroGaps.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "study_gaps.py": "49e5c2539167675ae28796f359466156e28d0ae43f066d8bdd0f8c4138a98b63"
+  },
+  "numerical_diagnostic": {
+    "status": "PASS",
+    "pairs": 5,
+    "decimal_precisions": [
+      30,
+      50
+    ],
+    "maximum_relative_difference": "4.22349927461884803769939673339095057952216689313616283682505e-30",
+    "formal_root_or_quadrature_certification": false
+  },
+  "rh_status": "Open. The zero-coverage/counting hypotheses have not been established for zeta.",
+  "scope": "Continuous real/complex endpoint-zero inequality, analytic zeta specialization and explicit RH implications. All results are local; no GitHub publication, Comparator or nanoda run is claimed.",
+  "credit": "AI-generated by Codex; dictated and directed by NousVolition."
+}

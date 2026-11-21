@@ -1,0 +1,14 @@
+{
+  "purpose": "Use the proved continuous inequality as a numerical diagnostic within the Riemann-hypothesis investigation.",
+  "registered_before_computation": true,
+  "function": "f(t) = zeta(1/2 + i*t); f'(t) = i*zeta'(1/2 + i*t)",
+  "zero_indices": [1, 2, 3, 4, 5, 6],
+  "pairs": [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]],
+  "passes": [{"decimal_precision": 30, "subintervals": 2}, {"decimal_precision": 50, "subintervals": 4}],
+  "quadrature": "mpmath Gauss-Legendre with its adaptive degree selection",
+  "relative_agreement_limit": "1e-18",
+  "endpoint_residual_limits": {"30": "1e-25", "50": "1e-45"},
+  "inequality_diagnostic": "E <= (gap/pi)^2 * D, with E=integral abs(f)^2 and D=integral abs(f')^2; report slack and pi*sqrt(E/D)",
+  "adjustment_policy": "No fitted parameter or method tuning. Keep all five selected gaps and both precision passes.",
+  "scope": "Numerical agreement checks only. Roots and quadrature are approximations, not rigorous interval certificates or a complete zero census. This diagnostic does not establish RH."
+}

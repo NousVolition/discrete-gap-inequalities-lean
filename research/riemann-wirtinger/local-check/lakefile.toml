@@ -1,0 +1,24 @@
+name = "RiemannWirtinger"
+version = "0.1.0"
+defaultTargets = ["ContinuousWirtinger", "ContinuousWirtingerComplex", "RiemannZeroGaps", "RiemannHypothesisRoute", "CheckAxioms"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "85e3a25e006c35636f0e53b0e9296caca2685bc0"
+
+[[lean_lib]]
+name = "ContinuousWirtinger"
+
+[[lean_lib]]
+name = "ContinuousWirtingerComplex"
+
+[[lean_lib]]
+name = "RiemannZeroGaps"
+
+[[lean_lib]]
+name = "RiemannHypothesisRoute"
+
+[[lean_lib]]
+name = "CheckAxioms"
