@@ -1,3 +1,4 @@
+import Tab29Hamming
 import LeechNorm224Layers
 import LeechNorm208Layers
 import LeechNorm192Layers
@@ -1319,3 +1320,14 @@ import LightBounceAndCapture
 #print axioms LeechNorm80Count.choices224
 #print axioms LeechNorm224.card_norm224_vectors
 #print axioms LeechLayers.card_norm224_dot_layer
+
+
+-- Tab 29 Hamming-code relabeling
+#print axioms Tab29Hamming.writtenG_relabel
+#print axioms Tab29Hamming.runtimeG_relabel
+#print axioms Tab29Hamming.written_encode_relabel
+#print axioms Tab29Hamming.runtime_encode_relabel
+#print axioms Tab29Hamming.written_code_relabel
+#print axioms Tab29Hamming.runtime_code_relabel
+#print axioms Tab29Hamming.runtime_encode_injective
+#print axioms Tab29Hamming.card_runtimeCode

@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "classification": "NEW IN THIS PROJECT",
+  "checked_at_utc": "2026-11-21T11:37:53.598899+00:00",
+  "lean_base": "ec5aab55be2a94f0990fba76670e11407e26de89",
+  "compiler": "Lean (version 4.34.0-rc2, x86_64-w64-windows-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+  "packages": {
+    "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+    "plausible": "d9598f07b1bc701f1e3aae163d2681c1fd978793",
+    "LeanSearchClient": "ba67e212be1197b84c1f1f6299488a10a3002713",
+    "importGraph": "d8823026ac7ef130c253089d95685f9877b95323",
+    "proofwidgets": "a8acbfd87375ff4abe14ce09db5b7664d383bc7f",
+    "aesop": "18889deb9e83ea7420ef51c160d6f88552e744e3",
+    "Qq": "507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3",
+    "batteries": "d54dddc581e08be364c278052863524bff7a99a9",
+    "Cli": "ab3a82db9fea14cf0fd7f5a2de650f4b534640af"
+  },
+  "fresh_modules": [
+    "Tab29Hamming",
+    "Tab29HammingAudit"
+  ],
+  "sources": {
+    "Tab29Hamming.lean": "1eff1effd22fdbda66743a2fb893001da33449593d242bbf8418eb3e41f4afc4",
+    "Tab29HammingAudit.lean": "11d7fa5430bd85aee969c55e62981008864a7fb2773993f9dcfd9d349c150e44"
+  },
+  "reused_dependencies": {
+    "HammingCode": {
+      "source_sha256": "2a606d63622ba44b82febca20f04c16247b7ec65558040abd0bd0fadb0632b6b",
+      "object_facets": {
+        "HammingCode.olean": "0bafdda62894e92c5c1d592aba17d19a580b6741864ae202ad199deee3087b84"
+      },
+      "prior_verification": "e8-pr41-conflict-resolution-20261121/integration-verification.json"
+    },
+    "E8PlumbingBridge": {
+      "source_sha256": "b0752c42f16b44322e6d215f9a2129d9b7a66e206c4876b4d5101c9e71b9142a",
+      "object_facets": {
+        "E8PlumbingBridge.olean": "d3cbd7828db6c53d6352dd680fea8daa78cf068c2408480b0225863e2fcc083a"
+      },
+      "prior_verification": "e8-pr41-conflict-resolution-20261121/integration-verification.json"
+    }
+  },
+  "audit": "10 declarations checked, 0 nonstandard, 0 missing",
+  "axiom_policy": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "no_sorry_admit_native_decide_or_new_axiom": true,
+  "scope": "New proof and focused audit freshly compiled; unchanged project dependencies reused after source and dependency-pin matching. No full-library rebuild.",
+  "build_directory": "build-7nyr4xnx",
+  "published": false,
+  "comment_only_amendment": {
+    "recorded_at_utc": "2026-11-21T11:43:25.476523+00:00",
+    "original_compiled_source_sha256": "1eff1effd22fdbda66743a2fb893001da33449593d242bbf8418eb3e41f4afc4",
+    "current_source_sha256": "118994414eeb8c2fff69f5a1fb31925fd2395525e805017e6daa721a48d51026",
+    "formal_lean_text_unchanged": true,
+    "current_compile_rerun": false
+  }
+}
