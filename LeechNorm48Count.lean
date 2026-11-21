@@ -1,4 +1,4 @@
-import Mathlib
+import LeechCoordinateTally
 
 /-! # Counting coordinate choices with a fixed Golay residue word
 
@@ -16,77 +16,18 @@ def cost (odd bit : Bool) : Label → ℤ :=
 
 def flag (a : Label) : ℤ := (a.val : ℤ) % 2
 
-def Picks {n : ℕ} (odd : Bool) (w : Fin n → Bool) (e r : ℤ) :=
-  {a : Fin n → Label // (∑ i, cost odd (w i) (a i)) = e ∧
-                          (∑ i, flag (a i)) % 2 = r % 2}
+abbrev Picks {n} (p : Bool) (w : Fin n → Bool) (e r : ℤ) :=
+  LeechCoordinateTally.Picks (cost p) flag w e r
 
-instance {n} (p) (w : Fin n → Bool) (e r) : Fintype (Picks p w e r) :=
-  inferInstanceAs (Fintype (Subtype _))
+private abbrev step (p b : Bool) := LeechCoordinateTally.step (cost p) flag b
+private abbrev emptyTable := LeechCoordinateTally.emptyTable
 
-private def splitFirst {n} (p) (w : Fin (n+1) → Bool) (e r : ℤ) :
-    Picks p w e r ≃ Σ a : Label, Picks p (fun i => w i.succ)
-      (e - cost p (w 0) a) (r - flag a) where
-  toFun x := ⟨x.val 0, fun i => x.val i.succ, by
-    obtain ⟨he, hr⟩ := x.property
-    rw [Fin.sum_univ_succ] at he hr
-    dsimp only
-    constructor <;> omega⟩
-  invFun := fun ⟨a, x⟩ => ⟨Fin.cons a x.val, by
-    obtain ⟨he, hr⟩ := x.property
-    dsimp only at he hr
-    simp only [Fin.sum_univ_succ, Fin.cons_zero, Fin.cons_succ]
-    constructor <;> omega⟩
-  left_inv x := by apply Subtype.ext; funext i; refine Fin.cases ?_ (fun j => ?_) i <;> rfl
-  right_inv := by rintro ⟨a, x⟩; rfl
-
-private def step (p b : Bool) (f : Table) : Table :=
-  fun e r => ∑ a : Label, f (e - cost p b a) (r - flag a)
-
-private theorem commute (p : Bool) : Function.Commute (step p true) (step p false) := by
-  intro f
-  funext e r
-  unfold step
-  rw [sum_comm]
-  apply sum_congr rfl
-  intro a _
-  apply sum_congr rfl
-  intro b _
-  congr 1 <;> ring
-
-private def emptyTable : Table := fun e r => if 0 = e ∧ 0 = r % 2 then 1 else 0
-
-def tally (p : Bool) (z o : ℕ) : Table :=
-  (step p false)^[z] ((step p true)^[o] emptyTable)
-
-private theorem tally_false (p z o) : tally p (z+1) o = step p false (tally p z o) := by
-  simp [tally, Function.iterate_succ_apply']
-
-private theorem tally_true (p z o) : tally p z (o+1) = step p true (tally p z o) := by
-  unfold tally
-  rw [Function.iterate_succ_apply']
-  exact ((commute p).iterate_right z _).symm
-
-def bits {n} (w : Fin n → Bool) (b : Bool) : ℕ := ∑ i, if w i = b then 1 else 0
+abbrev tally (p : Bool) := LeechCoordinateTally.tally (cost p) flag
+abbrev bits {n} (w : Fin n → Bool) := LeechCoordinateTally.bits w
 
 theorem card_picks {n} (p) (w : Fin n → Bool) (e r : ℤ) :
-    Fintype.card (Picks p w e r) = tally p (bits w false) (bits w true) e r := by
-  induction n generalizing e r with
-  | zero =>
-    let a : Fin 0 → Label := Fin.elim0
-    by_cases h : 0 = e ∧ 0 = r % 2
-    · simp only [bits, Finset.univ_eq_empty, Finset.sum_empty, tally, Function.iterate_zero,
-        id_eq, emptyTable, ite_eq_left h]
-      apply Fintype.card_eq_one_iff.mpr
-      exact ⟨⟨a, by simpa using h⟩, fun y => Subtype.ext (Subsingleton.elim _ _)⟩
-    · simp [bits, tally, emptyTable, h]
-      apply Fintype.card_eq_zero_iff.mpr
-      exact ⟨fun y => h (by simpa using y.property)⟩
-  | succ n ih =>
-    rw [Fintype.card_congr (splitFirst p w e r), Fintype.card_sigma]
-    simp_rw [ih]
-    have hb (b : Bool) : bits w b = (if w 0 = b then 1 else 0) + bits (fun i => w i.succ) b := by
-      unfold bits; rw [Fin.sum_univ_succ]
-    cases hw : w 0 <;> simp [hb, hw, Nat.one_add, tally_true, tally_false, step]
+    Fintype.card (Picks p w e r) = tally p (bits w false) (bits w true) e r :=
+  LeechCoordinateTally.card_picks (cost p) flag w e r
 
 private theorem cost_nonneg (p b : Bool) (a : Label) : 0 ≤ cost p b a := by
   cases p <;> cases b <;> fin_cases a <;> decide
@@ -112,14 +53,14 @@ def evaluate (p : Bool) : List Bool → Table
 private theorem eval_negative (p bs) : NoNegative (evaluate p bs) := by
   intro e r he
   cases bs with
-  | nil => simp [evaluate, emptyTable, show ¬ 0 = e by omega]
+  | nil => simp [evaluate, emptyTable, LeechCoordinateTally.emptyTable, show ¬ 0 = e by omega]
   | cons b bs => simp [evaluate, he]
 
 private theorem eval_cons (p b bs) : evaluate p (b :: bs) = step p b (evaluate p bs) := by
   funext e r
   by_cases he : e < 0
   · exact (eval_negative _ _ _ _ he).trans ((step_nonneg _ _ (eval_negative p bs) _ _ he).symm)
-  · simp [evaluate, he, step, Fin.sum_univ_four, flag, add_assoc]
+  · simp [evaluate, he, step, LeechCoordinateTally.step, Fin.sum_univ_four, flag, add_assoc]
 
 private theorem eval_replicate (p b bs n) :
     evaluate p (List.replicate n b ++ bs) = (step p b)^[n] (evaluate p bs) := by
@@ -135,7 +76,8 @@ theorem tally_eval (p z o) :
 private theorem odd_step : step true true = step true false := rfl
 
 theorem odd_tally (z o) : tally true z o = tally true (z+o) 0 := by
-  simp [tally, odd_step, Function.iterate_add_apply]
+  change (step true false)^[z] ((step true true)^[o] emptyTable) = (step true false)^[z+o] emptyTable
+  rw [odd_step, Function.iterate_add_apply]
 
 set_option maxRecDepth 8192 in
 set_option maxHeartbeats 4000000 in
@@ -169,3 +111,32 @@ theorem even_choices (z o : ℕ) (h : z + o = 24) (hw : o % 4 = 0) (hmin : o = 0
 
 
 end LeechNorm48Count
+
+namespace LeechCoordinateChoices
+
+open LeechNorm48Count
+
+/-- A fifth label adds the next integer in the same residue class. -/
+abbrev Labels (five : Bool) := Fin (if five then 5 else 4)
+
+def charge (five p b : Bool) : Labels five → ℤ :=
+  match five with
+  | false => cost p b
+  | true => ![cost p b 0, cost p b 1, cost p b 2, cost p b 3, if p then 10 else if b then 12 else 8]
+
+def labelFlag (five : Bool) (a : Labels five) : ℤ := (a.val : ℤ) % 2
+
+abbrev tally (five p : Bool) := LeechCoordinateTally.tally (charge five p) (labelFlag five)
+
+theorem charge_nonneg (five p b : Bool) (a : Labels five) : 0 ≤ charge five p b a := by
+  cases five <;> cases p <;> cases b <;> fin_cases a <;> decide
+
+theorem odd_tally (five : Bool) (z o : ℕ) : tally five true z o = tally five true (z + o) 0 := by
+  have same : charge five true true = charge five true false := by cases five <;> rfl
+  have steps : LeechCoordinateTally.step (charge five true) (labelFlag five) true =
+      LeechCoordinateTally.step (charge five true) (labelFlag five) false := by
+    funext f e r
+    simp only [LeechCoordinateTally.step, same]
+  simp [tally, LeechCoordinateTally.tally, steps, Function.iterate_add_apply]
+
+end LeechCoordinateChoices

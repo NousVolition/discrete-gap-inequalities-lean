@@ -271,3 +271,12 @@ name = "RiemannZeroGaps"
 
 [[lean_lib]]
 name = "RiemannHypothesisRoute"
+
+[[lean_lib]]
+name = "LeechCoordinateTally"
+
+[[lean_lib]]
+name = "LeechNorm112"
+
+[[lean_lib]]
+name = "LeechNorm112Layers"

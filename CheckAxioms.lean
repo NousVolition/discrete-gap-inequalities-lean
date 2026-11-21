@@ -1,3 +1,4 @@
+import LeechNorm112Layers
 import RiemannHypothesisRoute
 import LeechNorm96Layers
 import LeechNorm80Layers
@@ -1205,3 +1206,13 @@ import LightBounceAndCapture
 #print axioms RiemannZeroGaps.off_line_zero_refutes_rh
 #print axioms RiemannZeroGaps.rh_of_complete_critical_counts
 #print axioms RiemannZeroGaps.rh_iff_complete_critical_counts
+
+#print axioms LeechCoordinateTally.card_picks
+#print axioms LeechCoordinateTally.tally_eq_fold
+#print axioms LeechCoordinateTally.fold_negative
+#print axioms LeechCoordinateChoices.charge_nonneg
+#print axioms LeechCoordinateChoices.odd_tally
+#print axioms LeechShellCoordinates.card_vectors_five_choices
+#print axioms LeechNorm80Count.choices112
+#print axioms LeechNorm112.card_norm112_vectors
+#print axioms LeechLayers.card_norm112_dot_layer

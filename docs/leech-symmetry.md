@@ -48,7 +48,7 @@ For a weight-eight word, eight entries have magnitude 2 and one of the other six
 
 For an odd vector, each of the 24 entries contributes at least one to the squared length. To add the remaining 24, one entry can have magnitude 5, or three entries can have magnitude 3. The residue word fixes the signs once these positions are chosen. That gives 24 + 2,024 = 2,048 choices per word.
 
-For each residue word, Lean counts the coordinate choices that give the required squared length and sum modulo eight. It removes one coordinate at a time, recording the remaining squared-length budget and the parity needed for the sum. Each vector determines its word and all its coordinate choices, and every accepted choice gives a lattice vector. The even-coordinate count vanishes for every other Golay weight. [Counting recurrence](../LeechNorm48Count.lean#L71) · [Even choices](../LeechNorm48Count.lean#L155) · [Odd choices](../LeechNorm48Count.lean#L152) · [Weight-twelve word count](../LeechDodecadCount.lean#L11).
+For each residue word, Lean counts the coordinate choices that give the required squared length and sum modulo eight. It removes one coordinate at a time, recording the remaining squared-length budget and the parity needed for the sum. Each vector determines its word and all its coordinate choices, and every accepted choice gives a lattice vector. The even-coordinate count vanishes for every other Golay weight. [Counting recurrence](../LeechCoordinateTally.lean#L66) · [Even choices](../LeechNorm48Count.lean#L97) · [Odd choices](../LeechNorm48Count.lean#L94) · [Weight-twelve word count](../LeechDodecadCount.lean#L11).
 
 To reproduce, run `lake build LeechNorm48 CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [verification record](leech-symmetry-verification-2026-11-20-norm48-shell.json) and [full transcript](axioms-2026-11-20-norm48-shell.txt) cover 959 declarations.
 
@@ -82,7 +82,7 @@ To check all three counts, run `lake build LeechShellPairs LeechNorm48Pairs Chec
 
 The Leech lattice has **4,629,381,120 vectors** at squared length 80 in these integer coordinates, or squared length 10 in the usual normalization. Counting a vector and its negative together gives **2,314,690,560 opposite pairs**. [Vector proof](../LeechNorm80.lean#L88) · [Pair proof](../LeechNorm80.lean#L109) · [Shared pairing rule](../LeechOppositePairs.lean#L42).
 
-An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L164).
+An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L168).
 
 | Coordinates | Golay word | Words | Vectors per word | Vectors |
 | --- | --- | ---: | ---: | ---: |
@@ -92,7 +92,7 @@ An entry of magnitude 8 would leave a nonzero lattice vector of squared length 1
 | Odd | Any weight | 4,096 | 565,248 | 2,315,255,808 |
 | **Total** | | | | **4,629,381,120** |
 
-For even coordinates, words of weight 0 or 24 give no vectors at this length. Flipping all 24 bits pairs the words of weight 16 with those of weight 8. Lean checks each entry of the counting tables against the rule for adding one coordinate. [Even choices](../LeechNorm80Count.lean#L121) · [Odd choices](../LeechNorm80Count.lean#L117) · [Weight-16 words](../LeechNorm80.lean#L72).
+For even coordinates, words of weight 0 or 24 give no vectors at this length. Flipping all 24 bits pairs the words of weight 16 with those of weight 8. Lean checks each entry of the counting tables against the rule for adding one coordinate. [Even choices](../LeechNorm80Count.lean#L131) · [Odd choices](../LeechNorm80Count.lean#L127) · [Weight-16 words](../LeechNorm80.lean#L72).
 
 ## Layers along a shortest vector
 
@@ -212,6 +212,37 @@ For the shortest axis (4, −4, 0, …), write *d = v₀ − v₁*. The dot prod
 Run `lake build LeechNorm96Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm96-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm96-dot-layers.json) cover 1068 declarations.
 
 For a separate check, run `node tests/leech-three-e8.cjs` in the playground repository. It counts the layers for (4, −4, 0, …) using the playground’s Golay words and compares them with the displayed table. Lean proves the counts for every shortest axis. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
+
+## Layers for squared length 112
+
+For any shortest vector *s*, the table counts the vectors *v* of squared length 112 with each dot product *s · v*. Squared length 112 in these coordinates is 14 in the usual scale. [Lean theorem](../LeechNorm112Layers.lean#L71).
+
+| Dot product *s · v* | Number of vectors |
+| --- | ---: |
+| 0 | 47,406,643,200 |
+| −8 or +8 | 39,253,082,112 each |
+| −16 or +16 | 21,771,763,200 each |
+| −24 or +24 | 7,535,462,400 each |
+| −32 or +32 | 1,384,998,912 each |
+| −40 or +40 | 95,385,600 each |
+| −48 or +48 | 953,856 each |
+| −56 or +56 | 0 each |
+| Every other integer | 0 |
+| **All layers** | **187,489,935,360** |
+
+**Counting the shell.** Subtracting a signed coordinate axis leaves a nonzero lattice vector with squared length at least 32. This bounds each coordinate between −9 and 9. The Golay word fixes a residue modulo four at each position. Five choices per residue cover the range, and Lean checks their squared lengths and their sum modulo eight. [Coordinate bound](../LeechNorm112.lean#L23) · [How the choices count vectors](../LeechShellCoordinates.lean#L201).
+
+For odd coordinates, each of the 4,096 words gives 22,892,544 vectors. For even coordinates, a word of weight 8 gives 22,716,416 vectors, a word of weight 12 gives 22,892,544, and a word of weight 16 gives 23,068,672. The other word weights give zero. There are 759, 2,576 and 759 words at those three weights. [Counts per word](../LeechNorm80Count.lean#L160) · [Shell total](../LeechNorm112.lean#L52).
+
+**Why the outer layers stop at 48.** All dot products are multiples of eight. The minimum squared length applied to *s + v* and *s − v* puts the dot product between −56 and +56. At +56, *s − v* would have squared length 32 and its dot product with *s* would be −24. The shortest-vector table gives zero there. Negating *v* rules out −56 as well. [Bounds](../LeechNorm112Layers.lean#L26) · [Outer layers](../LeechNorm112Layers.lean#L31).
+
+The same map, *v ↦ s − v*, carries the +24, +32, +40 and +48 layers to earlier tables. Their new squared lengths are 96, 80, 64 and 48, and their new dot products are +8, 0, −8 and −16, respectively. Applying the map twice returns *v*. [Layer pairings](../LeechNorm112Layers.lean#L31).
+
+For the shortest axis (4, −4, 0, …), put *d = v₀ − v₁*. The dot product is *4d*. Across the shell the sum of *d²* is 1,749,906,063,360 and the sum of *d⁴* is 45,228,341,329,920. Together with the total, these give the counts at 0, ±8 and ±16. A lattice symmetry carries this axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm112Layers.lean#L57) · [Change of axis](../LeechNorm80Layers.lean#L109).
+
+Run `lake build LeechNorm112Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm112-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm112-dot-layers.json) cover 1099 declarations.
+
+For a separate check on the reference axis, run `node tests/leech-three-e8.cjs` in the playground repository. It counts the coordinate choices using the playground’s Golay words and compares them with the displayed table. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
 
 ## Verification
 
