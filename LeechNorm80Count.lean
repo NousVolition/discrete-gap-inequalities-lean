@@ -1,15 +1,17 @@
 import LeechCoordinateAlphabet
 import Mathlib.Tactic.Eval
 
-/-! # Coordinate choices at squared lengths 80, 96, 112 and 128
+/-! # Coordinate choices at squared lengths 80, 96, 112, 128 and 144
 
 The rows count the choices left after fixing a Golay residue word. Each column
-records a squared-length budget from zero to sixteen, in units of eight. Its two
+records a squared-length budget from zero to eighteen, in units of eight. Its two
 entries count the choices for each parity of the coordinate sum. -/
 namespace LeechNorm80Count
 
 open LeechNorm48Count
 open LeechCoordinateAlphabet (Width Labels charge labelFlag)
+
+private abbrev maxBudget : ℕ := 18
 
 private abbrev Row := List (ℕ × ℕ)
 
@@ -27,7 +29,7 @@ private def addCoord (width : Width) (p b : Bool) (prev : Row) (e : ℤ) (r : Bo
     (parityBit ((if r then 1 else 0) - labelFlag width a))
 
 private def makeRow (f : ℤ → Bool → ℕ) : Row :=
-  (List.range 17).map fun e => (f e false, f e true)
+  (List.range (maxBudget + 1)).map fun e => (f e false, f e true)
 
 private def makeRows (width : Width) (p : Bool) : List Bool → List Row
   | [] => [makeRow start]
@@ -36,7 +38,7 @@ private def makeRows (width : Width) (p : Bool) : List Bool → List Row
     makeRow (addCoord width p b (rest.headD [])) :: rest
 
 private def checkRow (row : Row) (f : ℤ → Bool → ℕ) : Bool :=
-  decide (∀ e : Fin 17, ∀ r : Bool, readRow row e.val r = f e.val r)
+  decide (∀ e : Fin (maxBudget + 1), ∀ r : Bool, readRow row e.val r = f e.val r)
 
 private def checkRows (width : Width) (p : Bool) : List Bool → List Row → Bool
   | [], [row] => checkRow row start
@@ -44,9 +46,9 @@ private def checkRows (width : Width) (p : Bool) : List Bool → List Row → Bo
   | _, _ => false
 
 private theorem checked_at {row : Row} {f : ℤ → Bool → ℕ} (h : checkRow row f = true)
-    {e : ℤ} (lo : 0 ≤ e) (hi : e ≤ 16) (r : Bool) : readRow row e r = f e r := by
+    {e : ℤ} (lo : 0 ≤ e) (hi : e ≤ maxBudget) (r : Bool) : readRow row e r = f e r := by
   have h' := of_decide_eq_true h
-  simpa [Int.toNat_of_nonneg lo] using h' (⟨e.toNat, by omega⟩ : Fin 17) r
+  simpa [Int.toNat_of_nonneg lo] using h' (⟨e.toNat, by omega⟩ : Fin (maxBudget + 1)) r
 
 private theorem parity_sub (r z : ℤ) :
     parityBit (r - z) = parityBit ((if parityBit r then 1 else 0) - z) := by
@@ -60,7 +62,7 @@ private theorem parity_sub (r z : ℤ) :
   rw [show (r - z) % 2 = (r % 2 - z) % 2 by omega]
 
 private theorem checked_rows_count (width : Width) (p : Bool) (bs : List Bool) (rows : List Row)
-    (h : checkRows width p bs rows = true) (e r : ℤ) (he : e ≤ 16) :
+    (h : checkRows width p bs rows = true) (e r : ℤ) (he : e ≤ maxBudget) :
     LeechCoordinateTally.fold (charge width p) (labelFlag width) bs e r =
       readRow (rows.headD []) e (parityBit r) := by
   induction bs generalizing rows e r with
@@ -119,7 +121,7 @@ private theorem valid_rows (width : Width) (i : Fin 6) :
     checkRows width (casesToCheck i).1 (wordBits (casesToCheck i).2) (rowsFor width i) = true := by
   cases width <;> fin_cases i <;> decide +kernel
 
-private theorem from_row (width : Width) (i : Fin 6) (e r : ℤ) (he : e ≤ 16) :
+private theorem from_row (width : Width) (i : Fin 6) (e r : ℤ) (he : e ≤ maxBudget) :
     LeechCoordinateAlphabet.tally width (casesToCheck i).1 (24 - (casesToCheck i).2) (casesToCheck i).2 e r =
       readRow ((rowsFor width i).headD []) e (parityBit r) := by
   unfold LeechCoordinateAlphabet.tally
@@ -199,5 +201,24 @@ theorem choices128 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k =
     · exact (from_row .six 3 10 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .six 4 8 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .six 5 4 0 (by decide)).trans (by decide +kernel)
+
+/-- Choices for one Golay word at squared length 144. -/
+theorem choices144 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
+    LeechCoordinateAlphabet.tally .six p (24 - k) k
+      (if p then 18 - 3 else 18 - (k : ℤ) / 2) (if p then 1 else 0) =
+      if p then 363315200 else if k = 8 then 362774528 else if k = 12 then 363315200
+      else if k = 16 then 363855872 else 0 := by
+  cases p with
+  | true =>
+    have le : k ≤ 24 := by omega
+    rw [LeechCoordinateAlphabet.odd_tally, Nat.sub_add_cancel le]
+    exact (from_row .six 0 15 1 (by decide)).trans (by change _ = 363315200; decide +kernel)
+  | false =>
+    rcases hk with rfl | rfl | rfl | rfl | rfl
+    · exact (from_row .six 1 18 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 2 14 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 3 12 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 4 10 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .six 5 6 0 (by decide)).trans (by decide +kernel)
 
 end LeechNorm80Count
