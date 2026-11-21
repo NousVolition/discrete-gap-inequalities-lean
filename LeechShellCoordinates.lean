@@ -18,16 +18,20 @@ private def value (width : Width) (odd bit : Bool) : Labels width → ℤ :=
             else (if bit then ![-6,-2,2,6,10] else ![-8,-4,0,4,8])
   | .six => if odd then (if bit then ![7,3,-1,-5,-9,11] else ![-7,-3,1,5,9,-11])
             else (if bit then ![-6,-2,2,6,10,-10] else ![-8,-4,0,4,8,12])
+  | .eight => if odd then (if bit then ![15,11,7,3,-1,-5,-9,-13] else ![-15,-11,-7,-3,1,5,9,13])
+              else (if bit then ![-14,-10,-6,-2,2,6,10,14] else ![-16,-12,-8,-4,0,4,8,12])
 
 private def lower : Width → ℤ
   | .four => -8
   | .five => -9
   | .six => -11
+  | .eight => -16
 
 private def upper : Width → ℤ
   | .four => 7
   | .five => 9
   | .six => 12
+  | .eight => 15
 
 private def parity (p : Bool) : ℤ := if p then 1 else 0
 private def special (p : Bool) : ℤ := if p then 3 else 2
@@ -242,5 +246,16 @@ theorem card_vectors_six_choices (u : ℤ)
   intro x hx i
   have := bound x hx i
   omega
+
+/-- Count a shell with eight choices per residue when each coordinate lies from −16 to 15. -/
+theorem card_vectors_eight_choices (u : ℤ)
+    (bound : ∀ x : Lattice, normSq x.val = 8 * u → ∀ i, -16 ≤ x.val i ∧ x.val i ≤ 15) :
+    Nat.card {x : Lattice // normSq x.val = 8 * u} =
+      ∑ p : Bool, ∑ w : Codeword, LeechCoordinateAlphabet.tally .eight p (24 - weight w.val) (weight w.val)
+        (if p then u - 3 else u - (weight w.val : ℤ) / 2) (if p then 1 else 0) := by
+  have onto : Function.Surjective (pack .eight u) := fun x =>
+    pack_covers .eight u x (bound x.val x.property)
+  exact (Nat.card_congr (Equiv.ofBijective (pack .eight u) ⟨pack_injective .eight u, onto⟩)).symm.trans
+    (card_params .eight u)
 
 end LeechShellCoordinates
