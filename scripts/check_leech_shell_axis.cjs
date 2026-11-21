@@ -23,9 +23,12 @@ function checkShellAxis(playground, shell) {
   const expected = Object.entries(shell.counts).map(([k, n]) => [Number(k), n]).sort((a, b) => a[0] - b[0]);
   assert.deepEqual(rows, expected);
   assert.equal(shell.default_count, 0);
-  const total = rows.reduce((sum, [, n]) => sum + n, 0);
-  assert(Number.isSafeInteger(total));
-  assert.equal(total, shell.shell_total);
+  // The playground adds nonnegative coordinate counts within each layer.
+  assert(rows.every(([, n]) => Number.isSafeInteger(n) && n > 0));
+  const total = rows.reduce((sum, [, n]) => sum + BigInt(n), 0n);
+  assert(typeof shell.shell_total === 'string' || Number.isSafeInteger(shell.shell_total),
+    'Store large shell totals as decimal strings.');
+  assert.equal(total.toString(), String(shell.shell_total));
   console.log(rows.map(([k, n]) => k + '\t' + n).join('\n'));
   console.log(rows.length + ' signed layers along (4, -4, 0, ...), total ' + total);
 }
