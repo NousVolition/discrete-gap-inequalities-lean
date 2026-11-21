@@ -23,7 +23,9 @@ private theorem shell_card144 : Fintype.card (Shell 144) = 2975551488000 :=
 
 private def products144 : Finset ℤ := {0, 8, -8, 16, -16, 24, -24, 32, -32, 40, -40, 48, -48, 56, -56}
 
-private theorem allowed144 (x : Shell 144) : 4 * diff x ∈ products144 := by
+/-- Compare a shell vector with twice the reference axis to bound its dot product. -/
+theorem reference_double_dot_bounds {m : ℤ} (hm : m ≠ 128) (x : Shell m) :
+    -(m + 96) ≤ 4 * (4 * diff x) ∧ 4 * (4 * diff x) ≤ m + 96 := by
   let r := (ConwayPairs.root true).val
   let b := r + r
   have nr : normSq r = 32 := (ConwayPairs.root true).property.2
@@ -51,6 +53,10 @@ private theorem allowed144 (x : Shell 144) : 4 * diff x ∈ products144 := by
   change 32 ≤ normSq (b - x.val.val) at hi
   rw [normSq_add, nb, nx, db] at lo
   rw [normSq_sub, nb, nx, db] at hi
+  constructor <;> omega
+
+private theorem allowed144 (x : Shell 144) : 4 * diff x ∈ products144 := by
+  obtain ⟨lo, hi⟩ := reference_double_dot_bounds (by decide : (144 : ℤ) ≠ 128) x
   obtain ⟨⟨q,hq⟩,_,_⟩ := reference_dot_bounds (by decide : (144 : ℤ) ≠ 32) x
   simp only [products144, mem_insert, mem_singleton]
   omega

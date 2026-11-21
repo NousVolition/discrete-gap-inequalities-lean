@@ -2,17 +2,18 @@ import LeechNorm48Count
 
 /-! # Coordinate choices for the Leech shell counts
 
-A residue modulo four has four, five or six labels in the counting tables.
+A residue modulo four has four, five, six or eight labels in the counting tables.
 Each label records a squared-length cost and a contribution to the sum modulo eight. -/
 namespace LeechCoordinateAlphabet
 
 inductive Width where
-  | four | five | six
+  | four | five | six | eight
 
 def Width.size : Width → ℕ
   | .four => 4
   | .five => 5
   | .six => 6
+  | .eight => 8
 
 abbrev Labels (width : Width) := Fin width.size
 
@@ -23,6 +24,9 @@ def charge (width : Width) (odd bit : Bool) : Labels width → ℤ :=
   | .six =>
     let c := LeechCoordinateChoices.charge true odd bit
     ![c 0, c 1, c 2, c 3, c 4, if odd then 15 else if bit then 12 else 18]
+  | .eight =>
+    if odd then ![28,15,6,1,0,3,10,21]
+    else if bit then ![24,12,4,0,0,4,12,24] else ![32,18,8,2,0,2,8,18]
 
 def labelFlag (width : Width) (a : Labels width) : ℤ := (a.val : ℤ) % 2
 
