@@ -82,7 +82,7 @@ To check all three counts, run `lake build LeechShellPairs LeechNorm48Pairs Chec
 
 The Leech lattice has **4,629,381,120 vectors** at squared length 80 in these integer coordinates, or squared length 10 in the usual normalization. Counting a vector and its negative together gives **2,314,690,560 opposite pairs**. [Vector proof](../LeechNorm80.lean#L88) · [Pair proof](../LeechNorm80.lean#L109) · [Shared pairing rule](../LeechOppositePairs.lean#L42).
 
-An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L151).
+An entry of magnitude 8 would leave a nonzero lattice vector of squared length 16 after subtracting the signed coordinate axis. The minimum is 32, so every entry lies between −7 and 7. Each vector then determines a Golay word and a choice at each of the 24 coordinates. The proof counts the choices that give squared length 80 and the required sum modulo eight. [Coordinate bound](../LeechNorm80.lean#L34) · [How the choices count vectors](../LeechShellCoordinates.lean#L164).
 
 | Coordinates | Golay word | Words | Vectors per word | Vectors |
 | --- | --- | ---: | ---: | ---: |
@@ -165,7 +165,7 @@ Run `lake build LeechNorm64Layers CheckAxioms`, then `lake env lean CheckAxioms.
 
 ## Layers for squared length 80
 
-Fix any shortest vector *s*. This table counts the vectors *v* of squared length 80 in the playground’s integer coordinates. [Lean proof](../LeechNorm80Layers.lean#L160).
+Fix any shortest vector *s*. This table counts the vectors *v* of squared length 80 in the playground’s integer coordinates. [Lean proof](../LeechNorm80Layers.lean#L166).
 
 | Dot product *s · v* | Number of vectors |
 |---|---:|
@@ -177,13 +177,41 @@ Fix any shortest vector *s*. This table counts the vectors *v* of squared length
 | −40 or +40 | 47,104 each |
 | Every other integer | 0 |
 
-The eleven layers add up to 4,629,381,120. All lattice dot products are multiples of 8. Both *s − v* and *s + v* are nonzero lattice vectors, so each has squared length at least 32. Their squared lengths are *112 − 2(s · v)* and *112 + 2(s · v)*. This puts *s · v* between −40 and +40. [Allowed dot products](../LeechNorm80Layers.lean#L78).
+The eleven layers add up to 4,629,381,120. All lattice dot products are multiples of 8. Both *s − v* and *s + v* are nonzero lattice vectors, so each has squared length at least 32. Their squared lengths are *112 − 2(s · v)* and *112 + 2(s · v)*. This puts *s · v* between −40 and +40. [Allowed dot products](../LeechNorm80Layers.lean#L103).
 
 Subtracting *v* from *s* pairs three layers with ones already counted. A vector at +24 goes to a vector of squared length 64 at +8. A vector at +32 goes to squared length 48 at zero. A vector at +40 goes to squared length 32 at −8. Subtract from *s* again to get the original vector back. Negating *v* gives the same counts on the negative side. [Pairing](../LeechNorm80Layers.lean#L26) · [Counts from the earlier tables](../LeechNorm80Layers.lean#L43).
 
-For the remaining counts, take the shortest axis (4, −4, 0, …) and write *d = v₀ − v₁*. Its dot product with *v* is *4d*. The sum of *d²* over the shell is 30,862,540,800, and the sum of *d⁴* is 569,769,984,000. These two sums and the shell total determine the counts at 0, ±8 and ±16. The moment formulas also give the earlier length-48 result. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm80Layers.lean#L146) · [Change of axis](../LeechNorm80Layers.lean#L104).
+For the remaining counts, take the shortest axis (4, −4, 0, …) and write *d = v₀ − v₁*. Its dot product with *v* is *4d*. The sum of *d²* over the shell is 30,862,540,800, and the sum of *d⁴* is 569,769,984,000. These two sums and the shell total determine the counts at 0, ±8 and ±16. The moment formulas also give the earlier length-48 result. A lattice symmetry takes the reference axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm80Layers.lean#L152) · [Change of axis](../LeechNorm80Layers.lean#L109).
 
 Run `lake build LeechNorm80Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm80-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm80-dot-layers.json) cover 1024 declarations.
+
+## Layers for squared length 96
+
+Choose any shortest vector *s*. For each integer *k*, Lean counts the vectors *v* of squared length 96 with *s · v = k*. The squared length is 12 in the usual scale. [Lean theorem](../LeechNorm96Layers.lean#L67).
+
+| Dot product *s · v* | Number of vectors |
+| --- | ---: |
+| 0 | 9,403,968,600 |
+| −8 or +8 | 7,535,462,400 each |
+| −16 or +16 | 3,771,829,800 each |
+| −24 or +24 | 1,062,195,200 each |
+| −32 or +32 | 133,204,500 each |
+| −40 or +40 | 4,147,200 each |
+| −48 or +48 | 4,600 each |
+| Every other integer | 0 |
+| **All layers** | **34,417,656,000** |
+
+First count the whole shell. The Golay coordinate rules give 34,416,077,280 vectors with every entry between −8 and 7. Each remaining vector has a +8 entry. Subtract 8 there and the result is a shortest vector with a zero in that position. Adding the 8 back reverses the pairing. There are 24 positions and 65,780 choices at each, giving 1,578,720 more vectors. [Golay count](../LeechNorm96.lean#L71) · [Pairing at +8](../LeechNorm96.lean#L113) · [Shell total](../LeechNorm96.lean#L141).
+
+All dot products are multiples of 8. Both *s − v* and *s + v* have squared length at least 32. Their squared lengths are *128 − 2(s · v)* and *128 + 2(s · v)*, so the dot product lies between −48 and +48. [Allowed dot products](../LeechNorm96Layers.lean#L26).
+
+The map *v ↦ s − v* gives the four outer counts. It carries +24 to the +8 layer at squared length 80, +32 to the zero layer at 64, +40 to the −8 layer at 48, and +48 to the −16 layer at 32. Applying the map twice returns *v*. Negating *v* gives the count for the other sign. [Four pairings](../LeechNorm96Layers.lean#L31).
+
+For the shortest axis (4, −4, 0, …), write *d = v₀ − v₁*. The dot product is *4d*. Across the shell, the sum of *d²* is 275,341,248,000 and the sum of *d⁴* is 6,099,867,648,000. These sums and the shell total give the counts at 0, ±8 and ±16. A lattice symmetry takes this axis to any shortest vector and preserves the dot product. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm96Layers.lean#L53) · [Change of axis](../LeechNorm80Layers.lean#L109).
+
+Run `lake build LeechNorm96Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm96-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm96-dot-layers.json) cover 1068 declarations.
+
+For a separate check, run `node tests/leech-three-e8.cjs` in the playground repository. It counts the layers for (4, −4, 0, …) using the playground’s Golay words and compares them with the displayed table. Lean proves the counts for every shortest axis. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
 
 ## Verification
 

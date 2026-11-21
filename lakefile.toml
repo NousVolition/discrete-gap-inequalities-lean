@@ -250,3 +250,9 @@ name = "LeechNorm80Layers"
 
 [[lean_lib]]
 name = "RamanujanGap"
+
+[[lean_lib]]
+name = "LeechNorm96"
+
+[[lean_lib]]
+name = "LeechNorm96Layers"

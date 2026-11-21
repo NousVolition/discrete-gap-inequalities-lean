@@ -55,7 +55,7 @@ private theorem flip_weight (w : Codeword) : weight (flip w).val = 24 - weight w
 private theorem weight_le (w : Codeword) : weight w.val ≤ 24 := by
   simpa [weight] using (card_filter_le univ (fun i => w.val i = true))
 
-private theorem weights (w : Codeword) :
+theorem word_weights (w : Codeword) :
     weight w.val = 0 ∨ weight w.val = 8 ∨ weight w.val = 12 ∨ weight w.val = 16 ∨ weight w.val = 24 := by
   have lower (v : Codeword) : weight v.val = 0 ∨ 8 ≤ weight v.val := by
     by_cases h : ∃ i, v.val i = true
@@ -81,7 +81,7 @@ private theorem per_word (p : Bool) (w : Codeword) :
       (if p then 10 - 3 else 10 - (weight w.val : ℤ) / 2) (if p then 1 else 0) =
       if p then 565248 else LeechNorm80Count.evenPerWord (weight w.val) := by
   cases p with
-  | false => exact LeechNorm80Count.even_choices (weights w)
+  | false => exact LeechNorm80Count.even_choices (word_weights w)
   | true => exact LeechNorm80Count.odd_choices _ (weight_le w)
 
 /-- The Leech lattice has 4,629,381,120 vectors of squared length 80. -/

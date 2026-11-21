@@ -1,3 +1,4 @@
+import LeechNorm96Layers
 import LeechNorm80Layers
 import LeechNorm64Layers
 import LeechNorm80
@@ -1166,3 +1167,14 @@ import LightBounceAndCapture
 #print axioms RamanujanGap.finite_leftover_limit_forced
 #print axioms RamanujanGap.zeta_neg_one
 #print axioms RamanujanGap.leftover_limit_eq_zeta
+
+#print axioms LeechShellCoordinates.card_box_from_choices
+#print axioms LeechNorm80Count.choices96
+#print axioms LeechNorm80.word_weights
+#print axioms LeechLayers.card_shortest_zero_coordinate
+#print axioms LeechNorm96.card_norm96_vectors
+#print axioms LeechLayers.reference_dot_bounds
+#print axioms LeechLayers.reference_layer_card
+#print axioms LeechLayers.opposite_layer_count
+#print axioms LeechLayers.sum_by_layers
+#print axioms LeechLayers.card_norm96_dot_layer
