@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "Six local theorems; the whole library is checked separately by GitHub CI.",
+  "checkedAt": "2026-11-21T00:39:33.552Z",
+  "lean": "4.34.0-rc2",
+  "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+  "method": "Lean compiler, then all six #print axioms entries checked by .github/check_axioms.py; existing dependency build artifacts reused.",
+  "source": "GapCrossing.lean",
+  "sha256": "998a1908b1335ee61e5aeabd3f7e434816a8fde8f6448e87a55a7c1baacb672a",
+  "allowedAxioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "hypotheses": [
+    "An exact complex zero f(c) = 0.",
+    "Strictly increasing real component on the interval.",
+    "The compared positions lie inside that interval, on the stated sides of c."
+  ],
+  "limitation": "Neither the numerical zero nor strict monotonicity of the playground gap is certified by these abstract theorems. A real-part sign change is not sufficient for a complex zero."
+}
