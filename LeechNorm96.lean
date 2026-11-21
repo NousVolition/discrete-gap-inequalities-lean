@@ -13,7 +13,7 @@ open LeechLattice LeechMinimal LeechCodeCounts LeechSymmetry ConwayPairs Finset
 private abbrev Shell := {x : Lattice // normSq x.val = 96}
 private def withinBox (x : Shell) := ∀ i, -8 ≤ x.val.val i ∧ x.val.val i ≤ 7
 
-private theorem weight_zero : Fintype.card {w : Codeword // weight w.val = 0} = 1 := by
+theorem weight_zero : Fintype.card {w : Codeword // weight w.val = 0} = 1 := by
   apply Fintype.card_eq_one_iff.mpr
   refine ⟨⟨⟨fun _ => false, isGolayWord_false⟩, by simp [weight]⟩, ?_⟩
   intro w
@@ -28,7 +28,7 @@ private theorem weight_zero : Fintype.card {w : Codeword // weight w.val = 0} = 
     have hi : i ∈ univ.filter (fun j => w.val.val j = true) := mem_filter.mpr ⟨mem_univ _, h⟩
     simp [empty] at hi
 
-private theorem weight_full : Fintype.card {w : Codeword // weight w.val = 24} = 1 := by
+theorem weight_full : Fintype.card {w : Codeword // weight w.val = 24} = 1 := by
   apply Fintype.card_eq_one_iff.mpr
   refine ⟨⟨⟨fun _ => true, isGolayWord_true⟩, by simp [weight]⟩, ?_⟩
   intro w

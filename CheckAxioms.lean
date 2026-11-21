@@ -1,3 +1,4 @@
+import LeechNorm128Layers
 import LeechNorm112Layers
 import RiemannHypothesisRoute
 import LeechNorm96Layers
@@ -1216,3 +1217,12 @@ import LightBounceAndCapture
 #print axioms LeechNorm80Count.choices112
 #print axioms LeechNorm112.card_norm112_vectors
 #print axioms LeechLayers.card_norm112_dot_layer
+
+#print axioms LeechCoordinateAlphabet.charge_nonneg
+#print axioms LeechCoordinateAlphabet.odd_tally
+#print axioms LeechShellCoordinates.card_vectors_six_choices
+#print axioms LeechNorm80Count.choices128
+#print axioms LeechNorm96.weight_zero
+#print axioms LeechNorm96.weight_full
+#print axioms LeechNorm128.card_norm128_vectors
+#print axioms LeechLayers.card_norm128_dot_layer
