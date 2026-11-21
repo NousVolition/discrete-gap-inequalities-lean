@@ -12,8 +12,7 @@ pins both ends of each half, so the endpoint-zero inequality applies twice.
 Centering at the mean minimizes the integral of the squared deviation.
 The fundamental sine attains equality for every positive period.
 
-Proposed credit for Michele's review.
-NousVolition gave the direction “split the gap into two halves”. Claude matched
+NousVolition gave the direction “split the gap like the hug and look at it in two halfs”. Claude matched
 the classical textbook half-turn proof to that direction and supplied the
 statement, proof plan and sharpness test. Codex formalized the proof in Lean.
 -/

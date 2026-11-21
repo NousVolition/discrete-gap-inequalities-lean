@@ -4,7 +4,7 @@ This repository contains Lean proofs of gap inequalities and their consequences 
 
 **Ring spreading fits the store bound:** [WirtingerStore and its 19 Lean checks](docs/wirtinger-store.md). For a zero-average pattern spreading around a ring, Lean proves a ceiling on the squared size that remains. The slowest cosine wave reaches that ceiling, so a faster universal release rate would be false.
 
-**Credits:** NousVolition supplied the idea and words and directed the work. Claude first recognized their mathematical shape and connected it to a name, then supplied the proof plan and sharpness test. Codex generated the Lean implementation and carried out the checks.
+**Credits for WirtingerStore:** NousVolition supplied the idea and words and directed the work. Claude first recognized their mathematical shape and connected it to a name, then supplied the proof plan and sharpness test. Codex generated the Lean implementation and carried out the checks.
 
 **Wirtinger and Riemann:** [Proofs, gap measurements and the route toward RH](docs/riemann-wirtinger.md). **16 Lean checks** cover the continuous zero-endpoint inequality, its zeta application and conditional RH implications. **Five numerical gap checks** separately passed the recorded precision, endpoint and inequality criteria. **Proving RH remains our goal:** complete zero coverage and matching critical-line counts are still unproved.
 
