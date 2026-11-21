@@ -1,0 +1,38 @@
+name: Wirtinger store (19 Lean checks)
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+jobs:
+  store:
+    name: Ring spreading and sharp store bound
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      LEAN_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build-args: 'Wirtinger TwoWaveGapBridge Gap'
+          test: 'false'
+          lint: 'false'
+      - name: Compile and audit all 19 statements
+        run: |
+          set -o pipefail
+          lake env lean WirtingerStore.lean 2>&1 | tee wirtinger-store-axioms.txt
+          python3 .github/check_axioms.py WirtingerStore.lean wirtinger-store-axioms.txt
+          python3 .github/record_wirtinger_store_check.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wirtinger-store-lean-evidence
+          if-no-files-found: error
+          path: |
+            wirtinger-store-axioms.txt
+            wirtinger-store-lean-receipt.json
