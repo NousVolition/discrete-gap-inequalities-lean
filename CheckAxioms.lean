@@ -1,3 +1,4 @@
+import LeechNorm112Layers
 import LeechNorm96Layers
 import LeechNorm80Layers
 import LeechNorm64Layers
@@ -1178,3 +1179,13 @@ import LightBounceAndCapture
 #print axioms LeechLayers.opposite_layer_count
 #print axioms LeechLayers.sum_by_layers
 #print axioms LeechLayers.card_norm96_dot_layer
+
+#print axioms LeechCoordinateTally.card_picks
+#print axioms LeechCoordinateTally.tally_eq_fold
+#print axioms LeechCoordinateTally.fold_negative
+#print axioms LeechCoordinateChoices.charge_nonneg
+#print axioms LeechCoordinateChoices.odd_tally
+#print axioms LeechShellCoordinates.card_vectors_five_choices
+#print axioms LeechNorm80Count.choices112
+#print axioms LeechNorm112.card_norm112_vectors
+#print axioms LeechLayers.card_norm112_dot_layer
