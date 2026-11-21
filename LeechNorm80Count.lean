@@ -1,17 +1,17 @@
 import LeechCoordinateAlphabet
 import Mathlib.Tactic.Eval
 
-/-! # Golay coordinate counts for squared lengths 80 through 304 in multiples of 16
+/-! # Golay coordinate counts for squared lengths 80 through 320 in multiples of 16
 
 The rows count the choices left after fixing a Golay residue word. Each column
-records a squared-length budget from zero to thirty-eight, in units of eight. Its two
+records a squared-length budget from zero to forty, in units of eight. Its two
 entries count the choices for each parity of the coordinate sum. -/
 namespace LeechNorm80Count
 
 open LeechNorm48Count
 open LeechCoordinateAlphabet (Width Labels charge labelFlag)
 
-private abbrev maxBudget : ℕ := 38
+private abbrev maxBudget : ℕ := 40
 
 private abbrev Row := List (ℕ × ℕ)
 
@@ -420,5 +420,25 @@ theorem choices304 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k =
     · exact (from_row .nine 3 32 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .nine 4 30 0 (by decide)).trans (by decide +kernel)
     · exact (from_row .nine 5 26 0 (by decide)).trans (by decide +kernel)
+
+/-- The number of coordinate choices for one Golay word at squared length 320. -/
+theorem choices320 (p : Bool) {k : ℕ} (hk : k = 0 ∨ k = 8 ∨ k = 12 ∨ k = 16 ∨ k = 24) :
+    LeechCoordinateAlphabet.tally .nine p (24 - k) k
+      (if p then 40 - 3 else 40 - (k : ℤ) / 2) (if p then 1 else 0) =
+      if p then 2371056569472 else if k = 0 then 4744779429216 else if k = 8 then 2371123648512
+      else if k = 12 then 2371059351552 else if k = 16 then 2370980216832
+      else if k = 24 then 4741643894784 else 0 := by
+  cases p with
+  | true =>
+    have le : k ≤ 24 := by omega
+    rw [LeechCoordinateAlphabet.odd_tally, Nat.sub_add_cancel le]
+    exact (from_row .nine 0 37 1 (by decide)).trans (by change _ = 2371056569472; decide +kernel)
+  | false =>
+    rcases hk with rfl | rfl | rfl | rfl | rfl
+    · exact (from_row .nine 1 40 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 2 36 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 3 34 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 4 32 0 (by decide)).trans (by decide +kernel)
+    · exact (from_row .nine 5 28 0 (by decide)).trans (by decide +kernel)
 
 end LeechNorm80Count
