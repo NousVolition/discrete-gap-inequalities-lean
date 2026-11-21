@@ -1,3 +1,4 @@
+import LeechNorm224Layers
 import LeechNorm208Layers
 import LeechNorm192Layers
 import LeechNorm176Layers
@@ -1313,3 +1314,8 @@ import LightBounceAndCapture
 #print axioms LeechNorm80Count.choices208
 #print axioms LeechNorm208.card_norm208_vectors
 #print axioms LeechLayers.card_norm208_dot_layer
+
+-- Squared length 224
+#print axioms LeechNorm80Count.choices224
+#print axioms LeechNorm224.card_norm224_vectors
+#print axioms LeechLayers.card_norm224_dot_layer

@@ -470,6 +470,42 @@ lake env lean CheckAxioms.lean > axioms.txt
 python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
 ```
 
+## Layers for squared length 224
+
+Choose any shortest vector *s*. There are **384,163,586,352,000** vectors *v* of squared length 224 in the integer coordinates used here. This is squared length 28 in the usual Leech scale. Each ± row gives the number for each sign. [Shell proof](../LeechNorm224.lean#L21) · [Layers theorem](../LeechNorm224Layers.lean#L81).
+
+| Dot product *s · v* | Vectors at each dot product |
+|---:|---:|
+| 0 | 68,717,357,121,600 |
+| ±8 | 62,511,367,475,200 |
+| ±16 | 46,906,043,912,800 |
+| ±24 | 28,500,740,352,000 |
+| ±32 | 13,618,454,702,600 |
+| ±40 | 4,841,939,097,600 |
+| ±48 | 1,171,711,866,600 |
+| ±56 | 163,357,849,600 |
+| ±64 | 9,403,968,600 |
+| ±72 | 95,385,600 |
+| ±80 | 4,600 |
+| ±88 | 0 |
+| Any other integer | 0 |
+
+Lean gets the total from the five Golay weights 0, 8, 12, 16 and 24. It counts the coordinate choices for a word of each weight, using the required sum modulo eight. The Leech theta series gives the same total at index 14. [Golay counts](../LeechNorm80Count.lean#L307) · [Leech theta series](https://oeis.org/A008408/b008408.txt).
+
+For dot products 24 through 80 in multiples of eight, the map *v ↦ s − v* gives a layer in a smaller shell. At +80 it gives the −48 layer of squared length 96, which has 4,600 vectors. The shell total and the second and fourth moments determine the three inner rows. Negating *v* exchanges the two signs. The minimum squared length applied to *v − 2s* and *v + 2s* bounds the dot product between −80 and 80. Lattice symmetries carry the table to any shortest axis. [Outer layers](../LeechNorm224Layers.lean#L34) · [Moment formulas](../LeechShellMoments.lean#L154) · [Allowed dot products](../LeechNorm224Layers.lean#L28) · [Change of axis](../LeechNorm80Layers.lean#L109).
+
+The local axiom audit covers 1,174 declarations. A separate coordinate calculation using all 4,096 playground Golay words gave the same 21 rows for the axis (4, −4, 0, …). [Axiom output](axioms-2026-11-21-norm224-dot-layers.txt) · [Verification record](leech-symmetry-verification-2026-11-21-norm224-dot-layers.json) · [Playground counter](https://github.com/NousVolition/sparkle-sand-playground/blob/1f8f7f37ba205f1733d6817fe37500a3c4bb0704/tests/leech-shell-layers.cjs).
+
+To repeat the one-axis calculation from the proof repository, run `node scripts/check_leech_shell_axis.cjs PATH_TO_PLAYGROUND docs/leech-symmetry-verification-2026-11-21-norm224-dot-layers.json` with a checkout of the [playground revision](https://github.com/NousVolition/sparkle-sand-playground/tree/1f8f7f37ba205f1733d6817fe37500a3c4bb0704).
+
+To check the proofs in this checkout, run
+
+```sh
+lake build LeechNorm224Layers CheckAxioms
+lake env lean CheckAxioms.lean > axioms.txt
+python3 .github/check_axioms.py CheckAxioms.lean axioms.txt
+```
+
 ## Verification
 
 The [proof-branch audit](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674594813) checked 900 declarations. The [PR build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44674659364) and [merged-main build](https://github.com/NousVolition/discrete-gap-inequalities-lean/actions/runs/44675102913) checked 949, including later additions to main. Each reported zero nonstandard axioms and zero missing reports. [Full axiom output](axioms-2026-11-20-co0-release.txt) · [Saved verification](leech-symmetry-verification-2026-11-20-co0-release.json) · [Reproduction commands](leech-symmetry-order.md#reproduce-the-check).
