@@ -34,6 +34,7 @@ import Isoperimetric
 import RingDecay
 import RingSumMinusTwelfth
 import RamanujanGap
+import GapCrossing
 import GapWaveTail
 import HarperSquash
 import Polygon
@@ -1179,6 +1180,13 @@ import LightBounceAndCapture
 #print axioms LeechLayers.opposite_layer_count
 #print axioms LeechLayers.sum_by_layers
 #print axioms LeechLayers.card_norm96_dot_layer
+
+#print axioms GapCrossing.size_zero_iff
+#print axioms GapCrossing.size_of_opposite
+#print axioms GapCrossing.component_le_size
+#print axioms GapCrossing.before_zero
+#print axioms GapCrossing.after_zero
+#print axioms GapCrossing.real_sign_change_without_zero
 
 #print axioms LeechCoordinateTally.card_picks
 #print axioms LeechCoordinateTally.tally_eq_fold

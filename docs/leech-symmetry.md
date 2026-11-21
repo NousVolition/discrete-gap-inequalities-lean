@@ -240,7 +240,7 @@ The same map, *v ↦ s − v*, carries the +24, +32, +40 and +48 layers to earli
 
 For the shortest axis (4, −4, 0, …), put *d = v₀ − v₁*. The dot product is *4d*. Across the shell the sum of *d²* is 1,749,906,063,360 and the sum of *d⁴* is 45,228,341,329,920. Together with the total, these give the counts at 0, ±8 and ±16. A lattice symmetry carries this axis to any shortest vector and preserves dot products. [Moment formulas](../LeechShellMoments.lean#L154) · [Inner counts](../LeechNorm112Layers.lean#L57) · [Change of axis](../LeechNorm80Layers.lean#L109).
 
-Run `lake build LeechNorm112Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm112-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm112-dot-layers.json) cover 1077 declarations.
+Run `lake build LeechNorm112Layers CheckAxioms`, then `lake env lean CheckAxioms.lean > axioms.txt` and `python3 .github/check_axioms.py CheckAxioms.lean axioms.txt`. The [axiom output](axioms-2026-11-20-norm112-dot-layers.txt) and [verification record](leech-symmetry-verification-2026-11-20-norm112-dot-layers.json) cover 1083 declarations.
 
 For a separate check on the reference axis, run `node tests/leech-three-e8.cjs` in the playground repository. It counts the coordinate choices using the playground’s Golay words and compares them with the displayed table. [Playground test](https://github.com/NousVolition/sparkle-sand-playground/blob/main/tests/leech-three-e8.cjs).
 
