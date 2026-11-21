@@ -1,3 +1,4 @@
+import LeechNorm192Layers
 import LeechNorm176Layers
 import LeechNorm160Layers
 import LeechNorm144Layers
@@ -1301,3 +1302,8 @@ import LightBounceAndCapture
 #print axioms WirtingerStore.slowPath_attains_bound
 #print axioms WirtingerStore.faster_rate_fails
 #print axioms WirtingerStore.sharp_counterexample
+
+-- Squared length 192
+#print axioms LeechNorm80Count.choices192
+#print axioms LeechNorm192.card_norm192_vectors
+#print axioms LeechLayers.card_norm192_dot_layer
