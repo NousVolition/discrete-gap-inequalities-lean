@@ -25,6 +25,8 @@ import ConwayOrder
 import Poincare
 import PathSix
 import Wirtinger
+import LoopWirtinger
+import WirtingerStore
 import Gap
 import GapMirror
 import GapMirrorCalculus
@@ -1264,3 +1266,31 @@ import LightBounceAndCapture
 #print axioms LeechNorm80Count.choices176
 #print axioms LeechNorm176.card_norm176_vectors
 #print axioms LeechLayers.card_norm176_dot_layer
+
+-- Periodic loops
+#print axioms loop_wirtinger
+#print axioms LoopWirtinger.sine_admissible
+#print axioms LoopWirtinger.sine_equality
+#print axioms LoopWirtinger.sine_breaks_smaller_constant
+#print axioms LoopWirtinger.ring_gap_tendsto
+
+-- Ring spreading inside the store bound
+#print axioms WirtingerStore.lets_go_at_least_as_fast
+#print axioms WirtingerStore.sum_heatGenerator
+#print axioms WirtingerStore.sum_hasDerivAt_zero
+#print axioms WirtingerStore.sum_preserved
+#print axioms WirtingerStore.mean_zero_preserved
+#print axioms WirtingerStore.size_hasDerivAt_dot
+#print axioms WirtingerStore.size_hasDerivAt_cost
+#print axioms WirtingerStore.size_rate_le
+#print axioms WirtingerStore.ring_spreading_le_store
+#print axioms WirtingerStore.slowWave_mean_and_cost
+#print axioms WirtingerStore.slowWave_size_pos
+#print axioms WirtingerStore.slowWave_eigen
+#print axioms WirtingerStore.heat_scale
+#print axioms WirtingerStore.slowPath_zero
+#print axioms WirtingerStore.slowPath_spreads
+#print axioms WirtingerStore.slowPath_mean_zero
+#print axioms WirtingerStore.slowPath_attains_bound
+#print axioms WirtingerStore.faster_rate_fails
+#print axioms WirtingerStore.sharp_counterexample
